@@ -1,0 +1,480 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+-- -----------------------------------------------------
+-- Schema vmdb
+-- -----------------------------------------------------
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Product_Type`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Product_Type` (
+  `product_type_ID` INT NOT NULL AUTO_INCREMENT,
+  `product_type_name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`product_type_ID`),
+  UNIQUE INDEX `type_name_UNIQUE` (`product_type_name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Product_Supplier`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Product_Supplier` (
+  `supplier_ID` INT NOT NULL AUTO_INCREMENT,
+  `supplier_name` VARCHAR(50) NOT NULL,
+  `supplier_phone` VARCHAR(14) NULL,
+  `supplier_description` VARCHAR(300) NULL,
+  PRIMARY KEY (`supplier_ID`),
+  UNIQUE INDEX `supplier_name_UNIQUE` (`supplier_name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Product` (
+  `product_ID` INT NOT NULL AUTO_INCREMENT,
+  `product_name` VARCHAR(30) NOT NULL,
+  `product_price` DOUBLE NOT NULL,
+  `product_measure_unit` VARCHAR(15) NOT NULL,
+  `product_description` VARCHAR(300) NULL,
+  `product_code` VARCHAR(45) NOT NULL,
+  `is_available` TINYINT NOT NULL,
+  `Product_Type_product_type_ID1` INT NOT NULL,
+  `Product_Supplier_supplier_ID` INT NOT NULL,
+  PRIMARY KEY (`product_ID`),
+  INDEX `fk_Product_Product_Type1_idx` (`Product_Type_product_type_ID1` ASC) VISIBLE,
+  INDEX `fk_Product_Product_Supplier1_idx` (`Product_Supplier_supplier_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Product_Product_Type1`
+    FOREIGN KEY (`Product_Type_product_type_ID1`)
+    REFERENCES `mydb`.`Product_Type` (`product_type_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Product_Product_Supplier1`
+    FOREIGN KEY (`Product_Supplier_supplier_ID`)
+    REFERENCES `mydb`.`Product_Supplier` (`supplier_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Client`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Client` (
+  `client_ID` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `user_name` VARCHAR(50) NOT NULL,
+  `pwd_hash` BINARY(64) NOT NULL,
+  `email` VARCHAR(254) NOT NULL,
+  `phone` VARCHAR(15) NOT NULL,
+  `city` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL,
+  `firm_name` VARCHAR(45) NULL,
+  `firm_owner` VARCHAR(45) NULL,
+  `is_firm` TINYINT NOT NULL,
+  PRIMARY KEY (`client_ID`),
+  UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machine`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machine` (
+  `machine_ID` INT NOT NULL AUTO_INCREMENT,
+  `machine_name` VARCHAR(255) NOT NULL,
+  `is_machine_active` DATETIME NOT NULL,
+  `date_created` DATETIME NOT NULL,
+  `Client_client_ID` INT NOT NULL,
+  PRIMARY KEY (`machine_ID`),
+  UNIQUE INDEX `machine_name_UNIQUE` (`machine_name` ASC) VISIBLE,
+  INDEX `fk_Machine_Client1_idx` (`Client_client_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machine_Client1`
+    FOREIGN KEY (`Client_client_ID`)
+    REFERENCES `mydb`.`Client` (`client_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machine_Invoice_Log`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machine_Invoice_Log` (
+  `invoice_ID` INT NOT NULL AUTO_INCREMENT,
+  `invoice_number` VARCHAR(45) NOT NULL,
+  `receiver_name` VARCHAR(45) NOT NULL,
+  `receiver_city` VARCHAR(45) NOT NULL,
+  `receiver_address` VARCHAR(45) NOT NULL,
+  `receiver_number` VARCHAR(45) NOT NULL,
+  `receiver_vat_number` VARCHAR(45) NULL,
+  `accountable_person` VARCHAR(45) NOT NULL,
+  `date_created` DATE NOT NULL,
+  `due_date` DATE NOT NULL,
+  `is_bank_payment` TINYINT NOT NULL,
+  `subtotal` DOUBLE NOT NULL,
+  `total` DOUBLE NOT NULL,
+  `is_prepaid` TINYINT NOT NULL,
+  `Machine_machine_ID` INT NOT NULL,
+  PRIMARY KEY (`invoice_ID`),
+  INDEX `fk_Machine_Invoice_Log_Machine1_idx` (`Machine_machine_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machine_Invoice_Log_Machine1`
+    FOREIGN KEY (`Machine_machine_ID`)
+    REFERENCES `mydb`.`Machine` (`machine_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Admin_Log`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Admin_Log` (
+  `logID` INT NOT NULL AUTO_INCREMENT,
+  `time_logged` TIMESTAMP NOT NULL,
+  `user_id` INT NOT NULL,
+  `user_name` VARCHAR(50) NOT NULL,
+  `event` CHAR(6) NOT NULL,
+  `table_name` VARCHAR(25) NOT NULL,
+  `record_id` INT NOT NULL,
+  `record_name` VARCHAR(25) NOT NULL,
+  `record_value_old` VARCHAR(300) NOT NULL,
+  `record_value_new` VARCHAR(300) NOT NULL,
+  PRIMARY KEY (`logID`));
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`User`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+  `user_ID` INT NOT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(50) NOT NULL,
+  `pwd_hash` BINARY(64) NOT NULL,
+  `email` VARCHAR(254) NOT NULL,
+  `date_created` TIMESTAMP NOT NULL,
+  `Client_client_ID` INT NOT NULL,
+  PRIMARY KEY (`user_ID`),
+  INDEX `fk_User_Client1_idx` (`Client_client_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_User_Client1`
+    FOREIGN KEY (`Client_client_ID`)
+    REFERENCES `mydb`.`Client` (`client_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machine_Resource`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machine_Resource` (
+  `machine_resource_ID` INT NOT NULL AUTO_INCREMENT,
+  `total_amount` INT NOT NULL,
+  `partition_label` CHAR(1) NULL,
+  `is_partition` TINYINT NOT NULL,
+  `Machine_machine_ID` INT NOT NULL,
+  `Product_product_ID` INT NOT NULL,
+  PRIMARY KEY (`machine_resource_ID`),
+  INDEX `fk_Machine_Resource_Machine1_idx` (`Machine_machine_ID` ASC) VISIBLE,
+  INDEX `fk_Machine_Resource_Product1_idx` (`Product_product_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machine_Resource_Machine1`
+    FOREIGN KEY (`Machine_machine_ID`)
+    REFERENCES `mydb`.`Machine` (`machine_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Machine_Resource_Product1`
+    FOREIGN KEY (`Product_product_ID`)
+    REFERENCES `mydb`.`Product` (`product_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machines_Users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machines_Users` (
+  `machine_user_ID` INT NOT NULL AUTO_INCREMENT,
+  `User_user_ID` INT NOT NULL,
+  `Machine_machine_ID` INT NOT NULL,
+  PRIMARY KEY (`machine_user_ID`),
+  INDEX `fk_Machines_Users_User1_idx` (`User_user_ID` ASC) VISIBLE,
+  INDEX `fk_Machines_Users_Machine1_idx` (`Machine_machine_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machines_Users_User1`
+    FOREIGN KEY (`User_user_ID`)
+    REFERENCES `mydb`.`User` (`user_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Machines_Users_Machine1`
+    FOREIGN KEY (`Machine_machine_ID`)
+    REFERENCES `mydb`.`Machine` (`machine_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`User_Group`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`User_Group` (
+  `user_group_ID` INT NOT NULL AUTO_INCREMENT,
+  `group_name` VARCHAR(45) NOT NULL,
+  `date_created` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`user_group_ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`User_Permission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`User_Permission` (
+  `permission_ID` INT NOT NULL AUTO_INCREMENT,
+  `permission_name` VARCHAR(50) NOT NULL,
+  `has_permission` TINYINT NOT NULL,
+  PRIMARY KEY (`permission_ID`),
+  UNIQUE INDEX `permission_name_UNIQUE` (`permission_name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machines_User_Groups`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machines_User_Groups` (
+  `machine_user_group_ID` INT NOT NULL AUTO_INCREMENT,
+  `Machines_Users_machine_user_ID` INT NOT NULL,
+  `User_Group_user_group_ID` INT NOT NULL,
+  PRIMARY KEY (`machine_user_group_ID`),
+  INDEX `fk_Machines_User_Groups_Machines_Users1_idx` (`Machines_Users_machine_user_ID` ASC) VISIBLE,
+  INDEX `fk_Machines_User_Groups_User_Group1_idx` (`User_Group_user_group_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machines_User_Groups_Machines_Users1`
+    FOREIGN KEY (`Machines_Users_machine_user_ID`)
+    REFERENCES `mydb`.`Machines_Users` (`machine_user_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Machines_User_Groups_User_Group1`
+    FOREIGN KEY (`User_Group_user_group_ID`)
+    REFERENCES `mydb`.`User_Group` (`user_group_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Client_Payment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Client_Payment` (
+  `payment_ID` INT NOT NULL AUTO_INCREMENT,
+  `payment_status` VARCHAR(45) NOT NULL,
+  `due_date` TIMESTAMP NOT NULL,
+  `date_of_payment` TIMESTAMP NOT NULL,
+  `is_scheduled` TINYINT NOT NULL,
+  `Machine_Invoice_Log_invoice_ID` INT NOT NULL,
+  PRIMARY KEY (`payment_ID`),
+  INDEX `fk_Client_Payment_Machine_Invoice_Log1_idx` (`Machine_Invoice_Log_invoice_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Client_Payment_Machine_Invoice_Log1`
+    FOREIGN KEY (`Machine_Invoice_Log_invoice_ID`)
+    REFERENCES `mydb`.`Machine_Invoice_Log` (`invoice_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Client_Order`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Client_Order` (
+  `order_ID` INT NOT NULL AUTO_INCREMENT,
+  `order_type` VARCHAR(20) NOT NULL,
+  `order_date` TIMESTAMP NOT NULL,
+  `execution_date` TIMESTAMP NOT NULL,
+  `is_prepaid` TINYINT NOT NULL,
+  `Client_Payment_payment_ID` INT NOT NULL,
+  `Client_client_ID` INT NOT NULL,
+  PRIMARY KEY (`order_ID`),
+  INDEX `fk_Client_Order_Client_Payment1_idx` (`Client_Payment_payment_ID` ASC) VISIBLE,
+  INDEX `fk_Client_Order_Client1_idx` (`Client_client_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Client_Order_Client_Payment1`
+    FOREIGN KEY (`Client_Payment_payment_ID`)
+    REFERENCES `mydb`.`Client_Payment` (`payment_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Client_Order_Client1`
+    FOREIGN KEY (`Client_client_ID`)
+    REFERENCES `mydb`.`Client` (`client_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Orders_Resources`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Orders_Resources` (
+  `order_resource_ID` INT NOT NULL AUTO_INCREMENT,
+  `quantity` INT NOT NULL,
+  `Client_Order_order_ID` INT NOT NULL,
+  `Product_product_ID` INT NOT NULL,
+  PRIMARY KEY (`order_resource_ID`),
+  INDEX `fk_Orders_Resources_Client_Order1_idx` (`Client_Order_order_ID` ASC) VISIBLE,
+  INDEX `fk_Orders_Resources_Product1_idx` (`Product_product_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Orders_Resources_Client_Order1`
+    FOREIGN KEY (`Client_Order_order_ID`)
+    REFERENCES `mydb`.`Client_Order` (`order_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Orders_Resources_Product1`
+    FOREIGN KEY (`Product_product_ID`)
+    REFERENCES `mydb`.`Product` (`product_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machine_Panel_Log`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machine_Panel_Log` (
+  `panel_log_ID` INT NOT NULL AUTO_INCREMENT,
+  `event_name` VARCHAR(45) NOT NULL,
+  `event_description` VARCHAR(45) NOT NULL,
+  `event_date` TIMESTAMP NOT NULL,
+  `user_id` INT NOT NULL,
+  `Machine_machine_ID` INT NOT NULL,
+  PRIMARY KEY (`panel_log_ID`),
+  INDEX `fk_Machine_Panel_Log_Machine1_idx` (`Machine_machine_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machine_Panel_Log_Machine1`
+    FOREIGN KEY (`Machine_machine_ID`)
+    REFERENCES `mydb`.`Machine` (`machine_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Resource_Usage_Log`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Resource_Usage_Log` (
+  `resource_usage_ID` INT NOT NULL AUTO_INCREMENT,
+  `amount_used` VARCHAR(45) NOT NULL,
+  `start_date` TIMESTAMP NOT NULL,
+  `end_date` TIMESTAMP NOT NULL,
+  `usage` DECIMAL NOT NULL,
+  `Machine_Resource_machine_resource_ID` INT NOT NULL,
+  PRIMARY KEY (`resource_usage_ID`),
+  INDEX `fk_Resource_Usage_Period_Machine_Resource1_idx` (`Machine_Resource_machine_resource_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Resource_Usage_Period_Machine_Resource1`
+    FOREIGN KEY (`Machine_Resource_machine_resource_ID`)
+    REFERENCES `mydb`.`Machine_Resource` (`machine_resource_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Machine_Resource_Log`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Machine_Resource_Log` (
+  `resource_log_ID` INT NOT NULL AUTO_INCREMENT,
+  `resource_name` VARCHAR(30) NOT NULL,
+  `resource_type` VARCHAR(45) NOT NULL,
+  `update_type` VARCHAR(45) NOT NULL,
+  `date_added` TIMESTAMP NOT NULL,
+  `amount` INT NOT NULL,
+  `Machine_machine_ID` INT NOT NULL,
+  PRIMARY KEY (`resource_log_ID`),
+  UNIQUE INDEX `update_date_UNIQUE` (`date_added` ASC) VISIBLE,
+  INDEX `fk_Machine_Resource_Log_Machine1_idx` (`Machine_machine_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Machine_Resource_Log_Machine1`
+    FOREIGN KEY (`Machine_machine_ID`)
+    REFERENCES `mydb`.`Machine` (`machine_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Client_Discount`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Client_Discount` (
+  `client_discount_ID` INT NOT NULL AUTO_INCREMENT,
+  `discount_amount` VARCHAR(45) NOT NULL,
+  `is_discount_active` TINYINT NOT NULL,
+  `Product_product_ID` INT NOT NULL,
+  `Client_client_ID` INT NOT NULL,
+  PRIMARY KEY (`client_discount_ID`),
+  INDEX `fk_Client_Discount_Product1_idx` (`Product_product_ID` ASC) VISIBLE,
+  INDEX `fk_Client_Discount_Client1_idx` (`Client_client_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Client_Discount_Product1`
+    FOREIGN KEY (`Product_product_ID`)
+    REFERENCES `mydb`.`Product` (`product_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Client_Discount_Client1`
+    FOREIGN KEY (`Client_client_ID`)
+    REFERENCES `mydb`.`Client` (`client_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Invoice_Item`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Invoice_Item` (
+  `invoice_item_ID` INT NOT NULL AUTO_INCREMENT,
+  `item_name` VARCHAR(45) NOT NULL,
+  `item_amount` INT NOT NULL,
+  `item_unit` VARCHAR(15) NOT NULL,
+  `item_unit_price` DOUBLE NOT NULL,
+  `item_discount` DOUBLE NOT NULL,
+  `item_total_price` DOUBLE NOT NULL,
+  `Machine_Invoice_Log_invoice_ID` INT NOT NULL,
+  PRIMARY KEY (`invoice_item_ID`),
+  INDEX `fk_Invoice_Item_Machine_Invoice_Log1_idx` (`Machine_Invoice_Log_invoice_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Invoice_Item_Machine_Invoice_Log1`
+    FOREIGN KEY (`Machine_Invoice_Log_invoice_ID`)
+    REFERENCES `mydb`.`Machine_Invoice_Log` (`invoice_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Groups_Permissions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Groups_Permissions` (
+  `group_permission_ID` INT NOT NULL AUTO_INCREMENT,
+  `User_Group_user_group_ID` INT NOT NULL,
+  `User_Permission_permission_ID` INT NOT NULL,
+  PRIMARY KEY (`group_permission_ID`),
+  INDEX `fk_Groups_Permissions_User_Group1_idx` (`User_Group_user_group_ID` ASC) VISIBLE,
+  INDEX `fk_Groups_Permissions_User_Permission1_idx` (`User_Permission_permission_ID` ASC) VISIBLE,
+  CONSTRAINT `fk_Groups_Permissions_User_Group1`
+    FOREIGN KEY (`User_Group_user_group_ID`)
+    REFERENCES `mydb`.`User_Group` (`user_group_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Groups_Permissions_User_Permission1`
+    FOREIGN KEY (`User_Permission_permission_ID`)
+    REFERENCES `mydb`.`User_Permission` (`permission_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
