@@ -1,1 +1,1 @@
-# ASP.NET Web Application for renting virtual machines
+# Web App for renting Virtual Machines
