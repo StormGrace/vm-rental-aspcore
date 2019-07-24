@@ -1,0 +1,30 @@
+.shopping-cart{
+    display: flex;
+    align-items: center;
+    border: 2px solid red;
+
+    .cart-icon{
+        display:flex;
+        border: 2px solid red;
+        
+        a{
+            display: flex;
+            align-items: center;
+            color: $utilButtonsTextColor; 
+            border: 2px solid yellow;
+        
+            &:before{
+                font-size: 1.6em;
+                content: "     ";
+                white-space: pre;
+                background: url(../../../images/icons/cart.svg) no-repeat;
+                background-size: 100% 100%;
+                border: 1px solid red;
+            }
+        }
+    }
+}
+
+.shopping-cart:hover{
+    cursor:pointer;
+}

@@ -1,0 +1,29 @@
+.account-tray{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    border: 2px solid red;
+    
+    .account-icon{
+        display:flex;
+        font-size: 1em;
+        border: 2px solid red;
+        align-items: center;
+ 
+        a{
+            display: flex;
+            align-items: center;
+            color: $utilButtonsTextColor; 
+            border: 2px solid yellow;
+        
+            &:before{
+                font-size: 1.92em;
+                content: "    ";
+                white-space: pre;
+                background: url(../../../images/icons/profile.svg) no-repeat;
+                background-size: 100% 100%;
+                border: 1px solid red;
+            }
+        }
+    }
+}

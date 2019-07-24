@@ -1,0 +1,19 @@
+.lang-dropdown{
+    display: block;
+    position: absolute;
+    background-color: white;
+    right: 10px; //Insert Variable Later
+    top: 88px;
+    z-index: 1024;  
+    
+    & li[code2]{ 
+        padding: 8px 12px 8px 12px;
+        text-align: center;
+   
+        &:hover{
+            background-color: aqua;
+            cursor: pointer;
+        }
+    }
+}
+ 

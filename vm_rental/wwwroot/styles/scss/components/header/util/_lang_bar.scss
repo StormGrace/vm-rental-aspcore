@@ -1,0 +1,54 @@
+.lang-bar{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    border: 2px solid red;
+    padding: 0px;
+    
+    .code2{
+        display:flex;
+        font-size: 1em;
+        color:white;
+        align-items:center;
+        border: 1px solid red;
+
+        &:before{
+            font-size: 1.5em;
+            content: "    ";
+            white-space: pre;
+            background: url(../../../images/icons/earth.svg) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        &:after{
+            font-size: 0.8em;
+            align-self: center;
+            border: 1px solid red;   
+        }
+    }
+
+    &[is-dropdown-active="true"]{
+        .code2::after{
+            content:'⯅';
+        }
+
+        .lang-dropdown{
+            display: block;
+        }
+    }
+    
+    &[is-dropdown-active="false"]{
+        .code2::after{
+            content:'⯆';
+        }
+
+        .lang-dropdown{
+            display: none;
+        }
+    }
+}
+
+
+.lang-bar span:hover{
+    cursor: pointer;
+}

@@ -7,14 +7,19 @@
 
   <ItemGroup>
     <Compile Remove="Data\Interfaces\**" />
+    <Compile Remove="wwwroot\scss\**" />
     <Content Remove="Data\Interfaces\**" />
+    <Content Remove="wwwroot\scss\**" />
     <EmbeddedResource Remove="Data\Interfaces\**" />
+    <EmbeddedResource Remove="wwwroot\scss\**" />
     <None Remove="Data\Interfaces\**" />
+    <None Remove="wwwroot\scss\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="NewFile.txt" />
     <None Remove="NewFile1.txt" />
+    <None Remove="Views\Shared\NewFile.txt" />
   </ItemGroup>
 
 

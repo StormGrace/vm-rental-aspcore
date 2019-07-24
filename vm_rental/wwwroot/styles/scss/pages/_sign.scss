@@ -1,0 +1,237 @@
+// Full Form
+.signup-box{
+ height: 400px;
+ width: 600px;
+ position:relative;
+ margin:5% auto;
+ background-color:rgba(232, 236, 241, 1);
+ box-shadow:0 2px 4px rgba(253, 227, 167, 1);
+ border-radius: 6px;
+}
+// Left side of box
+.left-box{
+    position: absolute;
+    top:0;
+    right:0;
+    box-sizing: border-box;
+    padding: 20px;
+    height: 200px;
+    width: 300px;
+}
+
+// Around of form for Creating an Account
+.box{
+    margin-top:5%;
+}
+
+h3{
+    text-align: left;
+    margin:0 0 10% 0;
+    font-size: 22px;
+    font-family: "Market Sans",Arial,sans-serif;
+}
+//Style of button for the second form
+.signIn
+{
+
+    width:80px;
+    height: 40px;
+    background-color:#f44336;
+    border:none;
+    border-radius: 2px;
+    font-family: "Market Sans",Arial,sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    color:white;
+    float:right;
+}
+.signIn:hover,
+.signIn:focus{
+
+transition: 0.2s ease;
+color:rgba(236, 100, 75, 1);
+
+}
+a{
+    text-decoration: none;
+    color:white;
+}
+
+h1{
+    display:inline-block;
+    padding: 4px;
+    font-size:26px;
+    text-align: right;
+    margin: 5% 0 0 7%;
+    font-family: "Market Sans",Arial,sans-serif;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+    box-sizing: border-box;
+    width:180px;
+    height: 32px;
+    margin: 2% 0 5%  15%;
+    outline: 0;
+    border:none;
+    text-align: center;
+    border-bottom: 1px solid rgba(236, 100, 75, 1);;
+    font-family: "Market Sans",Arial,sans-serif;
+    font-size:16px;
+    transition: 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus{
+    text-align: start;
+
+    width: 200px;
+}
+
+
+input[type="submit"]{
+    width:80px;
+    height: 40px;
+    background-color:#f44336;
+    border:none;
+    border-radius: 2px;
+    font-family: "Market Sans",Arial,sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    color:white;
+    float:right;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus{
+
+transition: 0.2s ease;
+color:rgba(236, 100, 75, 1);
+
+}
+// Right side of box
+.right-box
+{
+    position:absolute;
+    top:0;
+    left:0;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 300px;
+    height: 200px;
+}
+
+// Social Buttons
+button.social
+{   
+    margin: 20% 0 -5% 0;
+    width: 220px;
+    height: 50px;
+    border:none;
+    border-radius: 2px;
+    color:#fff;
+    font-family:"Market Sans",Arial,sans-serif;
+    font-size:20px;
+    transition: 0.2s ease;
+}
+
+//Social Media original colors
+.facebook
+{
+    background-color:#4267B2;
+}
+
+.twitter
+{
+    background-color:#38A1F3;
+}
+
+.google
+{
+    background-color:#DD4B39;
+}
+
+// Middle Icon Button 
+.or
+{
+    position: absolute;
+    top:180px;
+    left:270px;
+    width: 40px;
+    height: 40px;
+    background: #efefef;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(253, 227, 167, 1);
+    line-height: 40px;
+    text-align: center;
+}
+
+.fgp
+{
+    display:block;
+    font-size:12px;
+    color:black;
+}
+
+//Change styles for elements under 768px screen
+
+@media only screen and (max-width:768px)
+{
+    .signup-box{
+        height: 500px;
+        width: 300px;
+        position:relative;
+        margin:5% auto;
+        background-color:rgba(232, 236, 241, 1);
+        box-shadow:0 2px 4px rgba(253, 227, 167, 1);
+        border-radius: 6px;
+       }
+
+       .right-box{
+        top:77%;
+        left:-5%;
+       }
+
+       button.social
+       {
+           display:absolute;
+           width: 290px;
+           height: 30px;
+           margin:0;
+       }
+
+       .or{
+           display:none;
+       }
+}
+
+// Second Form Style
+
+.signin-box
+{
+    display:none;
+    height: 300px;
+    width: 350px;
+    position:relative;
+    margin:5% auto;
+    background-color:rgba(232, 236, 241, 1);
+    box-shadow:0 2px 4px rgba(253, 227, 167, 1);
+    border-radius: 6px;
+}
+
+.center-box
+{
+    height: 200px;
+    width: 200px;
+    margin:auto;
+    font-size:14px;
+}
+
+
+// Third Form Style
+.forgot_password
+{
+    display:none;
+}

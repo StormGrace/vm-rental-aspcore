@@ -1,22 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>@ViewData["Title"]</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="@ViewData["Description"]">
+        <link rel="stylesheet" type="text/css" href="../styles/scss/main.css" />
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+        <div class="main-wrapper-index">
 
-    
-    <link rel="stylesheet" href="~/css/main.css" />
-</head>
-<body>
-    <div class="container">
- 
-        <main>
-            @RenderBody()
-        </main>
-    </div>
-   
+            @if (!IsSectionDefined("Header"))
+            {
+                <partial name="HeaderPartial" />
+            }
 
+            <main>@RenderBody()</main>
+
+            @if (!IsSectionDefined("Footer"))
+            {
+                <partial name="FooterPartial" />
+            }
+
+        </div>
+        
         @RenderSection("Scripts", required: false)
- </body>
- </html>
+    </body>
+</html>
