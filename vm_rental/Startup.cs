@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using vm_rental.Data.Interface;
+using vm_rental.Data.Repository;
 
 namespace vm_rental
 {
@@ -31,6 +33,8 @@ namespace vm_rental
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //DB Services
+            services.AddScoped<IClientRepository, ClientRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

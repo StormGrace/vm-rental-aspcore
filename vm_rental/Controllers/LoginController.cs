@@ -8,10 +8,9 @@ namespace vm_rental.Controllers
 {
     public class LoginController : Controller
     {
-        public IActionResult Message(string fname, int age)
+        public IActionResult Login()
         {
-            //return Content($"Hello, {fname}, you are {age} years old!");
-            return Content($"Hello, {fname}, you are {age} years old!");
+            return View();
         }
     }
 }
