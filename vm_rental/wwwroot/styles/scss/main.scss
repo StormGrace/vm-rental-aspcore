@@ -15,8 +15,6 @@
 @import "layout/footer";
 ////////////////////
 
-//////*Components*//////
-///*Header - Top*///
 @import "components/header/util/logo";
 @import "components/header/util/util_nav_right";
 @import "components/header/util/account_tray";
@@ -28,11 +26,10 @@
 @import "components/header/nav/nav_bar";
 ///////////////////////
 
-//////*Pages*//////
-///*Main*///
+
 @import "pages/main/index";
 @import "pages/main/hosting";
 @import "pages/main/about";
-///*Other*///
+
 @import "pages/sign";
-//////////////////
+

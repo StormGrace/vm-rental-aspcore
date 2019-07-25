@@ -59,9 +59,15 @@ namespace vm_rental
 
             app.UseMvc(routes =>
             {
+        
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "account-signIn",
+                    template: "{controller=Account}/{action=SignIn}/{id?}");
+
             });
         }
     }

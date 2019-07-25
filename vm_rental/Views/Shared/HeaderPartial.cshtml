@@ -5,15 +5,16 @@
         <div class="util-nav-right">
             <div></div>
             <div class="account-tray">
-                <span class="account-icon"><a href="sign.php">Sign In</a></span>
+                <span class="account-icon">
+                    <a asp-controller="Account" asp-action="SignIn">Sign In</a>
+                </span>
             </div>
             <div class="shopping-cart">
-                <span class="cart-icon"><a href="cart.php">Cart</a></span>
+                <span class="cart-icon"><a href="">Cart</a></span>
             </div>
             <div class="lang-bar" is-dropdown-active="false">
                 <span class="code2" title="English" target-lang="EN">EN</span>
-                <ul class="lang-dropdown">
-                </ul>
+                <ul class="lang-dropdown"></ul>
             </div>
         </div>
     </div>

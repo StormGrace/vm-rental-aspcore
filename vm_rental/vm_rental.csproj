@@ -8,17 +8,28 @@
   <ItemGroup>
     <Compile Remove="Data\Interfaces\**" />
     <Compile Remove="wwwroot\scss\**" />
+    <Compile Remove="wwwroot\styles\css\**" />
     <Content Remove="Data\Interfaces\**" />
     <Content Remove="wwwroot\scss\**" />
+    <Content Remove="wwwroot\styles\css\**" />
     <EmbeddedResource Remove="Data\Interfaces\**" />
     <EmbeddedResource Remove="wwwroot\scss\**" />
+    <EmbeddedResource Remove="wwwroot\styles\css\**" />
     <None Remove="Data\Interfaces\**" />
     <None Remove="wwwroot\scss\**" />
+    <None Remove="wwwroot\styles\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\Footer.cshtml" />
+    <Content Remove="wwwroot\NewFile.txt" />
+    <Content Remove="wwwroot\NewFile1.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="NewFile.txt" />
     <None Remove="NewFile1.txt" />
+    <None Remove="Views\Account\NewFile.txt" />
     <None Remove="Views\Shared\NewFile.txt" />
   </ItemGroup>
 
