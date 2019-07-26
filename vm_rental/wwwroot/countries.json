@@ -1,128 +1,149 @@
 ﻿{
-  "Languages": [
+  "Countries": [
     {
       "country_name": "England",
       "alpha_code2": "EN",
+      "country_code": "",
       "lang_name": "English",
       "lang_name_native": "English"
     },
     {
       "country_name": "Bulgaria",
       "alpha_code2": "BG",
+      "country_code": "",
       "lang_name": "Bulgarian",
       "lang_name_native": "Български"
     },
     {
       "country_name": "Greece",
       "alpha_code2": "EL",
+      "country_code": "",
       "lang_name": "Greek",
       "lang_name_native": "Ελληνικά"
     },
     {
       "country_name": "Serbia",
       "alpha_code2": "RS",
+      "country_code": "",
       "lang_name": "Serbian",
       "lang_name_native": "Српски"
     },
     {
       "country_name": "Romania",
       "alpha_code2": "RO",
+      "country_code": "",
       "lang_name": "Romanian",
       "lang_name_native": "România"
     },
     {
       "country_name": "Italy",
       "alpha_code2": "IT",
+      "country_code": "",
       "lang_name": "Italian",
       "lang_name_native": "Italiano"
     },
     {
       "country_name": "Hungary",
       "alpha_code2": "HU",
+      "country_code": "",
       "lang_name": "Hungarian",
       "lang_name_native": "Magyar"
     },
     {
       "country_name": "Czechia",
       "alpha_code2": "CZ",
+      "country_code": "",
       "lang_name": "Czech",
       "lang_name_native": "Čeština"
     },
     {
       "country_name": "Poland",
       "alpha_code2": "PL",
+      "country_code": "",
       "lang_name": "Polish",
       "lang_name_native": "Polski"
     },
     {
       "country_name": "Croatia",
       "alpha_code2": "HR",
+      "country_code": "",
       "lang_name": "Croatian",
       "lang_name_native": "Hrvatski"
     },
     {
       "country_name": "Finland",
       "alpha_code2": "FI",
+      "country_code": "",
       "lang_name": "Finnish",
       "lang_name_native": "Suomalainen"
     },
     {
       "country_name": "Norway",
       "alpha_code2": "NO",
+      "country_code": "",
       "lang_name": "Norwegian",
       "lang_name_native": "Norsk"
     },
     {
       "country_name": "Portugal",
       "alpha_code2": "PT",
+      "country_code": "",
       "lang_name": "Portuguese",
       "lang_name_native": "Português"
     },
     {
       "country_name": "Spain",
       "alpha_code2": "ES",
+      "country_code": "",
       "lang_name": "Spanish",
       "lang_name_native": "Español"
     },
     {
       "country_name": "France",
       "alpha_code2": "FR",
+      "country_code": "",
       "lang_name": "French",
       "lang_name_native": "Français"
     },
     {
       "country_name": "Germany",
       "alpha_code2": "DE",
+      "country_code": "",
       "language_name": "German",
       "language_name_native": "Deutsch"
     },
     {
       "country_name": "Sweden",
       "alpha_code2": "SE",
+      "country_code": "",
       "lang_name": "Swedish",
       "lang_name_native": "Svenska"
     },
     {
       "country_name": "Denmark",
       "alpha_code2": "DK",
+      "country_code": "",
       "lang_name": "Danish",
       "lang_name_native": "Dansk"
     },
     {
       "country_name": "Belarus",
       "alpha_code2": "BY",
+      "country_code": "",
       "lang_name": "Belarusian",
       "lang_name_native": "Беларуская"
     },
     {
       "country_name": "Ukraine",
       "alpha_code2": "UA",
+      "country_code": "",
       "lang_name": "Ukrainian",
       "lang_name_native": "Українська"
     },
     {
       "country_name": "Russia",
       "alpha_code2": "RU",
+      "country_code": "",
       "lang_name": "Russian",
       "lang_name_native": "Русский"
     }

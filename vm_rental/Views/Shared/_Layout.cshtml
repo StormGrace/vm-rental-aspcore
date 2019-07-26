@@ -30,8 +30,8 @@
         @if (!IsSectionDefined("Header") && IsSectionDefined("Scripts")){
               @RenderSection("Scripts");
         }else{
-            <script src = "scripts/nav_bar.js"></script>
-            <script src = "scripts/lang_tray.js"></script>
+            <script src = "@Url.Content("~/scripts/nav_bar.js")"></script>
+            <script src = "@Url.Content("~/scripts/lang_tray.js")"></script>
         }
     </body>
 </html>

@@ -1,0 +1,70 @@
+.main-wrapper-signin{
+
+}
+
+.container_login {
+    display: flex;
+    justify-content: center;
+}
+
+.container_login .login {
+    display: flex;
+    align-items:center;
+    width: 434px;
+    height: 74px;
+    background-color: #EDEDED;
+    border-radius: 5px;
+    margin-top:10px;
+}
+
+.login label{
+    font-size:19pt;
+    padding:8px;
+}
+
+.login .btn_login {
+    font-size: 18pt;
+    color: white;
+    width: 146px;
+    height: 38px;
+    border-radius: 5px;
+    background-color: #00BBFC;
+}
+
+.container_type {
+    display: flex;
+    justify-content: center;
+}
+
+.container_type .reg_acc {
+    display:flex;
+    flex-wrap:wrap;
+    align-content:flex-start;
+    width: 434px;
+    height: 297px;
+    background-color: #EDEDED;
+    border-radius: 5px;
+    margin-top:10px;
+}
+
+.reg_acc label {
+    font-size:19pt;
+    padding: 15px;
+}
+
+.reg_acc .line {
+    width: 208px;
+    height: 1px;
+    background-color: #E2E2E2;
+    margin:0px 0px 20px 10px;
+}
+
+.type label{
+    font-size:19pt;
+    margin:70px;
+}
+
+
+
+
+

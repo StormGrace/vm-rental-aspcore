@@ -27,8 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\NewFile.txt" />
     <None Remove="NewFile.txt" />
     <None Remove="NewFile1.txt" />
+    <None Remove="NewFile2.txt" />
     <None Remove="Views\Account\NewFile.txt" />
     <None Remove="Views\Shared\NewFile.txt" />
   </ItemGroup>
@@ -44,6 +46,7 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.16" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
+    <PackageReference Include="Westwind.AspnetCore.LiveReload" Version="0.1.5.2" />
   </ItemGroup>
 
 
