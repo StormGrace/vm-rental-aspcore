@@ -37,9 +37,6 @@
 }
 
 .container_type .reg_acc {
-    display:flex;
-    flex-wrap:wrap;
-    align-content:flex-start;
     width: 434px;
     height: 297px;
     background-color: #EDEDED;
@@ -61,8 +58,9 @@
 
 .type label{
     font-size:19pt;
-    margin:70px;
+    margin:auto;
 }
+
 
 
 
