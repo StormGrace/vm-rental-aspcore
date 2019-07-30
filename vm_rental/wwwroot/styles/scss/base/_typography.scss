@@ -2,3 +2,16 @@ a:link, a:visited {
     text-decoration: none;
     color: black;
 }
+
+//Navigation Font
+@font-face {
+    font-family: 'OpenSans-Bold';
+    font-weight: bold;
+    src: url("/fonts/OpenSans-Bold.ttf") format('truetype');
+}
+//Site Font
+@font-face {
+    font-family: 'OpenSans-Light';
+    font-weight: bold;
+    src: url("/fonts/OpenSans-Light.ttf") format('truetype');
+}

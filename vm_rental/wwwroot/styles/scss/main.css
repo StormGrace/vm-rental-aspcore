@@ -354,6 +354,16 @@ a:link, a:visited {
   text-decoration: none;
   color: black; }
 
+@font-face {
+  font-family: 'OpenSans-Bold';
+  font-weight: bold;
+  src: url("/fonts/OpenSans-Bold.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'OpenSans-Light';
+  font-weight: bold;
+  src: url("/fonts/OpenSans-Light.ttf") format("truetype"); }
+
 header {
   display: grid;
   grid-template-rows: 64px auto 22px;
@@ -506,7 +516,8 @@ footer {
       height: 100%;
       justify-content: center;
       align-items: center;
-      color: #FFFFFF; }
+      font-family: 'Open Sans', sans-serif;
+      color: #dbdbdb; }
 
 .mobile-nav-btn {
   display: flex;
@@ -546,21 +557,22 @@ footer {
   width: 100%;
   margin: 0 auto;
   color: #57686b;
-  font-family: Sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 20px 0px 20px 0px; }
   .sign-up-container-main .login-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
     height: 60px;
     background-color: #EDEDED;
     border: 2px solid #0091d1;
     border-radius: 4px;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    padding: 10px; }
     .sign-up-container-main .login-container h1 {
       font-size: 16pt;
-      font-weight: bold; }
+      font-weight: bold;
+      white-space: nowrap; }
     .sign-up-container-main .login-container .login-btn {
       width: 140px;
       height: 34px;
@@ -573,7 +585,7 @@ footer {
       overflow: hidden;
       outline: 0px;
       border: 3px solid #00b8ea;
-      margin-left: 15px; }
+      margin-left: 10px; }
       .sign-up-container-main .login-container .login-btn:hover {
         cursor: pointer;
         background-color: #00c4f9; }
@@ -583,7 +595,7 @@ footer {
     margin-top: 10px;
     width: 100%;
     background-color: #EDEDED;
-    border: 2px solid #00abd3;
+    border: 2px solid #0091d1;
     border-radius: 4px 4px 0px 0px;
     box-sizing: border-box; }
     .sign-up-container-main .account-type-container .account-type-header {
@@ -603,8 +615,9 @@ footer {
         display: flex;
         justify-content: center; }
         .sign-up-container-main .account-type-container .account-type-content .account-type-info-container h1 {
-          font-size: 20pt;
-          font-weight: bold; }
+          font-size: 1.5em;
+          font-weight: bold;
+          z-index: 0; }
         .sign-up-container-main .account-type-container .account-type-content .account-type-info-container .account-type-info-icon {
           width: 20px; }
       .sign-up-container-main .account-type-container .account-type-content .account-type-btn-container {
@@ -706,7 +719,7 @@ footer {
   margin-top: 10px; }
   .sign-up-container[type="personal"] .sign-up-info p {
     font-weight: bold;
-    width: 280px;
+    width: 290px;
     text-align: center; }
     .sign-up-container[type="personal"] .sign-up-info p a {
       color: #3366BB; }
@@ -777,7 +790,7 @@ footer {
   margin-top: 10px; }
   .sign-up-container[type="business"] .sign-up-info p {
     font-weight: bold;
-    width: 280px;
+    width: 290px;
     text-align: center; }
     .sign-up-container[type="business"] .sign-up-info p a {
       color: #3366BB; }

@@ -18,29 +18,29 @@ $stateCityWidth: ($inputWidth / 2);
     width: 100%;
     margin: 0 auto;
     color: $def-txt-color;
-    font-family: Sans-serif;
+    font-family: 'Open Sans', sans-serif;
     padding: 20px 0px 20px 0px;
 
     .login-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
         height: 60px;
         background-color: #EDEDED;
         border: 2px solid #0091d1;
         border-radius: 4px;
         box-sizing: border-box;
-
+        padding: 10px;
 
         h1 {
             font-size: 16pt;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .login-btn {
             @include btn-style-1(140px, 34px);
-            margin-left: 15px;
+            margin-left: 10px;
         }
     }
 
@@ -50,7 +50,7 @@ $stateCityWidth: ($inputWidth / 2);
         margin-top: 10px;
         width: 100%;
         background-color: #EDEDED;
-        border: 2px solid #00abd3;
+        border: 2px solid #0091d1;
         border-radius: 4px 4px 0px 0px;
         box-sizing: border-box;
 
@@ -79,8 +79,9 @@ $stateCityWidth: ($inputWidth / 2);
                 justify-content: center;
 
                 h1 {
-                    font-size: 20pt;
+                    font-size: 1.5em;
                     font-weight: bold;
+                    z-index: 0;
                 }
 
                 .account-type-info-icon {
@@ -114,7 +115,6 @@ $stateCityWidth: ($inputWidth / 2);
                 .btn-separator {
                     display: flex;
                     align-self: flex-end;
- 
                     height: 100px; //Equal to Button's Height
                     border-left: 1px solid #DDDDDD;
                     margin: 0 15px;
@@ -242,7 +242,7 @@ $stateCityWidth: ($inputWidth / 2);
 
         p {
             font-weight: bold;
-            width: 280px;
+            width: 290px;
             text-align: center;
 
             a {
@@ -333,9 +333,9 @@ $stateCityWidth: ($inputWidth / 2);
 
         p {
             font-weight: bold;
-            width: 280px;
+            width: 290px;
             text-align: center;
-
+ 
             a {
                 color: #3366BB;
             }
