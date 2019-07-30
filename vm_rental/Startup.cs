@@ -70,8 +70,8 @@ namespace vm_rental
                     template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
-                    name: "account-signIn",
-                    template: "{controller=Account}/{action=SignIn}/{id?}");
+                    name: "account-signUp",
+                    template: "{controller=Account}/{action=SignUp}/{id?}");
 
             });
         }

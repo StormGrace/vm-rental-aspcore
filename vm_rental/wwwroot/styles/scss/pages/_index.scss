@@ -1,5 +1,5 @@
 .main-wrapper-index{
     display:grid;
     grid-template-columns: 100%;
-    grid-template-rows: auto calc(100vh - 170px) 220px;
+    grid-template-rows: auto auto 220px;
 }

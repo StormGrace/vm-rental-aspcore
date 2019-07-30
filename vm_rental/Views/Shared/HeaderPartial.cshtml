@@ -1,34 +1,38 @@
 ﻿<header>
-    <div class="header-top">
-        <img class="logo" src="@Url.Content("~/images/logo/pandalogo.png")">
-        <div class="util-nav-middle"></div>
-        <div class="util-nav-right">
-            <div></div>
-            <div class="account-tray">
-                <span class="account-icon">
-                    <a asp-controller="Account" asp-action="SignIn">Sign In</a>
-                </span>
-            </div>
-            <div class="shopping-cart">
-                <span class="cart-icon"><a href="">Cart</a></span>
-            </div>
-            <div class="lang-bar" is-dropdown-active="false">
-                <span class="code2" title="English" target-lang="EN">EN</span>
-                <ul class="lang-dropdown"></ul>
+    <div class="header-wrapper">
+        <div class="header-wrapper-inner">
+            <a asp-controller="Home" asp-action="Index">
+                <img class="logo" src="@Url.Content("~/images/logo/pandalogo.png")">
+            </a>
+            <div class="util-nav-middle"></div>
+            <div class="util-nav-right">
+                <div></div>
+                <div class="lang-bar" is-dropdown-active="false">
+                    <span class="code2" title="English" target-lang="EN">EN</span>
+                    <ul class="lang-dropdown"></ul>
+                </div>
+                <div class="shopping-cart">
+                    <span class="cart-icon"><a href=""></a></span>
+                </div>
+                <div class="account-tray">
+                    <span class="account-icon">
+                        <a asp-controller="Account" asp-action="SignUp"></a>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="header-bottom">
-        <nav class="nav-bar-wrapper" is-toggled="false">
-            <span class="mobile-nav-btn">&#9776;</span>
-            <ul class="nav-bar" is-active="false">
-                <li class="nav-btn home-btn"><a href="index.php" class="nav-btn-txt home-btn-txt">Home</a></li>
-                <li class="nav-btn hosting-btn"><a href="hosting.php" class="nav-btn-txt hosting-btn-txt">Hosting</a></li>
-                <li class="nav-btn about-btn"><a href="about.php" class="nav-btn-txt about-btn-txt">About</a></li>
-            </ul>
-        </nav>
+    <div class="header-bottom-wrapper">
+        <div class="header-bottom-inner">
+            <nav class="nav-bar-wrapper" is-toggled="false">
+                <span class="mobile-nav-btn">&#9776;</span>
+                <ul class="nav-bar" is-active="false">
+                    <li class="nav-btn home-btn"><a class="nav-btn-txt home-btn-txt">Servers</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
-    <div class="header-mid">test</div>
+      <div class="header-mid"></div>
 </header>
 
 

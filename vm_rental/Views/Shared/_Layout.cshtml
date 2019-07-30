@@ -1,37 +1,43 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>@ViewData["Title"]</title>
-        <meta name="description" content="@ViewData["Description"]">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="~/styles/scss/main.min.css" />
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    </head>
-    <body>
-        <div class="@ViewData["Wrapper_Class"]">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <meta name="description" content="@ViewData["Description"]">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/styles/scss/main.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <div class="@ViewData["Wrapper_Class"]">
 
-            @if (IsSectionDefined("Header")){
-                @RenderSection("Header")
-            }else {
-                <partial name="HeaderPartial" />
-            }
-
-                <main>@RenderBody()</main>
-
-            @if (IsSectionDefined("Footer")){
-                @RenderSection("Footer")
-            }else {
-                <partial name="FooterPartial" />
-            }
-
-        </div>
-
-        @if (!IsSectionDefined("Header") && IsSectionDefined("Scripts")){
-              @RenderSection("Scripts");
-        }else{
-            <script src = "@Url.Content("~/scripts/nav_bar.js")"></script>
-            <script src = "@Url.Content("~/scripts/lang_tray.js")"></script>
+        @if (IsSectionDefined("Header"))
+        {
+            @RenderSection("Header")
         }
-    </body>
+        else
+        {
+            <partial name="HeaderPartial" />
+        }
+
+        <main>@RenderBody()</main>
+
+        @if (IsSectionDefined("Footer"))
+        {
+            @RenderSection("Footer")
+        }
+        else
+        {
+            <partial name="FooterPartial" />
+        }
+
+    </div>
+
+    @if (!IsSectionDefined("Header") && IsSectionDefined("Scripts"))
+    {
+        <script src="@Url.Content("~/scripts/nav_bar.js")"></script>
+        <script src="@Url.Content("~/scripts/lang_tray.js")"></script>
+        @RenderSection("Scripts");
+    }
+</body>
 </html>

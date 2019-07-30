@@ -1,0 +1,20 @@
+/// <reference path="variables.scss" />
+
+@mixin btn-style-1( $width: $def-btn-width-1, $height: $def-btn-height-1, $txt-size: 100%, $radius: $def-btn-radius-1, $color: $def-btn-color-1, $txt-color: $def-btn-txt-color-1, $hover-color: $def-btn-hov-color-1, $border-color: $def-btn-border-color-1) {
+    width: $width;
+    height: $height;
+    background-color: $color;
+    font-family: $def-btn-font;
+    font-size: $txt-size;
+    font-weight: bold;
+    color: $txt-color;
+    border-radius: $radius;
+    overflow: hidden;
+    outline: 0px;
+    border: 3px solid $border-color;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $hover-color;
+    }
+}

@@ -1,31 +1,32 @@
-.nav-bar-wrapper{
-    border:2px solid violet;
+.nav-bar-wrapper {
     height: auto;
+    background-color: rgb(54, 54, 54);
 
-    &, & .nav-bar, & .nav-bar .nav-btn, & .nav-bar .nav-btn .nav-btn-txt{
+    .nav-bar,  .nav-bar .nav-btn, .nav-bar .nav-btn .nav-btn-txt {
         display: flex;
     }
 
-    .nav-bar{
+    .nav-bar {
         list-style: none;
-        border: 2px solid blue;
-        width: 100%;
-        
-        .nav-btn{
-          width: 100%;
-          height: 30px;
-          border-top: 2px solid yellow;
+        width: 120px;
+        height: 36px;
 
-            &:not(:last-child){
+
+        .nav-btn {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+
+            &:not(:last-child) {
                 //border-right: 2px solid black;
             }
         }
-        
-        .nav-btn-txt{
+
+        .nav-btn-txt {
             width: 100%;
             height: 100%;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             color: $navButtonsTextColor;
         }
     }
@@ -34,7 +35,6 @@
 .mobile-nav-btn{
     display: flex;
     align-items: center;
-    border: 2px solid gray;
     font-size: 2em;
     padding: 0 4px;
     cursor: pointer;
@@ -42,7 +42,7 @@
 
 .nav-btn:hover
 {
-    background: #e91e63;
+    background-color: gray;
 }
 
 @media screen and(min-width:600px)

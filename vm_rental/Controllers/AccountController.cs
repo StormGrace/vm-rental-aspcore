@@ -8,7 +8,7 @@ namespace vm_rental.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult SignIn()
+        public IActionResult SignUp()
         {
             return View();
         }
