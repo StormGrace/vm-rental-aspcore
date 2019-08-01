@@ -49,9 +49,9 @@
                             <h1>Account Information</h1>
                             <hr />
                         </div>
-                        <input type="text" placeholder="Email*" name="email" asp-for="email" />
-                         <span id="err-msg-email"></span>
-                        <input type="password" placeholder="Password*" name="password" asp-for="password" />
+                        <input type="text" placeholder="Email*" id="email" name="_email" asp-for="email" />
+                         <spann id="err-msg-email"></spann>
+                        <input type="password" placeholder="Password*" id="password" name="_password" asp-for="password" />
                         <span asp-validation-for="email" class="error-msg"></span>
                         <span id="err-msg-password"></span>
                     </fieldset>
@@ -61,8 +61,8 @@
                             <hr />
                         </div>
                         <div class="name-row row">
-                            <input type="text" placeholder="First Name*" name="firstname" asp-for="firstName" />
-                            <input type="text" placeholder="Last Name*" name="lastname" asp-for="lastName" />
+                            <input type="text" placeholder="First Name*" id="firstname" name="_firstname" asp-for="firstName" />
+                            <input type="text" placeholder="Last Name*" id="lastname" name="_lastname" asp-for="lastName" />
                         </div>
                         <div class="address-row row">
                             <input type="text" placeholder="State*" name="state" asp-for="state" />
@@ -71,7 +71,7 @@
                         </div>
                         <div class="phone-row row">
                             <label class="country-code">+359</label>
-                            <input type="tel" placeholder="Mobile Phone*" name="phone" asp-for="phone" />
+                            <input type="tel" placeholder="Mobile Phone*" id="phone" name="_phone" asp-for="phone" />
                               <span id="err-msg-phone"></span>
                         </div>
                         @Html.Hidden("isBusinessClient", false)
@@ -91,9 +91,9 @@
                             <h1>Account Information</h1>
                             <hr />
                         </div>
-                         <input type="text" placeholder="Email*" name="email" asp-for="email" />
+                         <input type="text" placeholder="Email*" id="email" name="_email" asp-for="email" />
                          <span id="err-msg-email"></span>
-                        <input type="password" placeholder="Password*"  name="password" asp-for="password" />
+                        <input type="password" placeholder="Password*" id="password" name="_password" asp-for="password" />
                         <span asp-validation-for="email" class="error-msg"></span>
                         <span id="err-msg-password"></span>
                     </fieldset>
@@ -103,8 +103,8 @@
                             <hr />
                         </div>
                         <div class="name-row row">
-                            <input type="text" placeholder="First Name*" name="firstname" asp-for="firstName" />
-                            <input type="text" placeholder="Last Name*"  name="lastname" asp-for="lastName" />
+                            <input type="text" placeholder="First Name*" id="firstname" name="_firstname" asp-for="firstName" />
+                            <input type="text" placeholder="Last Name*" id="lastname" name="_lastname" asp-for="lastName" />
                         </div>
                     </fieldset>
                     <fieldset class="company-info">
