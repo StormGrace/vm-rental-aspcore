@@ -7,140 +7,140 @@
     ViewData["Wrapper_Class"] = "main-wrapper-signup";
 }
 
-    @section Scripts{
-        <script src="@Url.Content("~/scripts/account_selection.js")"></script>
-        <script src="@Url.Content("~/scripts/sign-up.js")"></script>
-    }
-    <!--Sign Up-->
-    <div class="sign-up-container-main">
-        <!--Already have an account?-->
-        <div class="login-container sign-up-subcontainers">
-            <h1>Already have an account?</h1>
-            <button class="login-btn" asp-controller="Account" asp-action="SignIn">Login Here!</button>
+@section Scripts{
+    <script src="@Url.Content("~/scripts/account_selection.js")"></script>
+    <script src="@Url.Content("~/scripts/sign-up.js")"></script>
+}
+<!--Sign Up-->
+<div class="sign-up-container-main">
+    <!--Already have an account?-->
+    <div class="login-container sign-up-subcontainers">
+        <h1>Already have an account?</h1>
+        <button class="login-btn" asp-controller="Account" asp-action="SignIn">Login Here!</button>
+    </div>
+    <!--Not a Member Yet?-->
+    <div class="account-type-container" toggled="false">
+        <div class="account-type-header">
+            <h1>Not a Member Yet?</h1>
+            <hr />
         </div>
-        <!--Not a Member Yet?-->
-        <div class="account-type-container" toggled="false">
-            <div class="account-type-header">
-                <h1>Not a Member Yet?</h1>
-                <hr />
+        <div class="account-type-content">
+            <div class="account-type-info-container">
+                <h1>Select Your Account Type</h1>
+                <img class="account-type-info-icon" src="../../images/icons/info_icon.svg" />
             </div>
-            <div class="account-type-content">
-                <div class="account-type-info-container">
-                    <h1>Select Your Account Type</h1>
-                    <img class="account-type-info-icon" src="../../images/icons/info_icon.svg" />
+            <div class="account-type-btn-container">
+                <div class="account-type-btn-col1 account-type-btn-cols">
+                    <h1>Personal</h1>
+                    <button class="personal-btn account-type-btn" active="true"><img /></button>
                 </div>
-                <div class="account-type-btn-container">
-                    <div class="account-type-btn-col1 account-type-btn-cols">
-                        <h1>Personal</h1>
-                        <button class="personal-btn account-type-btn" active="true"><img /></button>
-                    </div>
-                    <div class="btn-separator"></div>
-                    <div class="account-type-btn-col2 account-type-btn-cols">
-                        <h1>Business</h1>
-                        <button class="business-btn account-type-btn" active="false"><img /></button>
-                    </div>
+                <div class="btn-separator"></div>
+                <div class="account-type-btn-col2 account-type-btn-cols">
+                    <h1>Business</h1>
+                    <button class="business-btn account-type-btn" active="false"><img /></button>
                 </div>
             </div>
-            <!--Personal - Register Form-->
-            <div class="sign-up-container" type="personal" active="false">
-                <form class="sign-up-form" id="sign-up-form-personal" asp-controller="Account" asp-action="Create">
-                    <fieldset class="account-info">
-                        <div class="form-header">
-                            <h1>Account Information</h1>
-                            <hr />
-                        </div>
-                        <input type="text" placeholder="Email*" id="email" name="_email" asp-for="email" />
-                         <spann id="err-msg-email"></spann>
-                        <input type="password" placeholder="Password*" id="password" name="_password" asp-for="password" />
-                        <span asp-validation-for="email" class="error-msg"></span>
-                        <span id="err-msg-password"></span>
-                    </fieldset>
-                    <fieldset class="personal-info">
-                        <div class="form-header">
-                            <h1>Personal Information</h1>
-                            <hr />
-                        </div>
-                        <div class="name-row row">
-                            <input type="text" placeholder="First Name*" id="firstname" name="_firstname" asp-for="firstName" />
-                            <input type="text" placeholder="Last Name*" id="lastname" name="_lastname" asp-for="lastName" />
-                        </div>
-                        <div class="address-row row">
+        </div>
+        <!--Personal - Register Form-->
+        <div class="sign-up-container" type="personal" active="false">
+            <form class="sign-up-form" id="sign-up-form-personal" asp-controller="Account" asp-action="Create">
+                <fieldset class="account-info">
+                    <div class="form-header">
+                        <h1>Account Information</h1>
+                        <hr />
+                    </div>
+                    <input type="text" placeholder="Email*" name="email" asp-for="email" />
+                    <span id="err-msg-email"></span>
+                    <input type="password" placeholder="Password*" name="password" asp-for="password" />
+                    <span asp-validation-for="email" class="error-msg"></span>
+                    <span id="err-msg-password"></span>
+                </fieldset>
+                <fieldset class="personal-info">
+                    <div class="form-header">
+                        <h1>Personal Information</h1>
+                        <hr />
+                    </div>
+                    <div class="name-row row">
+                        <input type="text" placeholder="First Name*" name="firstname" asp-for="firstName" />
+                        <input type="text" placeholder="Last Name*" name="lastname" asp-for="lastName" />
+                    </div>
+                    <div class="address-row row">
+                        <input type="text" placeholder="State*" name="state" asp-for="state" />
+                        <input type="text" placeholder="City*" name="city" asp-for="city" />
+                        <input type="text" placeholder="Address*" name="address" asp-for="address" />
+                    </div>
+                    <div class="phone-row row">
+                        <label class="country-code">+359</label>
+                        <input type="tel" placeholder="Mobile Phone*" name="phone" asp-for="phone" />
+                        <span id="err-msg-phone"></span>
+                    </div>
+                    @Html.Hidden("isBusinessClient", false)
+                </fieldset>
+                <!--Terms and Sign Up Button-->
+                <div class="sign-up-info">
+                    <p>By Clicking Sign Up, I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                    <button type="submit" class="sign-up-btn">Sign Up</button>
+                </div>
+            </form>
+        </div>
+        <!--Business - Register Form-->
+        <div class="sign-up-container" type="business" active="false">
+            <form class="sign-up-form" asp-controller="Account" asp-action="Create">
+                <fieldset class="account-info">
+                    <div class="form-header">
+                        <h1>Account Information</h1>
+                        <hr />
+                    </div>
+                    <input type="text" placeholder="Email*" name="email" asp-for="email" />
+                    <span id="err-msg-email"></span>
+                    <input type="password" placeholder="Password*" name="password" asp-for="password" />
+                    <span asp-validation-for="email" class="error-msg"></span>
+                    <span id="err-msg-password"></span>
+                </fieldset>
+                <fieldset class="owner-info">
+                    <div class="form-header">
+                        <h1>Owner Information</h1>
+                        <hr />
+                    </div>
+                    <div class="name-row row">
+                        <input type="text" placeholder="First Name*" name="firstname" asp-for="firstName" />
+                        <input type="text" placeholder="Last Name*" name="lastname" asp-for="lastName" />
+                    </div>
+                </fieldset>
+                <fieldset class="company-info">
+                    <div class="form-header">
+                        <h1>Company Information</h1>
+                        <hr />
+                    </div>
+                    <div class="company-details-row1 row">
+                        <input type="text" placeholder="Company Name*" name="firmname" asp-for="firmName" />
+                        <div class="sub-row">
                             <input type="text" placeholder="State*" name="state" asp-for="state" />
                             <input type="text" placeholder="City*" name="city" asp-for="city" />
-                            <input type="text" placeholder="Address*" name="address" asp-for="address" />
                         </div>
-                        <div class="phone-row row">
+                    </div>
+                    <div class="company-details-row2 row">
+                        <input type="text" placeholder="Company Address*" name="address" asp-for="address" />
+                        <div class="sub-row">
                             <label class="country-code">+359</label>
-                            <input type="tel" placeholder="Mobile Phone*" id="phone" name="_phone" asp-for="phone" />
-                              <span id="err-msg-phone"></span>
+                            <input type="tel" placeholder="Owner Phone*" name="phone" asp-for="phone" />
                         </div>
-                        @Html.Hidden("isBusinessClient", false)
-                    </fieldset>
-                    <!--Terms and Sign Up Button-->
-                    <div class="sign-up-info">
-                        <p>By Clicking Sign Up, I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
-                        <button type="submit" class="sign-up-btn">Sign Up</button>
                     </div>
-                </form>
-            </div>
-            <!--Business - Register Form-->
-            <div class="sign-up-container" type="business" active="false">
-                <form class="sign-up-form" asp-controller="Account" asp-action="Create">
-                    <fieldset class="account-info">
-                        <div class="form-header">
-                            <h1>Account Information</h1>
-                            <hr />
-                        </div>
-                         <input type="text" placeholder="Email*" id="email" name="_email" asp-for="email" />
-                         <span id="err-msg-email"></span>
-                        <input type="password" placeholder="Password*" id="password" name="_password" asp-for="password" />
-                        <span asp-validation-for="email" class="error-msg"></span>
-                        <span id="err-msg-password"></span>
-                    </fieldset>
-                    <fieldset class="owner-info">
-                        <div class="form-header">
-                            <h1>Owner Information</h1>
-                            <hr />
-                        </div>
-                        <div class="name-row row">
-                            <input type="text" placeholder="First Name*" id="firstname" name="_firstname" asp-for="firstName" />
-                            <input type="text" placeholder="Last Name*" id="lastname" name="_lastname" asp-for="lastName" />
-                        </div>
-                    </fieldset>
-                    <fieldset class="company-info">
-                        <div class="form-header">
-                            <h1>Company Information</h1>
-                            <hr />
-                        </div>
-                        <div class="company-details-row1 row">
-                            <input type="text" placeholder="Company Name*" name="firmname" asp-for="firmName" />
-                            <div class="sub-row">
-                                <input type="text" placeholder="State*" name="state" asp-for="state" />
-                                <input type="text" placeholder="City*" name="city" asp-for="city" />
-                            </div>
-                        </div>
-                        <div class="company-details-row2 row">
-                            <input type="text" placeholder="Company Address*" name="address" asp-for="address" />
-                            <div class="sub-row">
-                                <label class="country-code">+359</label>
-                                <input type="tel" placeholder="Owner Phone*" name="phone" asp-for="phone" />
-                            </div>
-                        </div>
-                        <div class="company-details-row3 row">
-                            <input type="text" placeholder="Registration Number*" name="firmnumber" asp-for="firmNumber" />
-                            <input type="text" placeholder="VAT Number" name="firmvat" asp-for="firmVAT" />
-                        </div>
-                        @Html.Hidden("isBusinessClient", true)
-                    </fieldset>
+                    <div class="company-details-row3 row">
+                        <input type="text" placeholder="Registration Number*" name="firmnumber" asp-for="firmNumber" />
+                        <input type="text" placeholder="VAT Number" name="firmvat" asp-for="firmVAT" />
+                    </div>
+                    @Html.Hidden("isBusinessClient", true)
+                </fieldset>
 
-                    <!--Terms and Sign Up Button-->
-                    <div class="sign-up-info">
-                        <p>By Clicking Sign Up, I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
-                        <button type="submit" class="sign-up-btn">Sign Up</button>
-                    </div>
-                </form>
-            </div>
+                <!--Terms and Sign Up Button-->
+                <div class="sign-up-info">
+                    <p>By Clicking Sign Up, I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                    <button type="submit" class="sign-up-btn">Sign Up</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
