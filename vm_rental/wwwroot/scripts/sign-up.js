@@ -7,7 +7,7 @@
     
 
     // Валидация за емайл
-    $("#email").keypress(function (event) {
+    $('input[name=email]').keypress(function (event) {
         var ew = event.which;
         if (ew == 32)
             return true;
@@ -22,8 +22,30 @@
         return false;
     });
 
+    //Валидация за име 
+    $('input[name=firstname]').keypress(function (event) {
+        var ew = event.which;
+        if (64 <= ew && ew <= 90)
+            return true;
+        if (97 <= ew && ew <= 122)
+            return true;
+        return false;
+
+    });
+
+    //Валидация за фамилно име
+    $('input[name=lastname]').keypress(function (event) {
+        var ew = event.which;
+        if (64 <= ew && ew <= 90)
+            return true;
+        if (97 <= ew && ew <= 122)
+            return true;
+        return false;
+
+    });
+
     // Валидация за паролата
-    $("#password").keypress(function (event) {
+    $('input[name=password]').keypress(function (event) {
         var ew = event.which;
         if (32 <= ew && ew <=47)
             return true;
@@ -37,7 +59,7 @@
     });
 
     // Валидация за телефон само цифри
-    $("#phone").keypress(function (event) {
+    $('input[name=phone]').keypress(function (event) {
         var ew = event.which;
         if (48 <= ew && ew <= 57)
             return true;
@@ -47,7 +69,7 @@
 
 
     //Валидация за име започва с главна буква
-    $("#firstname").on('keydown', function (event) {
+    $('input[name = firstname]').on('keydown', function (event) {
         if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
             var $t = $(this);
             event.preventDefault();
@@ -58,7 +80,7 @@
     });
 
     //Валидация за фамилно име започва с главна буква
-    $("#lastname").on('keydown', function (event) {
+    $('input[name = lastname]').on('keydown', function (event) {
         if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
             var $t = $(this);
             event.preventDefault();
@@ -67,6 +89,7 @@
             this.setSelectionRange(1, 1);
         }
     });
+
 
 
     // добавен метод за емайл
@@ -96,33 +119,33 @@
         errorClass: "fielderror",
         ignoreTitle: true,
         rules: {
-            _email: {
+            email: {
                 validate_email: true
             },
-            _password: {
+            password: {
                 validate_password: true,
                 minlength: minChar,
                 maxlength: maxChar
 
             },
-            _firstname: {
+            firstname: {
                 required: true,
                 maxlength: maxName
             },
-            _lastname: {
+            lastname: {
                 required: true,
                 maxlength: maxName
             },
-            _state: {
-                required: true
+            state: {
+                required: true,
             },
-            _city: {
-                required: true
+            city: {
+                required: true,
             },
-            _address: {
-                required: true
+            address: {
+                required: true,
             },
-            _phone: {
+            phone: {
                 required: true,
                 maxlength: maxPhone,
             }
@@ -131,7 +154,7 @@
 
         errorPlacement: function (error, element) {
             var name = $(element).attr("name");
-            if (name === "_email" || name === "_password" || name == "_phone") {
+            if (name === "email" || name === "password" || name == "phone") {
                 error.appendTo(element.next());
             }
             else {
@@ -141,25 +164,25 @@
         },
 
         messages: {
-            _password: {
+            password: {
                 validate_password: "Password must contain 0-9, a-z, A-Z and _characters only."
             },
-            _phone: {
+            phone: {
                 required: "Phone number isn't Specified."
             },
-            _firstname: {
+            firstname: {
                 required: ""
             },
-            _lastname: {
+            lastname: {
                 required: ""
             },
-            _state: {
+            state: {
                 required: ""
             },
-            _city:{
+            city:{
                 required:""
             },
-            _address: {
+            address: {
                 required:""
             }
         }

@@ -704,7 +704,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center; }
-  .sign-up-container[type="personal"] .account-info input[name="_email"], .sign-up-container[type="personal"] .account-info input[name="_password"] {
+  .sign-up-container[type="personal"] .account-info input[name="email"], .sign-up-container[type="personal"] .account-info input[name="password"] {
     margin-left: 12px; }
   .sign-up-container[type="personal"] .account-info #err-msg-email {
     color: #f00;
@@ -741,12 +741,12 @@ footer {
 
 .sign-up-container[type="personal"] .personal-info {
   display: flex; }
-  .sign-up-container[type="personal"] .personal-info .name-row input[name="_firstname"] {
+  .sign-up-container[type="personal"] .personal-info .name-row input[name="firstname"] {
     margin-right: 10px; }
-  .sign-up-container[type="personal"] .personal-info .address-row input[name="_state"],
-  .sign-up-container[type="personal"] .personal-info .address-row input[name="_city"] {
+  .sign-up-container[type="personal"] .personal-info .address-row input[name="state"],
+  .sign-up-container[type="personal"] .personal-info .address-row input[name="city"] {
     margin-right: 10px; }
-  .sign-up-container[type="personal"] .personal-info .address-row input[name="_state"], .sign-up-container[type="personal"] .personal-info .address-row input[name="_city"] {
+  .sign-up-container[type="personal"] .personal-info .address-row input[name="state"], .sign-up-container[type="personal"] .personal-info .address-row input[name="city"] {
     width: 95px; }
   .sign-up-container[type="personal"] .personal-info .phone-row {
     margin-left: 100px; }
@@ -762,7 +762,7 @@ footer {
       font-weight: bold;
       color: dodgerblue;
       box-sizing: border-box; }
-    .sign-up-container[type="personal"] .personal-info .phone-row input[name="_phone"] {
+    .sign-up-container[type="personal"] .personal-info .phone-row input[name="phone"] {
       width: 160px;
       border-left: 0px;
       border-top-left-radius: 0px;
@@ -801,7 +801,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center; }
-  .sign-up-container[type="business"] .account-info input[name="_email"], .sign-up-container[type="business"] .account-info input[name="_password"] {
+  .sign-up-container[type="business"] .account-info input[name="email"], .sign-up-container[type="business"] .account-info input[name="password"] {
     margin-left: 12px; }
 
 .sign-up-container[type="business"] .owner-info {

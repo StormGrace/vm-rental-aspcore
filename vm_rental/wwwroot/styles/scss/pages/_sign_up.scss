@@ -198,7 +198,7 @@ $stateCityWidth: ($inputWidth / 2);
         justify-content: center;
         align-items: center;
 
-        input[name="_email"], input[name="_password"] {
+        input[name="email"], input[name="password"] {
             margin-left: 12px;
         }
 
@@ -258,19 +258,19 @@ $stateCityWidth: ($inputWidth / 2);
 
         .name-row {
 
-            input[name="_firstname"] {
+            input[name="firstname"] {
                 margin-right: $inputHorGap;
             }
         }
 
         .address-row {
 
-            input[name="_state"],
-            input[name="_city"] {
+            input[name="state"],
+            input[name="city"] {
                 margin-right: $inputHorGap;
             }
 
-            input[name="_state"], input[name="_city"] {
+            input[name="state"], input[name="city"] {
                 width: $stateCityWidth - 5px;
             }
         }
@@ -292,7 +292,7 @@ $stateCityWidth: ($inputWidth / 2);
                 box-sizing: border-box;
             }
 
-            input[name="_phone"] {
+            input[name="phone"] {
                 width: ($stateCityWidth * 2 + $inputHorGap) - 50px;
                 border-left: 0px;
                 border-top-left-radius: 0px;
@@ -332,7 +332,7 @@ $stateCityWidth: ($inputWidth / 2);
         justify-content: center;
         align-items: center;
         
-        input[name="_email"], input[name="_password"] {
+        input[name="email"], input[name="password"] {
             margin-left: 12px;
         }
     }
