@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace vm_rental.Data.Model
 {
-    public partial class vm_usage_reportsContext : DbContext
+    public partial class vmDbContext : DbContext
     {
-        public vm_usage_reportsContext()
+        public vmDbContext()
         {
         }
 
-        public vm_usage_reportsContext(DbContextOptions<vm_usage_reportsContext> options) : base(options){}
+        public vmDbContext(DbContextOptions<vmDbContext> options) : base(options) { }
 
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<ClientDiscount> ClientDiscount { get; set; }
@@ -1019,7 +1019,8 @@ namespace vm_rental.Data.Model
                 entity.Property(e => e.PwdHash)
                     .IsRequired()
                     .HasColumnName("pwd_hash")
-                    .HasColumnType("binary(64)");
+                    .HasColumnType("binary(32)")
+                    .IsUnicode(false);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()

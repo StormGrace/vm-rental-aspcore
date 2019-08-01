@@ -547,7 +547,7 @@ footer {
   grid-template-columns: 100%;
   grid-template-rows: auto auto 220px; }
 
-.main-wrapper-signin {
+.main-wrapper-signup {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: auto auto 200px; }

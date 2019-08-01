@@ -7,12 +7,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using vm_rental.Data;
 using vm_rental.Data.Interface;
+using vm_rental.Data.Model;
 using vm_rental.Data.Repository;
 using Westwind.AspNetCore.LiveReload;
-
+using Microsoft.EntityFrameworkCore.InMemory;
+using vm_rental.Models.Services;
+using FluentValidation.AspNetCore;
+using vm_rental.ViewModels.Account;
+ 
 namespace vm_rental
 {
     public class Startup
@@ -27,7 +34,20 @@ namespace vm_rental
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLiveReload();
+
+            services.ConfigureMySqlContext(Configuration);
+
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IClientHistoryRepository, ClientHistoryRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserHistoryRepository, UserHistoryRepository>();
+
+            services.AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                    .AddFluentValidation(fv =>
+                    {
+                        fv.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                    }); 
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -36,16 +56,18 @@ namespace vm_rental
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //DB Services
-            services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
- 
+            services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
+            //etc
         }
+        //etc
+        //services.AddLiveReload();
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseLiveReload();
+            //app.UseLiveReload();
+
             if (env.IsDevelopment())
             {
  
@@ -70,10 +92,16 @@ namespace vm_rental
                     template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
-                    name: "account-signUp",
+                    name: "SignUp",
                     template: "{controller=Account}/{action=SignUp}/{id?}");
 
+                routes.MapRoute(
+                  name: "SignIn",
+                  template: "{controller=Account}/{action=SignIn}/{id?}");
             });
+
+            DbInitializer.Seed(app);
+
         }
     }
 }

@@ -7,11 +7,11 @@ using vm_rental.Data.Model;
 
 namespace vm_rental.Data.Repository
 {
-   public class UserRepository : Repository<User>, IUserRepository
+    public class UserHistoryRepository : Repository<UserHistory>, IUserHistoryRepository
     {
-        public UserRepository(vmDbContext context) : base(context)
+        public UserHistoryRepository(vmDbContext context) : base(context)
         {
-            
+
         }
     }
 }

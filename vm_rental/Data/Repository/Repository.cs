@@ -10,11 +10,11 @@ namespace vm_rental.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly vm_usage_reportsContext _context;
+        protected readonly vmDbContext _context;
 
         protected void SaveChanges() => _context.SaveChanges();
 
-        public Repository(vm_usage_reportsContext context)
+        public Repository(vmDbContext context)
         {
             _context = context;
         }
