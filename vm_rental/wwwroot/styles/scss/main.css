@@ -589,6 +589,27 @@ footer {
       .sign-up-container-main .login-container .login-btn:hover {
         cursor: pointer;
         background-color: #00c4f9; }
+    @media screen and (max-width: 375px) {
+      .sign-up-container-main .login-container h1 {
+        font-size: 12pt;
+        font-weight: bold;
+        white-space: nowrap; }
+      .sign-up-container-main .login-container .login-btn {
+        width: 100px;
+        height: 40px;
+        background-color: #00BBFC;
+        font-family: Arial;
+        font-size: 100%;
+        font-weight: bold;
+        color: white;
+        border-radius: 4.5px;
+        overflow: hidden;
+        outline: 0px;
+        border: 3px solid #00b8ea;
+        margin-left: 10px; }
+        .sign-up-container-main .login-container .login-btn:hover {
+          cursor: pointer;
+          background-color: #00c4f9; } }
   .sign-up-container-main .account-type-container {
     display: flex;
     flex-direction: column;
@@ -670,6 +691,8 @@ footer {
         color: #bcbcbc; }
       .sign-up-container[type="personal"] fieldset input:focus, .sign-up-container[type="business"] fieldset input:focus {
         outline: 2px solid #00abd3; }
+    .sign-up-container[type="personal"] fieldset input[type="email"].fielderror, .sign-up-container[type="business"] fieldset input[type="email"].fielderror {
+      border: 1px solid #f00; }
     .sign-up-container[type="personal"] fieldset .row, .sign-up-container[type="business"] fieldset .row {
       display: flex;
       flex-wrap: wrap;
@@ -679,18 +702,51 @@ footer {
 
 .sign-up-container[type="personal"] .account-info {
   display: flex;
-  justify-content: center; }
-  .sign-up-container[type="personal"] .account-info input[name="email"], .sign-up-container[type="personal"] .account-info input[name="password"] {
+  justify-content: center;
+  align-items: center; }
+  .sign-up-container[type="personal"] .account-info input[name="_email"], .sign-up-container[type="personal"] .account-info input[name="_password"] {
     margin-left: 12px; }
+  .sign-up-container[type="personal"] .account-info #err-msg-email {
+    color: #f00;
+    display: flex;
+    justify-content: flex-end;
+    margin: -20px 0 30px 0; }
+  .sign-up-container[type="personal"] .account-info #err-msg-password {
+    color: #f00;
+    display: flex;
+    justify-content: flex-end;
+    margin: -20px 0 30px 0; }
+  .sign-up-container[type="personal"] .account-info span#password-error {
+    border: 1px solid red;
+    border-radius: 30px;
+    width: 200px;
+    font-size: 12px;
+    text-align: center; }
+  @media screen and (max-width: 600px) {
+    .sign-up-container[type="personal"] .account-info #err-msg-email {
+      display: flex;
+      justify-content: flex-start;
+      color: #f00;
+      margin: 0px 0px 0px 15px; }
+    .sign-up-container[type="personal"] .account-info #err-msg-password {
+      color: #f00;
+      display: flex;
+      justify-content: flex-start;
+      margin: 0px 0px 0px 15px; }
+    .sign-up-container[type="personal"] .account-info span#password-error {
+      border: 1px solid red;
+      width: 200px;
+      font-size: 12px;
+      text-align: center; } }
 
 .sign-up-container[type="personal"] .personal-info {
   display: flex; }
-  .sign-up-container[type="personal"] .personal-info .name-row input[name="firstname"] {
+  .sign-up-container[type="personal"] .personal-info .name-row input[name="_firstname"] {
     margin-right: 10px; }
-  .sign-up-container[type="personal"] .personal-info .address-row input[name="state"],
-  .sign-up-container[type="personal"] .personal-info .address-row input[name="city"] {
+  .sign-up-container[type="personal"] .personal-info .address-row input[name="_state"],
+  .sign-up-container[type="personal"] .personal-info .address-row input[name="_city"] {
     margin-right: 10px; }
-  .sign-up-container[type="personal"] .personal-info .address-row input[name="state"], .sign-up-container[type="personal"] .personal-info .address-row input[name="city"] {
+  .sign-up-container[type="personal"] .personal-info .address-row input[name="_state"], .sign-up-container[type="personal"] .personal-info .address-row input[name="_city"] {
     width: 95px; }
   .sign-up-container[type="personal"] .personal-info .phone-row {
     margin-left: 100px; }
@@ -706,7 +762,7 @@ footer {
       font-weight: bold;
       color: dodgerblue;
       box-sizing: border-box; }
-    .sign-up-container[type="personal"] .personal-info .phone-row input[name="phone"] {
+    .sign-up-container[type="personal"] .personal-info .phone-row input[name="_phone"] {
       width: 160px;
       border-left: 0px;
       border-top-left-radius: 0px;
@@ -745,7 +801,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center; }
-  .sign-up-container[type="business"] .account-info input[name="email"], .sign-up-container[type="business"] .account-info input[name="password"] {
+  .sign-up-container[type="business"] .account-info input[name="_email"], .sign-up-container[type="business"] .account-info input[name="_password"] {
     margin-left: 12px; }
 
 .sign-up-container[type="business"] .owner-info {
@@ -832,3 +888,41 @@ footer {
   top: -9999px;
   left: -9999px;
   opacity: 0; }
+
+@media screen and (min-width: 600px) {
+  #err-msg-email {
+    color: navy; }
+  #err-msg-password {
+    color: #f00; }
+  span#password-error {
+    border: 1px solid red;
+    width: 190px;
+    font-size: 12px;
+    text-align: center; }
+  .login-btn {
+    width: 140px;
+    height: 40px;
+    background-color: #00BBFC;
+    font-family: Arial;
+    font-size: 100%;
+    font-weight: bold;
+    color: white;
+    border-radius: 4.5px;
+    overflow: hidden;
+    outline: 0px;
+    border: 3px solid #00b8ea;
+    margin-left: 10px; }
+    .login-btn:hover {
+      cursor: pointer;
+      background-color: #00c4f9; } }
+
+@media screen and (max-width: 601px) {
+  #err-msg-email {
+    color: navy; }
+  #err-msg-password {
+    color: #f00; }
+  span#password-error {
+    border: 1px solid red;
+    width: 190px;
+    font-size: 12px;
+    text-align: center; } }

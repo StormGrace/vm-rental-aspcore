@@ -9,9 +9,12 @@ $inputHeight: 24px;
 $inputBorderWidth: 2px;
 
 $inputHorGap:10px;
-$inputVerGap: 10px;
+$inputVerGap:10px;
 
 $stateCityWidth: ($inputWidth / 2);
+
+
+
 
 .sign-up-container-main {
     max-width: $maxSiteWidth / 2; //980px by Default Before Division
@@ -41,6 +44,19 @@ $stateCityWidth: ($inputWidth / 2);
         .login-btn {
             @include btn-style-1(140px, 34px);
             margin-left: 10px;
+        }
+
+        @media screen and (max-width:375px) {
+            h1 {
+                font-size: 12pt;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+            .login-btn {
+                @include btn-style-1(100px);
+                margin-left: 10px;
+            }
         }
     }
 
@@ -127,7 +143,6 @@ $stateCityWidth: ($inputWidth / 2);
 .sign-up-container[type="personal"], .sign-up-container[type="business"] {
     width: 100%;
     padding-top: 10px;
-
     //Every Form Section
     fieldset {
         padding: 12px 20px 20px 12px;
@@ -163,6 +178,10 @@ $stateCityWidth: ($inputWidth / 2);
             }
         }
 
+        input[type="email"].fielderror{
+            border:1px solid #f00;
+        }
+
         .row {
             display: flex;
             flex-wrap: wrap;
@@ -180,30 +199,81 @@ $stateCityWidth: ($inputWidth / 2);
     .account-info {
         display: flex;
         justify-content: center;
+        align-items: center;
 
-        input[name="email"], input[name="password"] {
+        input[name="_email"], input[name="_password"] {
             margin-left: 12px;
         }
+
+
+        #err-msg-email {
+            color: #f00;
+            display: flex;
+            justify-content: flex-end;
+            margin: -20px 0 30px 0;
+        }
+
+        #err-msg-password {
+            color: #f00;
+            display: flex;
+            justify-content: flex-end;
+            margin: -20px 0 30px 0;
+        }
+
+        span#password-error {
+            border: 1px solid red;
+            border-radius:30px;
+            width: 200px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media screen and (max-width:600px) {
+            #err-msg-email {
+                display: flex;
+                justify-content:flex-start;
+                color: #f00;
+                margin:0px 0px 0px 15px;
+            }
+            
+
+            #err-msg-password {
+                color: #f00;
+                display: flex;
+                justify-content: flex-start;
+                margin:0px 0px 0px 15px;
+            }
+
+            span#password-error {
+                border: 1px solid red;
+                width: 200px;
+                font-size: 12px;
+                text-align: center;
+            }
+        }
     }
+
+
+
 
     .personal-info {
         display: flex;
 
         .name-row {
 
-            input[name="firstname"] {
+            input[name="_firstname"] {
                 margin-right: $inputHorGap;
             }
         }
 
         .address-row {
 
-            input[name="state"],
-            input[name="city"] {
+            input[name="_state"],
+            input[name="_city"] {
                 margin-right: $inputHorGap;
             }
 
-            input[name="state"], input[name="city"] {
+            input[name="_state"], input[name="_city"] {
                 width: $stateCityWidth - 5px;
             }
         }
@@ -225,7 +295,7 @@ $stateCityWidth: ($inputWidth / 2);
                 box-sizing: border-box;
             }
 
-            input[name="phone"] {
+            input[name="_phone"] {
                 width: ($stateCityWidth * 2 + $inputHorGap) - 50px;
                 border-left: 0px;
                 border-top-left-radius: 0px;
@@ -264,9 +334,8 @@ $stateCityWidth: ($inputWidth / 2);
         display: flex;
         justify-content: center;
         align-items: center;
-
-
-        input[name="email"], input[name="password"] {
+        
+        input[name="_email"], input[name="_password"] {
             margin-left: 12px;
         }
     }
@@ -322,6 +391,7 @@ $stateCityWidth: ($inputWidth / 2);
                 border-top-left-radius: 0px;
                 border-bottom-left-radius: 0px;
             }
+
         }
     }
 
@@ -335,7 +405,7 @@ $stateCityWidth: ($inputWidth / 2);
             font-weight: bold;
             width: 290px;
             text-align: center;
- 
+
             a {
                 color: #3366BB;
             }
@@ -374,4 +444,45 @@ $stateCityWidth: ($inputWidth / 2);
     left: -9999px;
     opacity: 0;
 }
- 
+
+
+
+@media screen and (min-width:600px)
+{
+    #err-msg-email {
+        color: navy;
+    }
+
+    #err-msg-password {
+        color: #f00;
+    }
+
+    span#password-error {
+        border: 1px solid red;
+        width: 190px;
+        font-size: 12px;
+        text-align: center;
+    }
+        
+    .login-btn {
+            @include btn-style-1(140px);
+            margin-left: 10px;
+        }
+    
+}
+@media screen and (max-width:601px) {
+    #err-msg-email {
+        color: navy;
+    }
+
+    #err-msg-password {
+        color: #f00;
+    }
+
+    span#password-error {
+        border: 1px solid red;
+        width: 190px;
+        font-size: 12px;
+        text-align: center;
+    }
+}

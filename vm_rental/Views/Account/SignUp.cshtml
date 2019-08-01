@@ -6,6 +6,7 @@
 
 @section Scripts{
     <script src="@Url.Content("~/scripts/account_selection.js")"></script>
+    <script src="@Url.Content("~/scripts/sign-up.js")"></script>
 }
 <!--Sign Up-->
 <div class="sign-up-container-main">
@@ -38,15 +39,18 @@
             </div>
         </div>
         <!--Personal - Register Form-->
+
         <div class="sign-up-container" type="personal" active="false">
-            <form class="sign-up-form" asp-controller="Account" asp-action="Create">
+            <form class="sign-up-form"  id="sign-up-form-personal" asp-controller="Account" asp-action="Create">
                 <fieldset class="account-info">
                     <div class="form-header">
                         <h1>Account Information</h1>
                         <hr />
                     </div>
-                    <input type="email" placeholder="Email*" name="email" maxlength="254" />
-                    <input type="password" placeholder="Password*" name="password" maxlength="45" />
+                    <input type="email" placeholder="Email*" id="email" name="_email" />
+                    <span id="err-msg-email"></span>
+                    <input type="password" placeholder="Password*" id="password" name="_password" />
+                    <span id="err-msg-password"></span>
                 </fieldset>
                 <fieldset class="personal-info">
                     <div class="form-header">
@@ -54,26 +58,28 @@
                         <hr />
                     </div>
                     <div class="name-row row">
-                        <input type="text" placeholder="First Name*" name="firstname" maxlength="45" />
-                        <input type="text" placeholder="Last Name*" name="lastname" maxlength="45" />
+                        <input type="text" placeholder="First Name*" id="firstname" name="_firstname" />
+                        <input type="text" placeholder="Last Name*"  id="lastname" name="_lastname" />
                     </div>
                     <div class="address-row row">
-                        <input type="text" placeholder="State*" name="state" />
-                        <input type="text" placeholder="City*" name="city" />
-                        <input type="text" placeholder="Address*" name="address" />
+                        <input type="text" placeholder="State*"  name="_state" />
+                        <input type="text" placeholder="City*"  name="_city"/>
+                        <input type="text" placeholder="Address*"  name="_address" />
                     </div>
                     <div class="phone-row row">
                         <label class="country-code">+359</label>
-                        <input type="tel" placeholder="Mobile Phone*" name="phone" />
+                        <input type="tel" placeholder="Mobile Phone*" id="phone" name="_phone" />
+                        <span id="err-msg-phone"></span>
                     </div>
                 </fieldset>
                 <!--Terms and Sign Up Button-->
                 <div class="sign-up-info">
                     <p>By Clicking Sign Up, I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
-                    <button type="submit" class="sign-up-btn">Sign Up</button>
+                    <button id="btnSubmit" type="submit" class="sign-up-btn">Sign Up</button>
                 </div>
             </form>
         </div>
+
         <!--Business - Register Form-->
         <div class="sign-up-container" type="business" active="false">
             <form class="sign-up-form" asp-controller="Account" asp-action="Create">
@@ -82,8 +88,8 @@
                         <h1>Account Information</h1>
                         <hr />
                     </div>
-                    <input type="email" placeholder="Email*" name="email" maxlength="254" />
-                    <input type="password" placeholder="Password*" name="password" maxlength="45" />
+                    <input type="email" placeholder="Email*"  name="_email" />
+                    <input type="password" placeholder="Password*" name="_password" />
                 </fieldset>
                 <fieldset class="owner-info">
                     <div class="form-header">
@@ -91,8 +97,8 @@
                         <hr />
                     </div>
                     <div class="name-row row">
-                        <input type="text" placeholder="First Name*" name="firstname" maxlength="45" />
-                        <input type="text" placeholder="Last Name*" name="lastname" maxlength="45" />
+                        <input type="text" placeholder="First Name*" name="firstname"  />
+                        <input type="text" placeholder="Last Name*" name="lastname" />
                     </div>
                 </fieldset>
                 <fieldset class="company-info">
@@ -101,7 +107,7 @@
                         <hr />
                     </div>
                     <div class="company-details-row1 row">
-                        <input type="text" placeholder="Company Name*" name="companyname" maxlength="45" />
+                        <input type="text" placeholder="Company Name*" name="companyname" />
                         <div class="sub-row">
                             <input type="text" placeholder="State*" name="state" />
                             <input type="text" placeholder="City*" name="city" />
@@ -124,5 +130,5 @@
         </div>
     </div>
 </div>
-    
-   
+
+
