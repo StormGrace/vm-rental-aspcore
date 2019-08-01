@@ -13,9 +13,6 @@ $inputVerGap:10px;
 
 $stateCityWidth: ($inputWidth / 2);
 
-
-
-
 .sign-up-container-main {
     max-width: $maxSiteWidth / 2; //980px by Default Before Division
     width: 100%;
@@ -444,8 +441,6 @@ $stateCityWidth: ($inputWidth / 2);
     left: -9999px;
     opacity: 0;
 }
-
-
 
 @media screen and (min-width:600px)
 {
