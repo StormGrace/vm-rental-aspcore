@@ -16,6 +16,7 @@
 
     onTypeChange();
 
+
     $($buttons).click(function(){    
         if($(this).is($personalButton)){
             $isBusinessType = false;
@@ -62,4 +63,6 @@
             $form.fadeIn("slow");
         });
     }
+    
+
 });

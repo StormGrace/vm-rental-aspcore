@@ -520,6 +520,9 @@ footer {
       background-color: aqua;
       cursor: pointer; }
 
+.error {
+  color: #ef3535; }
+
 .login {
   display: flex;
   align-items: center;
@@ -673,6 +676,10 @@ footer {
     width: 280px;
     margin: 0 auto;
     margin-bottom: 12px; }
+  .acc-form .acc-form__field-msg-personal {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; }
   .acc-form__terms {
     margin-top: 10px; }
     .acc-form__terms p {

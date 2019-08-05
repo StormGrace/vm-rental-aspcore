@@ -2,9 +2,8 @@
     var minChar = 8;
     var maxChar = 30;
     var maxName = 50;
-    var maxPhone = 10;
+    var maxPhone = 9;
 
-   
     // Валидация за емайл
     $('input[name=email]').keypress(function (event) {
         var ew = event.which;
@@ -14,6 +13,28 @@
             return true;
         if (48 <= ew && ew <= 57)
             return true;
+        if (64 <= ew && ew <= 90)
+            return true;
+        if (97 <= ew && ew <= 122)
+            return true;
+        return false;
+    });
+
+    //Валидация за потребителско име 
+    $('input[name=username]').keypress(function (event) {
+        var ew = event.which;
+        if (48 <= ew && ew <= 57)
+            return true;
+        if (64 <= ew && ew <= 90)
+            return true;
+        if (97 <= ew && ew <= 122)
+            return true;
+        return false;
+    });
+
+    //Валидация за името на фирмата
+    $('input[name=firmname]').keypress(function (event) {
+        var ew = event.which;
         if (64 <= ew && ew <= 90)
             return true;
         if (97 <= ew && ew <= 122)
@@ -78,6 +99,17 @@
         }
     });
 
+    //Валидация за име на фирма -> започва с главна буква
+    $('input[name = firmname]').on('keydown', function (event) {
+        if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
+            var $t = $(this);
+            event.preventDefault();
+            var char = String.fromCharCode(event.keyCode);
+            $t.val(char + $t.val().slice(this.selectionEnd));
+            this.setSelectionRange(1, 1);
+        }
+    });
+
     //Валидация за фамилно име започва с главна буква
     $('input[name = lastname]').on('keydown', function (event) {
         if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
@@ -88,7 +120,6 @@
             this.setSelectionRange(1, 1);
         }
     });
-
 
 
     // добавен метод за емайл
@@ -113,9 +144,9 @@
 
 
 
-    $("#sign-up-form-personal").validate({
+    $('form[form-type=personal]').validate({
         errorElement: 'span',
-        errorClass: "fielderror",
+        errorClass: 'has-error',
         ignoreTitle: true,
         rules: {
             email: {
@@ -125,7 +156,10 @@
                 validate_password: true,
                 minlength: minChar,
                 maxlength: maxChar
-
+            },
+            username: {
+                required: true,
+                maxlength: maxName
             },
             firstname: {
                 required: true,
@@ -141,20 +175,27 @@
             city: {
                 required: true,
             },
-            address: {
+            firmname: {
                 required: true,
+                maxlength: maxName
+            },
+            firmemail: {
+                validate_email:true
             },
             phone: {
                 required: true,
-                maxlength: maxPhone,
+                minlength: maxPhone,
+                maxlength: maxPhone
             }
-
         },
 
         errorPlacement: function (error, element) {
             var name = $(element).attr("name");
-            if (name === "email" || name === "password" || name == "phone") {
-                error.appendTo(element.next());
+            if (name == "email" || name == "password" || name == "username") {
+                error.appendTo(element.parent().next());
+            }
+            else if (name == "firstname" || name=="lastname" || name=="firmname" || name=="firmemail" || name=="phone" || name=="state" || name=="city") {
+                error.appendTo(element.parents().find(".acc-form__field-msg-personal"));
             }
             else {
                 error.insertAfter(element);
@@ -164,27 +205,51 @@
 
         messages: {
             password: {
-                validate_password: "Password must contain 0-9, a-z, A-Z and _characters only."
+                validate_password: "Password must be at least 8 characters long and contain at least one 0-9, a-z, A-Z and special characters."
             },
             phone: {
-                required: "Phone number isn't Specified."
+                required: "Phone number isn't Specified.",
+                minlength: "Phone number must contain 9 characters.",
+                maxlength: "Phone number is not correct."
+            },
+            username: {
+                required: "Please enter a username."
             },
             firstname: {
-                required: ""
+                required: "Please enter firstname."
             },
             lastname: {
-                required: ""
+                required: "Please enter lastname."
+            },
+            firmname: {
+                required:"Please enter firmname."
+            },
+            firmemail: {
+                required:"Please enter firm-email."
             },
             state: {
-                required: ""
+                required: "Please enter state."
             },
             city:{
-                required:""
+                required:"Please enter city."
             },
-            address: {
-                required:""
+            email: {
+                required:"Please enter email."
             }
+
         }
+
+    });
+
+    var validator = $('form[form-type=personal]').validate();
+    $(".acc-type__button--personal").click(function () {
+        validator.resetForm();       //Рестартира формата, но не оправя проблема с дупликирането на еррор съобщенията.
+        $(".has-error").remove();    //Премахва зададения клас във кода на ред 152 за да не позволи дупликирането на еррор съобшенията
+    });
+
+    $(".acc-type__button--business").click(function () {
+        validator.resetForm(); 
+        $(".has-error").remove();
     });
 
 });

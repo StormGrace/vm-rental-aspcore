@@ -6,6 +6,11 @@ $inputBorderWidth: 2px;
 $stateCityWidth: ($inputWidth / 2);
 
 
+.error{
+    color:#ef3535;
+}
+
+
 .login {
     display: flex;
     align-items: center;
@@ -206,6 +211,12 @@ $stateCityWidth: ($inputWidth / 2);
         margin-bottom: 12px;
     }
 
+    .acc-form__field-msg-personal {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
     &__terms {
         margin-top: $inputVerGap;
 
@@ -228,7 +239,7 @@ $stateCityWidth: ($inputWidth / 2);
 
     .acc-form__field[name="username"],
     .acc-form__field[name="email"],
-    .acc-form__field[name="password"]{
+    .acc-form__field[name="password"] {
         margin-right: 15px;
     }
 
