@@ -45,7 +45,7 @@ namespace vm_rental.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ClientViewModel clientVM)
+        public IActionResult SignUp(ClientViewModel clientVM)
         {
             ClientValidator clientValidator = new ClientValidator();
             ValidationResult clientValdiationResult = clientValidator.Validate(clientVM);
@@ -65,8 +65,8 @@ namespace vm_rental.Controllers
                 };
 
                 clientHistory = new ClientHistory(clientVM.firmName, (clientVM.firstName + " " + clientVM.lastName),
-                                                 clientVM.email, clientVM.phone, clientVM.firmNumber,
-                                                 clientVM.state, clientVM.city, clientVM.address)
+                                                 clientVM.firmEmail, clientVM.phone, "N/A",
+                                                 clientVM.state, clientVM.city, "N/A")
                 {
                     ClientClient = client,
                     CreatedByNavigation = user

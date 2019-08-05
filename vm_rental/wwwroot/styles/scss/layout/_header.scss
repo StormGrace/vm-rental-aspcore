@@ -1,12 +1,10 @@
 header {
     display: grid;
-    grid-template-rows: 64px auto 22px;
+    grid-template-rows: 64px auto auto;
     background-color: $headerColor;
-    //border: 1.5px solid red;
-    .header-wrapper {
-        //border: 2px solid red;
-        background-color: white;
 
+    .header-wrapper {
+        background-color: white;
 
         .header-wrapper-inner {
             display: grid;
@@ -36,7 +34,7 @@ header {
     }
 
     .header-mid {
-        height: 55px;
+        height: 50px;
         background-color: #0091d1;
     }
 

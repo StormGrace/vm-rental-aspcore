@@ -4,8 +4,7 @@
     var maxName = 50;
     var maxPhone = 10;
 
-    
-
+   
     // Валидация за емайл
     $('input[name=email]').keypress(function (event) {
         var ew = event.which;

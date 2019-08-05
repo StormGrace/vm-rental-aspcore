@@ -6,6 +6,7 @@
 
 ///////*Base*//////
 @import "base/reset";
+@import "base/normalizer";
 @import "base/typography";
 //////////////////
 
@@ -22,11 +23,14 @@
 @import "components/header/util/lang_bar";
 @import "components/header/util/lang_dropdown";
 
+@import "components/forms/sign_up_form";
+
 ///*Header - Middle*///
 @import "components/header/nav/nav_bar";
 ///////////////////////
 
 
 @import "pages/_index";
-@import "pages/_sign_up";
+@import "pages/sign/sign_up";
+@import "pages/sign/sign_in";
 

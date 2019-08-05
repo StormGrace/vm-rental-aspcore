@@ -1,28 +1,65 @@
 ﻿$(document).ready(function(){
-    $account_type_btns = $(".account-type-btn");
+    $isBusinessByDefault = false;
 
-    $sign_up_form_personal = $(".sign-up-container[type='personal']");
-    $sign_up_form_business = $(".sign-up-container[type='business']");
- 
-    $isPersonal = true;
-    $isContainerToggled = false;
+    $form = $(".acc-form");
+    $buttons = $(".acc-type__button");
 
-    $($account_type_btns).click(function(){
-        if($(this).hasClass("personal-btn")){
-              $isPersonal = true;
-              $(this).attr('active', true);
-              $(".business-btn").attr('active', false);
-              $sign_up_form_personal.attr('active', true);
-              $sign_up_form_business.attr('active', false);
-                
+    $personalButton = $buttons.get(0);
+    $businessButton = $buttons.get(1);
+
+    $personalFields = $(".acc-form__field-section[section-type='personal']");
+    $businessFields = $(".acc-form__field-section[section-type='business']");
+    
+    $isBusinessType = false;
+  
+    $lastSelected = null;
+
+    onTypeChange();
+
+    $($buttons).click(function(){    
+        if($(this).is($personalButton)){
+            $isBusinessType = false;
+            $lastSelected = $personalButton;
         }
-        else if($(this).hasClass("business-btn")){
-              $isPersonal = false;
-              $(this).attr('active', true);
-              $(".personal-btn").attr('active', false);
-              $sign_up_form_personal.attr('active', false);
-              $sign_up_form_business.attr('active', true);
-        }   
-            $('html,body').animate({scrollTop: $(this).offset().top}, 500);
+        else if($(this).is($businessButton)){
+            $isBusinessType = true;
+            $lastSelected = $businessButton;
+        }
+        
+        onTypeChange($isBusinessType)
+
+        $('html,body').animate({scrollTop: $(this).offset().top}, 700);
     });
+
+    function onTypeChange($isBusinessType){
+            if(!$isBusinessType){
+                $($personalButton).addClass("acc-type__button--active");
+                $($businessButton).removeClass("acc-type__button--active")
+           
+                 $form.attr('form-type', 'personal');
+
+                 switchFields($businessFields, $personalFields);
+
+                 $isBusinessType = false;
+            
+        }else{
+                $($businessButton).addClass("acc-type__button--active");
+                $($personalButton).removeClass("acc-type__button--active")
+
+                $form.attr('form-type', 'business');
+
+                switchFields($personalFields, $businessFields);
+
+                $isBusinessType = true;
+            }
+    }
+
+    function switchFields($fieldsToHide, $fieldsToShow){
+        $form.fadeOut("fast", function() {
+            $fieldsToHide.hide();
+            $fieldsToShow.show();
+                
+            $form.fadeIn("slow");
+        });
+    }
 });

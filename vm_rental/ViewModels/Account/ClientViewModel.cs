@@ -10,6 +10,7 @@ namespace vm_rental.ViewModels.Account
     {
         [Required]
         [MinLength(3, ErrorMessage="There most be more characters")]
+        public string userName { get; set; }
         public string email { get; set; }
         public string password { get; set; }
         public string firstName { get; set; }
@@ -18,9 +19,8 @@ namespace vm_rental.ViewModels.Account
         public string city { get; set; }
         public string address { get; set; }
         public string phone { get; set; }
-        public string firmName { get; set; }
-        public string firmNumber { get; set; }
-        public string firmVAT { get; set; }
+        public string firmName { get; set; }     
+        public string firmEmail { get; set; }
 
         public bool _isBusinessClient = false;
 
@@ -39,7 +39,7 @@ namespace vm_rental.ViewModels.Account
                       if(firmName == null && (firstName != null && lastName != null))
                       {
                           firmName = firstName + " " + lastName;
-                          firmNumber = "999999999";
+                          firmEmail = email;
                       }
                   }
              }

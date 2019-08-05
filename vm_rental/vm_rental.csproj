@@ -9,15 +9,19 @@
     <Compile Remove="Data\Interfaces\**" />
     <Compile Remove="wwwroot\scss\**" />
     <Compile Remove="wwwroot\styles\css\**" />
+    <Compile Remove="wwwroot\styles\scss\components\main\**" />
     <Content Remove="Data\Interfaces\**" />
     <Content Remove="wwwroot\scss\**" />
     <Content Remove="wwwroot\styles\css\**" />
+    <Content Remove="wwwroot\styles\scss\components\main\**" />
     <EmbeddedResource Remove="Data\Interfaces\**" />
     <EmbeddedResource Remove="wwwroot\scss\**" />
     <EmbeddedResource Remove="wwwroot\styles\css\**" />
+    <EmbeddedResource Remove="wwwroot\styles\scss\components\main\**" />
     <None Remove="Data\Interfaces\**" />
     <None Remove="wwwroot\scss\**" />
     <None Remove="wwwroot\styles\css\**" />
+    <None Remove="wwwroot\styles\scss\components\main\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,10 +37,6 @@
     <None Remove="NewFile2.txt" />
     <None Remove="Views\Account\NewFile.txt" />
     <None Remove="Views\Shared\NewFile.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\styles\scss\main.min.css" />
   </ItemGroup>
 
 
@@ -58,7 +58,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Model\" />
-    <Folder Include="wwwroot\styles\scss\components\main\sign_up\" />
   </ItemGroup>
 
 </Project>
