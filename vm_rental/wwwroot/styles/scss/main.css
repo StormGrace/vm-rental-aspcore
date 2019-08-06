@@ -625,14 +625,16 @@ footer {
     border: 0.5px solid #DDDDDD; }
   .acc-form__field-row {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
     margin-left: 12px;
     margin-top: 10px; }
   .acc-form__field-subrow {
-    display: flex; }
+    display: flex;
+    justify-content: space-between;
+    width: 50%; }
   .acc-form__field {
-    width: 200px;
-    height: auto;
+    width: 100%;
+    height: 24px;
     border: 2px solid #DDDDDD;
     border-radius: 3px;
     box-sizing: border-box;
@@ -644,9 +646,7 @@ footer {
       outline: 2px solid #00abd3; }
   .acc-form__field-msg {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
+    width: 50%;
     border: 1px solid #ef3535;
     border-radius: 12px;
     padding: 0 10px;
@@ -658,28 +658,29 @@ footer {
     border-left: 0;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px; }
+  .acc-form__field-subrow-phone {
+    justify-content: normal;
+    width: 48%; }
+  .acc-form__field-subrow-address {
+    width: 48%; }
   .acc-form__country-code {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+    width: 80px;
     border: 2px solid #DDDDDD;
     border-radius: 2px 0px 0px 2px;
     box-sizing: border-box;
     font-weight: bold;
     color: dodgerblue;
     background-color: #FCFCFC; }
-  .acc-form__field-msg-personal {
+  .acc-form__field-msg-personal, .acc-form__field-msg-business {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    width: 280px;
+    width: 50%;
     margin: 0 auto;
     margin-bottom: 12px; }
-  .acc-form .acc-form__field-msg-personal {
-    display: flex;
-    justify-content: center;
-    flex-direction: column; }
   .acc-form__terms {
     margin-top: 10px; }
     .acc-form__terms p {
@@ -705,20 +706,16 @@ footer {
     .acc-form__signup-button:hover {
       cursor: pointer;
       background-color: #00c4f9; }
-  .acc-form .acc-form__field[name="username"],
-  .acc-form .acc-form__field[name="email"],
-  .acc-form .acc-form__field[name="password"] {
-    margin-right: 15px; }
   .acc-form .acc-form__field[name="firstname"],
-  .acc-form .acc-form__field[name="state"],
-  .acc-form .acc-form__field[name="city"],
-  .acc-form .acc-form__field[name="firmname"] {
-    margin-right: 10px; }
+  .acc-form .acc-form__field[name="lastname"] {
+    width: 48%; }
   .acc-form .acc-form__field[name="state"],
   .acc-form .acc-form__field[name="city"] {
-    width: 95px; }
+    flex-wrap: wrap;
+    width: 46%;
+    justify-content: space-between; }
   .acc-form .acc-form__field[name="phone"] {
-    width: 150px; }
+    flex-grow: 1; }
   .acc-form__field-section[section-type="business"] {
     display: none; }
 

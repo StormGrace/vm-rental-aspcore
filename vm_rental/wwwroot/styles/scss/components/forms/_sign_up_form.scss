@@ -6,6 +6,8 @@ $inputBorderWidth: 2px;
 $stateCityWidth: ($inputWidth / 2);
 
 
+//Future Media Queries Should Break- At 500 - 540px;
+
 .error{
     color:#ef3535;
 }
@@ -141,13 +143,15 @@ $stateCityWidth: ($inputWidth / 2);
 
     &__field-row {
         display: flex;
-        flex-wrap: wrap;
+        justify-content: space-between;
         margin-left: 12px;
         margin-top: 10px;
     }
 
     &__field-subrow {
         display: flex;
+        justify-content: space-between;
+        width: 50%;
     }
 
     &__field {
@@ -160,8 +164,8 @@ $stateCityWidth: ($inputWidth / 2);
             outline: 2px solid #00abd3;
         }
 
-        width: $inputWidth;
-        height: auto;
+        width: 100%;
+        height: $inputHeight;
         border: $inputBorderWidth solid #DDDDDD;
         border-radius: 3px;
         box-sizing: border-box;
@@ -171,9 +175,7 @@ $stateCityWidth: ($inputWidth / 2);
 
     &__field-msg {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 1;
+        width: 50%;
         border: 1px solid #ef3535;
         border-radius: 12px;
         padding: 0 10px;
@@ -189,11 +191,20 @@ $stateCityWidth: ($inputWidth / 2);
         border-bottom-left-radius: 0px;
     }
 
+    &__field-subrow-phone {
+        justify-content: normal;
+        width: 48%;
+    }
+
+    &__field-subrow-address {
+        width: 48%;
+    }
+
     &__country-code {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 50px;
+        width: 80px;
         border: $inputBorderWidth solid #DDDDDD;
         border-radius: 2px 0px 0px 2px;
         box-sizing: border-box;
@@ -202,19 +213,13 @@ $stateCityWidth: ($inputWidth / 2);
         background-color: #FCFCFC;
     }
 
-    &__field-msg-personal {
+    &__field-msg-personal, &__field-msg-business {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
-        width: 280px;
+        width: 50%;
         margin: 0 auto;
         margin-bottom: 12px;
-    }
-
-    .acc-form__field-msg-personal {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
     }
 
     &__terms {
@@ -237,26 +242,20 @@ $stateCityWidth: ($inputWidth / 2);
         margin-top: 20px;
     }
 
-    .acc-form__field[name="username"],
-    .acc-form__field[name="email"],
-    .acc-form__field[name="password"] {
-        margin-right: 15px;
-    }
-
     .acc-form__field[name="firstname"],
-    .acc-form__field[name="state"],
-    .acc-form__field[name="city"],
-    .acc-form__field[name="firmname"] {
-        margin-right: $inputHorGap;
+    .acc-form__field[name="lastname"] {
+        width: 48%;
     }
 
     .acc-form__field[name="state"],
     .acc-form__field[name="city"] {
-        width: $stateCityWidth - 5px;
+        flex-wrap: wrap;
+        width: 46%;
+        justify-content: space-between;
     }
 
     .acc-form__field[name="phone"] {
-        width: ($stateCityWidth * 2 + $inputHorGap) - 60px;
+        flex-grow: 1;
     }
 
     &__field-section[section-type="business"] {

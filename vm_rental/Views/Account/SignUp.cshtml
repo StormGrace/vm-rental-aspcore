@@ -75,9 +75,11 @@
                     <input type="text" placeholder="Last Name*" class="acc-form__field" name="lastname" asp-for="lastName" />
                 </div>
                 <div class="acc-form__field-row">
-                    <input type="text" placeholder="State*" class="acc-form__field" name="state" asp-for="state" />
-                    <input type="text" placeholder="City*" class="acc-form__field" name="city" asp-for="city" />
-                    <div class="acc-form__field-subrow">
+                    <div class="acc-form__field-subrow acc-form__field-subrow-address">
+                        <input type="text" placeholder="State*" class="acc-form__field" name="state" asp-for="state" />
+                        <input type="text" placeholder="City*" class="acc-form__field" name="city" asp-for="city" />
+                    </div>
+                    <div class="acc-form__field-subrow acc-form__field-subrow-phone">
                         <span class="acc-form__country-code">+359</span>
                         <input type="tel" placeholder="Mobile Phone*" class="acc-form__field" name="phone" asp-for="phone" />
                     </div>
@@ -90,22 +92,23 @@
                 </div>
                 <div class="acc-form__field-row">
                     <input type="text" placeholder="Business Name*" class="acc-form__field" name="firmname" asp-for="firmName" />
-                    <input type="text" placeholder="Business Email*" class="acc-form__field" name="firmemail" asp-for="firmEmail" />
                 </div>
                 <div class="acc-form__field-row">
                     <input type="text" placeholder="Owner's First Name*" class="acc-form__field" name="firstname" asp-for="firstName" />
                     <input type="text" placeholder="Owner's Last Name*" class="acc-form__field" name="lastname" asp-for="lastName" />
                 </div>
                 <div class="acc-form__field-row">
-                    <input type="text" placeholder="State*" class="acc-form__field" name="state" asp-for="state" />
-                    <input type="text" placeholder="City*" class="acc-form__field" name="city" asp-for="city" />
-                    <div class="acc-form__field-subrow">
+                    <div class="acc-form__field-subrow acc-form__field-subrow-address">
+                        <input type="text" placeholder="State*" class="acc-form__field" name="state" asp-for="state" />
+                        <input type="text" placeholder="City*" class="acc-form__field" name="city" asp-for="city" />
+                    </div>
+                    <div class="acc-form__field-subrow acc-form__field-subrow-phone">
                         <span class="acc-form__country-code">+359</span>
                         <input type="tel" placeholder="Mobile Phone*" class="acc-form__field" name="phone" asp-for="phone" />
                     </div>
                 </div>
             </div>
-            <span class="acc-form__field-msg-personal acc-form__field-msg"></span>
+            <span class="acc-form__field-msg-personal acc-form__field-msg-business acc-form__field-msg"></span>
             <div class="acc-form__terms">
                 <p>By Clicking Sign Up, You agree to the</p>
                 <p><a href="#"><i>Terms of Service</i></a> and <a href="#"><i>Privacy Policy</i></a>.</p>
