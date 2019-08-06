@@ -22,8 +22,7 @@ namespace vm_rental.Data.Repository
                  clientVM.email, 
                  clientVM.phone, 
                  clientVM.state,
-                 clientVM.city, 
-                 clientVM.address, 
+                 clientVM.city,
                  Convert.ToByte(clientVM.isBusinessClient))
             {
                 Client = client,

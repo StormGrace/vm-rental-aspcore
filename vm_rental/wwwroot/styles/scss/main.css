@@ -625,14 +625,29 @@ footer {
     border: 0.5px solid #DDDDDD; }
   .acc-form__field-row {
     display: flex;
-    justify-content: space-between;
     margin-left: 12px;
-    margin-top: 10px; }
+    margin-top: 10px;
+    justify-content: space-between; }
   .acc-form__field-subrow {
     display: flex;
-    justify-content: space-between;
-    width: 50%; }
+    width: 100%;
+    height: 100%; }
+    .acc-form__field-subrow--half {
+      flex-wrap: wrap;
+      width: calc(50% - 2%); }
+    .acc-form__field-subrow--2x1 {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%; }
+      .acc-form__field-subrow--2x1 * {
+        flex-direction: column;
+        flex-basis: calc(50% - 2%); }
+      .acc-form__field-subrow--2x1--half {
+        width: calc(50% - 2%); }
   .acc-form__field {
+    outline-width: 2px;
     width: 100%;
     height: 24px;
     border: 2px solid #DDDDDD;
@@ -643,47 +658,33 @@ footer {
     .acc-form__field::placeholder {
       color: #BCBCBC; }
     .acc-form__field:focus {
-      outline: 2px solid #00abd3; }
+      outline-color: #00abd3; }
   .acc-form__field-msg {
     display: flex;
+    justify-content: center;
     align-items: center;
-    width: 50%;
-    border: 1px solid #ef3535;
+    width: 100%;
+    border: 1.2px solid #ef3535;
     border-radius: 12px;
     padding: 0 10px;
     font-size: 0.8em;
     font-style: italic;
     font-weight: bold;
     background-color: #f7f7f7; }
-  .acc-form__field[name="phone"] {
-    border-left: 0;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px; }
-  .acc-form__field-subrow-phone {
-    justify-content: normal;
-    width: 48%; }
-  .acc-form__field-subrow-address {
-    width: 48%; }
   .acc-form__country-code {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 80px;
+    height: 24px;
     border: 2px solid #DDDDDD;
     border-radius: 2px 0px 0px 2px;
     box-sizing: border-box;
     font-weight: bold;
     color: dodgerblue;
     background-color: #FCFCFC; }
-  .acc-form__field-msg-personal, .acc-form__field-msg-business {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 50%;
-    margin: 0 auto;
-    margin-bottom: 12px; }
   .acc-form__terms {
-    margin-top: 10px; }
+    padding: 10px 0 20px 0; }
     .acc-form__terms p {
       text-align: center;
       font-weight: bold;
@@ -702,23 +703,19 @@ footer {
     overflow: hidden;
     outline: 0px;
     border: 3px solid #00b8ea;
-    width: 100%;
-    margin-top: 20px; }
+    width: 100%; }
     .acc-form__signup-button:hover {
       cursor: pointer;
       background-color: #00c4f9; }
-  .acc-form .acc-form__field[name="firstname"],
-  .acc-form .acc-form__field[name="lastname"] {
-    width: 48%; }
-  .acc-form .acc-form__field[name="state"],
-  .acc-form .acc-form__field[name="city"] {
-    flex-wrap: wrap;
-    width: 46%;
-    justify-content: space-between; }
-  .acc-form .acc-form__field[name="phone"] {
-    flex-grow: 1; }
+  .acc-form__field[name="phone"] {
+    border-left: 0;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px; }
   .acc-form__field-section[section-type="business"] {
     display: none; }
+
+.acc-form__field--error {
+  outline: 2px solid red; }
 
 .nav-bar-wrapper {
   height: auto;

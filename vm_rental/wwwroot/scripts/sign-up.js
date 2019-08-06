@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var minChar = 8;
-    var maxChar = 30;
+    var maxChar = 100;
     var maxName = 50;
     var maxPhone = 9;
 
@@ -130,7 +130,7 @@
         } else {
             return false;
         }
-    }, "Please enter a valid Email.");
+    }, "Please enter a valid Email Address.");
 
     // добавен метод за паролата
     jQuery.validator.addMethod("validate_password", function (value) {
@@ -191,6 +191,16 @@
 
         errorPlacement: function (error, element) {
             var name = $(element).attr("name");
+
+                if($(element).hasClass("has-error")){
+                    $(element).addClass("acc-form__field--error");
+                    $(element.next()).show();
+                }else{
+                    $(element).removeClass("has-error");
+                    $(element).removeClass("acc-form__field--error");
+                    $(element.parent().next()).hide();
+                }    
+
             if (name == "email" || name == "password" || name == "username") {
                 error.appendTo(element.parent().next());
             }
@@ -200,7 +210,7 @@
             else {
                 error.insertAfter(element);
             }
-
+            
         },
 
         messages: {
@@ -213,35 +223,32 @@
                 maxlength: "Phone number is not correct."
             },
             username: {
-                required: "Please enter a username."
+                required: "Please enter a Username."
             },
             firstname: {
-                required: "Please enter firstname."
+                required: "Please enter your First Name."
             },
             lastname: {
-                required: "Please enter lastname."
+                required: "Please enter your Last Name."
             },
             firmname: {
-                required:"Please enter firmname."
-            },
-            firmemail: {
-                required:"Please enter firm-email."
+                required:"Please enter your Business Name."
             },
             state: {
-                required: "Please enter state."
+                required: "Please enter a State."
             },
             city:{
-                required:"Please enter city."
+                required:"Please enter a City."
             },
             email: {
-                required:"Please enter email."
+                required:"Please enter an Email Address."
             }
 
         }
-
     });
 
     var validator = $('form[form-type=personal]').validate();
+
     $(".acc-type__button--personal").click(function () {
         validator.resetForm();       //Рестартира формата, но не оправя проблема с дупликирането на еррор съобщенията.
         $(".has-error").remove();    //Премахва зададения клас във кода на ред 152 за да не позволи дупликирането на еррор съобшенията

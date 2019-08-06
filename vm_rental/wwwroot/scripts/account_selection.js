@@ -20,11 +20,9 @@
     $($buttons).click(function(){    
         if($(this).is($personalButton)){
             $isBusinessType = false;
-            $lastSelected = $personalButton;
         }
         else if($(this).is($businessButton)){
             $isBusinessType = true;
-            $lastSelected = $businessButton;
         }
         
         onTypeChange($isBusinessType)
@@ -42,7 +40,7 @@
                  switchFields($businessFields, $personalFields);
 
                  $isBusinessType = false;
-            
+                
         }else{
                 $($businessButton).addClass("acc-type__button--active");
                 $($personalButton).removeClass("acc-type__button--active")

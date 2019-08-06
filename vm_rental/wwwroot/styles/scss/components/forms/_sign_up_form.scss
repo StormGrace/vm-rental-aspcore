@@ -1,9 +1,9 @@
 ﻿$inputWidth: 200px;
 $inputHeight: 24px;
+$inputHorSpacing: 2%;
 $inputVerGap: 10px;
-$inputHorGap: 10px;
 $inputBorderWidth: 2px;
-$stateCityWidth: ($inputWidth / 2);
+ 
 
 //BEM - Naming Convention
 //Future Media Queries Should Break- At 500 - 540px;
@@ -118,6 +118,7 @@ $stateCityWidth: ($inputWidth / 2);
         }
     }
 
+
 .acc-form {
     width: 100%;
     padding-top: 10px;
@@ -141,26 +142,50 @@ $stateCityWidth: ($inputWidth / 2);
 
     &__field-row {
         display: flex;
-        justify-content: space-between;
         margin-left: 12px;
         margin-top: 10px;
+        justify-content: space-between;
     }
 
     &__field-subrow {
         display: flex;
-        justify-content: space-between;
-        width: 50%;
+        width: 100%;
+        height: 100%;
+
+        &--half {
+            flex-wrap: wrap;
+            width: calc(50% - #{$inputHorSpacing});
+        }
+
+        &--2x1 {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+
+            * {
+                flex-direction: column;
+                flex-basis: calc(50% - #{$inputHorSpacing});
+            }
+
+            &--half {
+                width: calc(50% - #{$inputHorSpacing});
+            }
+        }
     }
 
     &__field {
+        outline-width: 2px;
 
         &::placeholder {
             color: #BCBCBC;
         }
 
         &:focus {
-            outline: 2px solid #00abd3;
+            outline-color: #00abd3;
         }
+
 
         width: 100%;
         height: $inputHeight;
@@ -173,9 +198,10 @@ $stateCityWidth: ($inputWidth / 2);
 
     &__field-msg {
         display: flex;
-        align-items:center;
-        width: 50%;
-        border: 1px solid #ef3535;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border: 1.2px solid #ef3535;
         border-radius: 12px;
         padding: 0 10px;
         font-size: 0.8em;
@@ -184,26 +210,13 @@ $stateCityWidth: ($inputWidth / 2);
         background-color: #f7f7f7;
     }
 
-    &__field[name="phone"] {
-        border-left: 0;
-        border-top-left-radius: 0px;
-        border-bottom-left-radius: 0px;
-    }
-
-    &__field-subrow-phone {
-        justify-content: normal;
-        width: 48%;
-    }
-
-    &__field-subrow-address {
-        width: 48%;
-    }
 
     &__country-code {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 80px;
+        height: $inputHeight;
         border: $inputBorderWidth solid #DDDDDD;
         border-radius: 2px 0px 0px 2px;
         box-sizing: border-box;
@@ -212,17 +225,8 @@ $stateCityWidth: ($inputWidth / 2);
         background-color: #FCFCFC;
     }
 
-    &__field-msg-personal, &__field-msg-business {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 50%;
-        margin: 0 auto;
-        margin-bottom: 12px;
-    }
-
     &__terms {
-        margin-top: $inputVerGap;
+        padding: 10px 0 20px 0;
 
         p {
             text-align: center;
@@ -238,26 +242,18 @@ $stateCityWidth: ($inputWidth / 2);
     &__signup-button {
         @include btn-style-1(180px, 50px, 15pt, 0px);
         width: 100%;
-        margin-top: 20px;
     }
 
-    .acc-form__field[name="firstname"],
-    .acc-form__field[name="lastname"] {
-        width: 48%;
-    }
-
-    .acc-form__field[name="state"],
-    .acc-form__field[name="city"] {
-        flex-wrap: wrap;
-        width: 46%;
-        justify-content: space-between;
-    }
-
-    .acc-form__field[name="phone"] {
-        flex-grow: 1;
+    &__field[name="phone"] {
+        border-left: 0;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
     }
 
     &__field-section[section-type="business"] {
         display: none;
     }
+}
+.acc-form__field--error{
+    outline: 2px solid red;
 }
