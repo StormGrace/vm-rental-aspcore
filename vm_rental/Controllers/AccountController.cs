@@ -51,40 +51,12 @@ namespace vm_rental.Controllers
             ValidationResult clientValdiationResult = clientValidator.Validate(clientVM);
 
             if (clientValdiationResult.IsValid)
-            {
-                User user;
-                Client client;
-                ClientHistory clientHistory;
-                UserHistory userHistory;
-
-                client = new Client();
-
-                user = new User()
-                {
-                    ClientClient = client
-                };
-
-                clientHistory = new ClientHistory(clientVM.firmName, (clientVM.firstName + " " + clientVM.lastName),
-                                                 clientVM.firmEmail, clientVM.phone, "N/A",
-                                                 clientVM.state, clientVM.city, "N/A")
-                {
-                    ClientClient = client,
-                    CreatedByNavigation = user
-                };
-
-                userHistory = new UserHistory(
-                     "admin", clientVM.email, clientVM.password, clientVM.firstName, clientVM.lastName, clientVM.phone
-                    )
-                {
-                    CreatedByNavigation = user
-                };
-
-                _clientRepository.Add(client);
-                _userRepository.Add(user);
-                _clientHistoryRepository.Add(clientHistory);
-                _userHistoryRepository.Add(userHistory);
-
-
+            { 
+                Client client = _clientRepository.CreateClient(clientVM);
+                User user = _userRepository.CreateUser(client);
+                ClientHistory clientHistory = _clientHistoryRepository.CreateClientHistory(clientVM, client, user);
+                UserHistory userHistory = _userHistoryRepository.CreateUserHistory(clientVM, user);
+                  
                 return RedirectToAction("SignUp");
             }
             else

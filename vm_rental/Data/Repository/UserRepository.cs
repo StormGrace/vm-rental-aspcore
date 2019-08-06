@@ -13,5 +13,14 @@ namespace vm_rental.Data.Repository
         {
             
         }
+
+        public User CreateUser(Client client)
+        {
+            User user = new User() { ClientClient = client };
+
+            this.Add(user);
+
+            return user;
+        }
     }
 }

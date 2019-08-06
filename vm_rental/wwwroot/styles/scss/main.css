@@ -412,7 +412,7 @@ header {
       background-color: gray; }
   header .header-mid {
     height: 50px;
-    background-color: #0091d1; }
+    background-color: #3a6194; }
   @media screen and (max-width: 768px) {
     header .header-bottom {
       display: grid;

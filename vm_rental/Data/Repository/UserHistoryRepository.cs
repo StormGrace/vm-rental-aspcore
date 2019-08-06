@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using vm_rental.Data.Interface;
 using vm_rental.Data.Model;
+using vm_rental.ViewModels.Account;
 
 namespace vm_rental.Data.Repository
 {
@@ -12,6 +13,25 @@ namespace vm_rental.Data.Repository
         public UserHistoryRepository(vmDbContext context) : base(context)
         {
 
+        }
+
+        public UserHistory CreateUserHistory(ClientViewModel clientVM, User user)
+        {
+            UserHistory userHistory = new UserHistory(
+               clientVM.userName, 
+               clientVM.email, 
+               clientVM.password, 
+               clientVM.firstName,
+               clientVM.lastName, 
+               clientVM.phone
+            )
+            {
+                CreatedByNavigation = user
+            };
+
+            this.Add(userHistory);
+
+            return userHistory;
         }
     }
 }

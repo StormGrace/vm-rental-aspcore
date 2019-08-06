@@ -14,7 +14,7 @@ namespace vm_rental.Data.Model
         private string _firmPhone;
         private string _firmRegNumber;
         private string _firmVatNumber;
-        private string _firmFax;
+        //private string _firmFax;
         private string _state;
         private string _city;
         private string _address;
