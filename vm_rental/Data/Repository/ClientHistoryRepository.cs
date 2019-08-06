@@ -14,16 +14,19 @@ namespace vm_rental.Data.Repository
         {
 
         }
-        //Join Operations
         public ClientHistory CreateClientHistory(ClientViewModel clientVM, Client client, User user)
         {
             ClientHistory clientHistory = new ClientHistory(
-                clientVM.firmName, 
-                (clientVM.firstName + " " + clientVM.lastName),
-                clientVM.firmEmail, clientVM.phone, "N/A",
-                clientVM.state, clientVM.city, "N/A")
+                 clientVM.firmName, 
+                 clientVM.firstName + " " + clientVM.lastName, 
+                 clientVM.email, 
+                 clientVM.phone, 
+                 clientVM.state,
+                 clientVM.city, 
+                 clientVM.address, 
+                 Convert.ToByte(clientVM.isBusinessClient))
             {
-                ClientClient = client,
+                Client = client,
                 CreatedByNavigation = user
             };
 
@@ -31,6 +34,5 @@ namespace vm_rental.Data.Repository
 
             return clientHistory;
         }
-
     }
 }

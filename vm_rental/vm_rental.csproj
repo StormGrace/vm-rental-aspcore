@@ -7,18 +7,22 @@
 
   <ItemGroup>
     <Compile Remove="Data\Interfaces\**" />
+    <Compile Remove="Data\Models\**" />
     <Compile Remove="wwwroot\scss\**" />
     <Compile Remove="wwwroot\styles\css\**" />
     <Compile Remove="wwwroot\styles\scss\components\main\**" />
     <Content Remove="Data\Interfaces\**" />
+    <Content Remove="Data\Models\**" />
     <Content Remove="wwwroot\scss\**" />
     <Content Remove="wwwroot\styles\css\**" />
     <Content Remove="wwwroot\styles\scss\components\main\**" />
     <EmbeddedResource Remove="Data\Interfaces\**" />
+    <EmbeddedResource Remove="Data\Models\**" />
     <EmbeddedResource Remove="wwwroot\scss\**" />
     <EmbeddedResource Remove="wwwroot\styles\css\**" />
     <EmbeddedResource Remove="wwwroot\styles\scss\components\main\**" />
     <None Remove="Data\Interfaces\**" />
+    <None Remove="Data\Models\**" />
     <None Remove="wwwroot\scss\**" />
     <None Remove="wwwroot\styles\css\**" />
     <None Remove="wwwroot\styles\scss\components\main\**" />
@@ -47,17 +51,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="MySql.Data" Version="8.0.16" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.16" />
+    <PackageReference Include="MySql.Data" Version="8.0.17" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.17" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.17" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
     <PackageReference Include="Westwind.AspnetCore.LiveReload" Version="0.1.5.2" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Data\Model\" />
   </ItemGroup>
 
 </Project>

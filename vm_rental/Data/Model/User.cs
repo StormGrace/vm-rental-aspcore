@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vm_rental.Data.Model
 {
@@ -20,11 +19,10 @@ namespace vm_rental.Data.Model
             UserHistory = new HashSet<UserHistory>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-        public int ClientClientId { get; set; }
+        public int ClientId { get; set; }
 
-        public virtual Client ClientClient { get; set; }
+        public virtual Client Client { get; set; }
         public virtual ICollection<ClientDiscountHistory> ClientDiscountHistory { get; set; }
         public virtual ICollection<ClientHistory> ClientHistory { get; set; }
         public virtual ICollection<ComponentTypeHistory> ComponentTypeHistory { get; set; }

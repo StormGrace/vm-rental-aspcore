@@ -14,9 +14,9 @@ namespace vm_rental.Data.Model
         }
 
         public int ProductId { get; set; }
-        public int ComponentTypeComponentTypeId { get; set; }
+        public int ComponentTypeId { get; set; }
 
-        public virtual ComponentType ComponentTypeComponentType { get; set; }
+        public virtual ComponentType ComponentType { get; set; }
         public virtual ICollection<ClientDiscount> ClientDiscount { get; set; }
         public virtual ICollection<MachineComponentHistory> MachineComponentHistory { get; set; }
         public virtual ICollection<OrderItems> OrderItems { get; set; }

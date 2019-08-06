@@ -57,16 +57,13 @@ namespace vm_rental
             });
 
             services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
-            //etc
+            services.AddLiveReload();
         }
-        //etc
-        //services.AddLiveReload();
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //app.UseLiveReload();
+            app.UseLiveReload();
 
             if (env.IsDevelopment())
             {

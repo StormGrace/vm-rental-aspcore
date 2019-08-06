@@ -11,11 +11,11 @@ namespace vm_rental.Data.Model
         }
 
         public int MachinesUsersId { get; set; }
-        public int UserUserId { get; set; }
-        public int MachineMachineId { get; set; }
+        public int UserId { get; set; }
+        public int MachineId { get; set; }
 
-        public virtual Machine MachineMachine { get; set; }
-        public virtual User UserUser { get; set; }
+        public virtual Machine Machine { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<Role> Role { get; set; }
     }
 }

@@ -20,7 +20,6 @@ namespace vm_rental.ViewModels.Account
         public string address { get; set; }
         public string phone { get; set; }
         public string firmName { get; set; }     
-        public string firmEmail { get; set; }
 
         public bool _isBusinessClient = false;
 
@@ -33,15 +32,11 @@ namespace vm_rental.ViewModels.Account
             set
             {
                   _isBusinessClient = value;
-
-                  if(_isBusinessClient == false)
+          
+                  if(firmName == null && (firstName != null && lastName != null))
                   {
-                      if(firmName == null && (firstName != null && lastName != null))
-                      {
-                          firmName = firstName + " " + lastName;
-                          firmEmail = email;
-                      }
-                  }
+                        firmName = firstName + " " + lastName;
+                  }  
              }
         }
     }

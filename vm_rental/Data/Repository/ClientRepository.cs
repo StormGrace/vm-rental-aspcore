@@ -12,7 +12,6 @@ namespace vm_rental.Data.Repository
    public class ClientRepository : Repository<Client>, IClientRepository
     {
         public ClientRepository(vmDbContext context) : base(context){}
-
         public Client CreateClient(ClientViewModel clientVM)
         {
             Client client = new Client();

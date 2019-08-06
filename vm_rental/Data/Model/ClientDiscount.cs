@@ -11,11 +11,11 @@ namespace vm_rental.Data.Model
         }
 
         public int DiscountId { get; set; }
-        public int ClientClientId { get; set; }
-        public int ProductProductId { get; set; }
+        public int ClientId { get; set; }
+        public int ProductId { get; set; }
 
-        public virtual Client ClientClient { get; set; }
-        public virtual Product ProductProduct { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Product Product { get; set; }
         public virtual ICollection<ClientDiscountHistory> ClientDiscountHistory { get; set; }
     }
 }

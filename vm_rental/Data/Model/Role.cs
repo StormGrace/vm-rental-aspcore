@@ -11,11 +11,11 @@ namespace vm_rental.Data.Model
         }
 
         public int RoleId { get; set; }
-        public int MachinesUsersMachinesUsersId { get; set; }
+        public int MachinesUsersId { get; set; }
         public DateTimeOffset DateCreated { get; set; }
         public string RoleName { get; set; }
 
-        public virtual MachinesUsers MachinesUsersMachinesUsers { get; set; }
+        public virtual MachinesUsers MachinesUsers { get; set; }
         public virtual ICollection<RolesPermissions> RolesPermissions { get; set; }
     }
 }

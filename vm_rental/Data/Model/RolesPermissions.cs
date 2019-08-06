@@ -6,10 +6,10 @@ namespace vm_rental.Data.Model
     public partial class RolesPermissions
     {
         public int RolePermissionId { get; set; }
-        public int PermissionPermissionId { get; set; }
-        public int RoleRoleId { get; set; }
+        public int RoleId { get; set; }
+        public int PermissionId { get; set; }
 
-        public virtual Permission PermissionPermission { get; set; }
-        public virtual Role RoleRole { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

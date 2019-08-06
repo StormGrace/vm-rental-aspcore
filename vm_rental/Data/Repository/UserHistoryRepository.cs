@@ -14,17 +14,15 @@ namespace vm_rental.Data.Repository
         {
 
         }
-
         public UserHistory CreateUserHistory(ClientViewModel clientVM, User user)
         {
             UserHistory userHistory = new UserHistory(
-               clientVM.userName, 
-               clientVM.email, 
-               clientVM.password, 
-               clientVM.firstName,
-               clientVM.lastName, 
-               clientVM.phone
-            )
+                clientVM.userName, 
+                clientVM.email, 
+                clientVM.password, 
+                clientVM.firstName,
+                clientVM.lastName, 
+                clientVM.phone)
             {
                 CreatedByNavigation = user
             };

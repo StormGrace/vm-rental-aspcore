@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vm_rental.Data.Model
 {
@@ -14,7 +13,6 @@ namespace vm_rental.Data.Model
             User = new HashSet<User>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ClientId { get; set; }
 
         public virtual ICollection<ClientDiscount> ClientDiscount { get; set; }

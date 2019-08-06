@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using vm_rental.Data.Model;
 
-namespace vm_rental.Data.Model
+namespace vm_rental.Data
 {
     public partial class vmDbContext : DbContext
     {
@@ -10,7 +11,10 @@ namespace vm_rental.Data.Model
         {
         }
 
-        public vmDbContext(DbContextOptions<vmDbContext> options) : base(options) { }
+        public vmDbContext(DbContextOptions<vmDbContext> options)
+            : base(options)
+        {
+        }
 
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<ClientDiscount> ClientDiscount { get; set; }
@@ -39,7 +43,6 @@ namespace vm_rental.Data.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySQL("server=localhost;port=3306;user=root;password=admin;database=vm_usage_reports");
             }
         }
@@ -56,7 +59,7 @@ namespace vm_rental.Data.Model
                     .HasName("Indx_client_id");
 
                 entity.Property(e => e.ClientId)
-                    .HasColumnName("client_id")
+                    .HasColumnName("client_ID")
                     .HasColumnType("int(11)");
             });
 
@@ -66,33 +69,33 @@ namespace vm_rental.Data.Model
 
                 entity.ToTable("client_discount", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ClientClientId)
+                entity.HasIndex(e => e.ClientId)
                     .HasName("fk_Client_Discount_Client1_idx");
 
-                entity.HasIndex(e => e.ProductProductId)
+                entity.HasIndex(e => e.ProductId)
                     .HasName("fk_Client_Discount_Product1_idx");
 
                 entity.Property(e => e.DiscountId)
-                    .HasColumnName("discount_id")
+                    .HasColumnName("discount_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ClientClientId)
+                entity.Property(e => e.ClientId)
                     .HasColumnName("client_id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ProductProductId)
-                    .HasColumnName("Product_product_id")
+                entity.Property(e => e.ProductId)
+                    .HasColumnName("product_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ClientClient)
+                entity.HasOne(d => d.Client)
                     .WithMany(p => p.ClientDiscount)
-                    .HasForeignKey(d => d.ClientClientId)
+                    .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Client_Discount_Client1");
 
-                entity.HasOne(d => d.ProductProduct)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.ClientDiscount)
-                    .HasForeignKey(d => d.ProductProductId)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Client_Discount_Product1");
             });
@@ -103,22 +106,18 @@ namespace vm_rental.Data.Model
 
                 entity.ToTable("client_discount_history", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ClientDiscountDiscountId)
-                    .HasName("fk_Client_Discount_History_Client_Discount1_idx");
-
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Client_Discount_History_User1_idx");
 
-                entity.HasIndex(e => e.Version)
-                    .HasName("indx_Client_client_id_&_Product_product_id_&_version")
+                entity.HasIndex(e => e.DiscountId)
+                    .HasName("fk_Client_Discount_History_Client_Discount1_idx");
+
+                entity.HasIndex(e => new { e.CreatedBy, e.Version })
+                    .HasName("Indx_created_by_id_&_version")
                     .IsUnique();
 
                 entity.Property(e => e.DiscountHistoryId)
-                    .HasColumnName("discount_history_id")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.ClientDiscountDiscountId)
-                    .HasColumnName("Client_Discount_discount_id")
+                    .HasColumnName("discount_history_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedBy)
@@ -126,6 +125,10 @@ namespace vm_rental.Data.Model
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.DateCreated).HasColumnName("date_created");
+
+                entity.Property(e => e.DiscountId)
+                    .HasColumnName("discount_id")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.DiscountPercent)
                     .HasColumnName("discount_percent")
@@ -139,49 +142,38 @@ namespace vm_rental.Data.Model
                     .HasColumnName("version")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ClientDiscountDiscount)
-                    .WithMany(p => p.ClientDiscountHistory)
-                    .HasForeignKey(d => d.ClientDiscountDiscountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Client_Discount_History_Client_Discount1");
-
                 entity.HasOne(d => d.CreatedByNavigation)
                     .WithMany(p => p.ClientDiscountHistory)
                     .HasForeignKey(d => d.CreatedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Client_Discount_History_User1");
+
+                entity.HasOne(d => d.Discount)
+                    .WithMany(p => p.ClientDiscountHistory)
+                    .HasForeignKey(d => d.DiscountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Client_Discount_History_Client_Discount1");
             });
 
             modelBuilder.Entity<ClientHistory>(entity =>
             {
                 entity.ToTable("client_history", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ClientClientId)
+                entity.HasIndex(e => e.ClientId)
                     .HasName("fk_Client_History_Client1_idx");
-
-                entity.HasIndex(e => e.ClientHistoryId)
-                    .HasName("rec_ID_UNIQUE")
-                    .IsUnique();
 
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Client_history_User1_idx");
 
-                entity.HasIndex(e => e.Version)
-                    .HasName("Indx_client_id_&_version")
+                entity.HasIndex(e => new { e.Version, e.CreatedBy })
+                    .HasName("Indx_created_by_id_&_version")
                     .IsUnique();
 
                 entity.Property(e => e.ClientHistoryId)
-                    .HasColumnName("client_history_id")
+                    .HasColumnName("client_history_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.AccPerson)
-                    .IsRequired()
-                    .HasColumnName("Acc_Person")
-                    .HasMaxLength(60)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Address)
-                    .IsRequired()
                     .HasColumnName("address")
                     .HasMaxLength(45)
                     .IsUnicode(false);
@@ -192,7 +184,7 @@ namespace vm_rental.Data.Model
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ClientClientId)
+                entity.Property(e => e.ClientId)
                     .HasColumnName("client_id")
                     .HasColumnType("int(11)");
 
@@ -202,15 +194,36 @@ namespace vm_rental.Data.Model
 
                 entity.Property(e => e.DateCreated).HasColumnName("date_created");
 
-                entity.Property(e => e.FirmName)
+                entity.Property(e => e.FirmEmail)
                     .IsRequired()
+                    .HasColumnName("firm_email")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirmFax)
+                    .HasColumnName("firm_fax")
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirmName)
                     .HasColumnName("firm_name")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FirmNumber)
+                entity.Property(e => e.FirmOwner)
                     .IsRequired()
-                    .HasColumnName("firm_number")
+                    .HasColumnName("firm_owner")
+                    .HasMaxLength(60)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirmPhone)
+                    .IsRequired()
+                    .HasColumnName("firm_phone")
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirmRegNumber)
+                    .HasColumnName("firm_reg_number")
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
@@ -218,25 +231,18 @@ namespace vm_rental.Data.Model
                     .HasColumnName("is_active")
                     .HasColumnType("tinyint(1)");
 
+                entity.Property(e => e.IsFirm)
+                    .HasColumnName("is_firm")
+                    .HasColumnType("tinyint(1)");
+
                 entity.Property(e => e.IsVatTaxed)
                     .HasColumnName("is_vat_taxed")
-                    .HasColumnType("tinyint(4)");
+                    .HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.OrgEmail)
+                entity.Property(e => e.State)
                     .IsRequired()
-                    .HasColumnName("org_email")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.OrgFax)
-                    .HasColumnName("org_fax")
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.OrgPhone)
-                    .IsRequired()
-                    .HasColumnName("org_phone")
-                    .HasMaxLength(15)
+                    .HasColumnName("state")
+                    .HasMaxLength(45)
                     .IsUnicode(false);
 
                 entity.Property(e => e.VatNumber)
@@ -246,16 +252,11 @@ namespace vm_rental.Data.Model
 
                 entity.Property(e => e.Version)
                     .HasColumnName("version")
-                    .HasColumnType("tinyint(6)");
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.WithoutVarReason)
-                    .HasColumnName("without_var_reason")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.ClientClient)
+                entity.HasOne(d => d.Client)
                     .WithMany(p => p.ClientHistory)
-                    .HasForeignKey(d => d.ClientClientId)
+                    .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Client_History_Client1");
 
@@ -271,7 +272,7 @@ namespace vm_rental.Data.Model
                 entity.ToTable("component_type", "vm_usage_reports");
 
                 entity.Property(e => e.ComponentTypeId)
-                    .HasColumnName("component_type_id")
+                    .HasColumnName("component_type_ID")
                     .HasColumnType("int(11)");
             });
 
@@ -279,18 +280,22 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("component_type_history", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ComponentTypeComponentTypeId)
+                entity.HasIndex(e => e.ComponentTypeId)
                     .HasName("fk_Component_Type_History_Component_Type1_idx");
 
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Machine_Component_Type_History_User1_idx");
 
+                entity.HasIndex(e => new { e.CreatedBy, e.Version })
+                    .HasName("Indx_created_by_id_&_version")
+                    .IsUnique();
+
                 entity.Property(e => e.ComponentTypeHistoryId)
-                    .HasColumnName("component_type_history_id")
+                    .HasColumnName("component_type_history_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ComponentTypeComponentTypeId)
-                    .HasColumnName("Component_Type_component_type_id")
+                entity.Property(e => e.ComponentTypeId)
+                    .HasColumnName("component_type_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedBy)
@@ -316,15 +321,15 @@ namespace vm_rental.Data.Model
 
                 entity.Property(e => e.Splitable)
                     .HasColumnName("splitable")
-                    .HasColumnType("tinyint(4)");
+                    .HasColumnType("tinyint(1)");
 
                 entity.Property(e => e.Version)
                     .HasColumnName("version")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ComponentTypeComponentType)
+                entity.HasOne(d => d.ComponentType)
                     .WithMany(p => p.ComponentTypeHistory)
-                    .HasForeignKey(d => d.ComponentTypeComponentTypeId)
+                    .HasForeignKey(d => d.ComponentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Component_Type_History_Component_Type1");
 
@@ -339,7 +344,7 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("machine", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ClientClientId)
+                entity.HasIndex(e => e.ClientId)
                     .HasName("fk_Machine_Client1_idx");
 
                 entity.HasIndex(e => e.MachineId)
@@ -350,13 +355,13 @@ namespace vm_rental.Data.Model
                     .HasColumnName("machine_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ClientClientId)
-                    .HasColumnName("Client_client_id")
+                entity.Property(e => e.ClientId)
+                    .HasColumnName("client_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ClientClient)
+                entity.HasOne(d => d.Client)
                     .WithMany(p => p.Machine)
-                    .HasForeignKey(d => d.ClientClientId)
+                    .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_Client1");
             });
@@ -367,37 +372,37 @@ namespace vm_rental.Data.Model
 
                 entity.ToTable("machine_component", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ComponentTypeComponentTypeId)
+                entity.HasIndex(e => e.ComponentTypeId)
                     .HasName("fk_Machine_Component_Component_Type1_idx");
 
-                entity.HasIndex(e => e.MachineMachineId)
+                entity.HasIndex(e => e.MachineId)
                     .HasName("fk_Machine_Component_Machine1_idx");
 
                 entity.Property(e => e.ComponentId)
-                    .HasColumnName("component_id")
+                    .HasColumnName("component_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.ActiveAmount)
                     .HasColumnName("active_amount")
                     .HasColumnType("decimal(10,0)");
 
-                entity.Property(e => e.ComponentTypeComponentTypeId)
-                    .HasColumnName("Component_Type_component_type_id")
+                entity.Property(e => e.ComponentTypeId)
+                    .HasColumnName("component_type_id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.MachineMachineId)
-                    .HasColumnName("Machine_machine_ID")
+                entity.Property(e => e.MachineId)
+                    .HasColumnName("machine_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ComponentTypeComponentType)
+                entity.HasOne(d => d.ComponentType)
                     .WithMany(p => p.MachineComponent)
-                    .HasForeignKey(d => d.ComponentTypeComponentTypeId)
+                    .HasForeignKey(d => d.ComponentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_Component_Component_Type1");
 
-                entity.HasOne(d => d.MachineMachine)
+                entity.HasOne(d => d.Machine)
                     .WithMany(p => p.MachineComponent)
-                    .HasForeignKey(d => d.MachineMachineId)
+                    .HasForeignKey(d => d.MachineId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_Component_Machine1");
             });
@@ -411,14 +416,18 @@ namespace vm_rental.Data.Model
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Components_history_User1_idx");
 
-                entity.HasIndex(e => e.MachineComponentComponentId)
+                entity.HasIndex(e => e.MachineComponentId)
                     .HasName("fk_Machine_Component_History_Machine_Component1_idx");
 
-                entity.HasIndex(e => e.ProductProductId)
+                entity.HasIndex(e => e.ProductId)
                     .HasName("fk_Machine_Component_History_Product1_idx");
 
+                entity.HasIndex(e => new { e.CreatedBy, e.Version })
+                    .HasName("Indx_created_by_id_&_version")
+                    .IsUnique();
+
                 entity.Property(e => e.ComponentHistoryId)
-                    .HasColumnName("component_history_id")
+                    .HasColumnName("component_history_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.AddedAmount)
@@ -433,10 +442,10 @@ namespace vm_rental.Data.Model
 
                 entity.Property(e => e.IsActive)
                     .HasColumnName("is_active")
-                    .HasColumnType("tinyint(4)");
+                    .HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.MachineComponentComponentId)
-                    .HasColumnName("Machine_Component_component_id")
+                entity.Property(e => e.MachineComponentId)
+                    .HasColumnName("machine_component_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Name)
@@ -445,8 +454,8 @@ namespace vm_rental.Data.Model
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ProductProductId)
-                    .HasColumnName("Product_product_id")
+                entity.Property(e => e.ProductId)
+                    .HasColumnName("product_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Version)
@@ -459,15 +468,15 @@ namespace vm_rental.Data.Model
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Components_history_User1");
 
-                entity.HasOne(d => d.MachineComponentComponent)
+                entity.HasOne(d => d.MachineComponent)
                     .WithMany(p => p.MachineComponentHistory)
-                    .HasForeignKey(d => d.MachineComponentComponentId)
+                    .HasForeignKey(d => d.MachineComponentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_Component_History_Machine_Component1");
 
-                entity.HasOne(d => d.ProductProduct)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.MachineComponentHistory)
-                    .HasForeignKey(d => d.ProductProductId)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_Component_History_Product1");
             });
@@ -479,15 +488,15 @@ namespace vm_rental.Data.Model
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Machine_History_User1_idx");
 
-                entity.HasIndex(e => e.MachineMachineId)
+                entity.HasIndex(e => e.MachineId)
                     .HasName("fk_Machine_History_Machine1_idx");
 
-                entity.HasIndex(e => e.Version)
-                    .HasName("indx_machine_id_&_version")
+                entity.HasIndex(e => new { e.CreatedBy, e.Version })
+                    .HasName("Indx_created_by_id_&_version")
                     .IsUnique();
 
                 entity.Property(e => e.MachineHistoryId)
-                    .HasColumnName("machine_history_id")
+                    .HasColumnName("machine_history_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedBy)
@@ -500,8 +509,8 @@ namespace vm_rental.Data.Model
                     .HasColumnName("is_active")
                     .HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.MachineMachineId)
-                    .HasColumnName("Machine_machine_ID")
+                entity.Property(e => e.MachineId)
+                    .HasColumnName("machine_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Name)
@@ -520,9 +529,9 @@ namespace vm_rental.Data.Model
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_History_User1");
 
-                entity.HasOne(d => d.MachineMachine)
+                entity.HasOne(d => d.Machine)
                     .WithMany(p => p.MachineHistory)
-                    .HasForeignKey(d => d.MachineMachineId)
+                    .HasForeignKey(d => d.MachineId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machine_History_Machine1");
             });
@@ -531,33 +540,33 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("machines_users", "vm_usage_reports");
 
-                entity.HasIndex(e => e.MachineMachineId)
+                entity.HasIndex(e => e.MachineId)
                     .HasName("fk_Machines_Users_Machine1_idx");
 
-                entity.HasIndex(e => e.UserUserId)
+                entity.HasIndex(e => e.UserId)
                     .HasName("fk_Machines_Users_User1_idx");
 
                 entity.Property(e => e.MachinesUsersId)
-                    .HasColumnName("machines_users_id")
+                    .HasColumnName("machines_users_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.MachineMachineId)
-                    .HasColumnName("Machine_machine_ID")
+                entity.Property(e => e.MachineId)
+                    .HasColumnName("machine_id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.UserUserId)
-                    .HasColumnName("User_user_ID")
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.MachineMachine)
+                entity.HasOne(d => d.Machine)
                     .WithMany(p => p.MachinesUsers)
-                    .HasForeignKey(d => d.MachineMachineId)
+                    .HasForeignKey(d => d.MachineId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machines_Users_Machine1");
 
-                entity.HasOne(d => d.UserUser)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.MachinesUsers)
-                    .HasForeignKey(d => d.UserUserId)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Machines_Users_User1");
             });
@@ -566,22 +575,22 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("order", "vm_usage_reports");
 
-                entity.HasIndex(e => e.CreatedById)
+                entity.HasIndex(e => e.OrderedBy)
                     .HasName("fk_Orders_User1_idx");
 
                 entity.Property(e => e.OrderId)
-                    .HasColumnName("order_id")
+                    .HasColumnName("order_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedById)
-                    .HasColumnName("created_by_id")
+                entity.Property(e => e.DateOrdered).HasColumnName("date_ordered");
+
+                entity.Property(e => e.OrderedBy)
+                    .HasColumnName("ordered_by")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.DateCreated).HasColumnName("date_created");
-
-                entity.HasOne(d => d.CreatedBy)
+                entity.HasOne(d => d.OrderedByNavigation)
                     .WithMany(p => p.Order)
-                    .HasForeignKey(d => d.CreatedById)
+                    .HasForeignKey(d => d.OrderedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Orders_User1");
             });
@@ -592,29 +601,29 @@ namespace vm_rental.Data.Model
 
                 entity.ToTable("order_items", "vm_usage_reports");
 
-                entity.HasIndex(e => e.MachineComponentComponentId)
+                entity.HasIndex(e => e.ComponentId)
                     .HasName("fk_Order_Items_Machine_Component1_idx");
 
-                entity.HasIndex(e => e.OrderOrderId)
+                entity.HasIndex(e => e.OrderId)
                     .HasName("fk_Order_Items_Order1_idx");
 
-                entity.HasIndex(e => e.ProductProductId)
+                entity.HasIndex(e => e.ProductId)
                     .HasName("fk_Orders_Resources_Product1_idx");
 
                 entity.Property(e => e.RecId)
                     .HasColumnName("rec_ID")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.ComponentId)
+                    .HasColumnName("component_id")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.EndDate).HasColumnName("end_date");
 
                 entity.Property(e => e.EndDateExecuted).HasColumnName("end_date_executed");
 
-                entity.Property(e => e.MachineComponentComponentId)
-                    .HasColumnName("Machine_Component_component_id")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.OrderOrderId)
-                    .HasColumnName("Order_order_id")
+                entity.Property(e => e.OrderId)
+                    .HasColumnName("order_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.OrderType)
@@ -627,29 +636,29 @@ namespace vm_rental.Data.Model
                     .HasColumnName("ordered_amount")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ProductProductId)
-                    .HasColumnName("Product_product_ID")
+                entity.Property(e => e.ProductId)
+                    .HasColumnName("product_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.StartDate).HasColumnName("start_date");
 
                 entity.Property(e => e.StartDateExecuted).HasColumnName("start_date_executed");
 
-                entity.HasOne(d => d.MachineComponentComponent)
+                entity.HasOne(d => d.Component)
                     .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.MachineComponentComponentId)
+                    .HasForeignKey(d => d.ComponentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Order_Items_Machine_Component1");
 
-                entity.HasOne(d => d.OrderOrder)
+                entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.OrderOrderId)
+                    .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Order_Items_Order1");
 
-                entity.HasOne(d => d.ProductProduct)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.ProductProductId)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Order_items_Product1");
             });
@@ -681,20 +690,20 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("product", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ComponentTypeComponentTypeId)
+                entity.HasIndex(e => e.ComponentTypeId)
                     .HasName("fk_Product_Component_Type1_idx");
 
                 entity.Property(e => e.ProductId)
-                    .HasColumnName("product_id")
+                    .HasColumnName("product_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ComponentTypeComponentTypeId)
-                    .HasColumnName("Component_Type_component_type_id")
+                entity.Property(e => e.ComponentTypeId)
+                    .HasColumnName("component_type_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ComponentTypeComponentType)
+                entity.HasOne(d => d.ComponentType)
                     .WithMany(p => p.Product)
-                    .HasForeignKey(d => d.ComponentTypeComponentTypeId)
+                    .HasForeignKey(d => d.ComponentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Product_Component_Type1");
             });
@@ -706,18 +715,18 @@ namespace vm_rental.Data.Model
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Products_history_User1_idx");
 
-                entity.HasIndex(e => e.ProductProductId)
+                entity.HasIndex(e => e.ProductId)
                     .HasName("fk_Product_History_Product1_idx");
 
-                entity.HasIndex(e => e.ProductSupplierSupplierId)
+                entity.HasIndex(e => e.SupplierId)
                     .HasName("fk_Product_Product_Supplier_idx");
 
-                entity.HasIndex(e => e.Version)
-                    .HasName("indx_product_id_&_version")
+                entity.HasIndex(e => new { e.Version, e.CreatedBy })
+                    .HasName("Indx_created_by_id_&_version")
                     .IsUnique();
 
                 entity.Property(e => e.ProductHistoryId)
-                    .HasColumnName("product_history_id")
+                    .HasColumnName("product_history_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Code)
@@ -751,12 +760,12 @@ namespace vm_rental.Data.Model
                     .HasColumnName("price")
                     .HasColumnType("decimal(19,5)");
 
-                entity.Property(e => e.ProductProductId)
-                    .HasColumnName("Product_product_id")
+                entity.Property(e => e.ProductId)
+                    .HasColumnName("product_id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ProductSupplierSupplierId)
-                    .HasColumnName("Product_Supplier_supplier_id")
+                entity.Property(e => e.SupplierId)
+                    .HasColumnName("supplier_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Unit)
@@ -775,15 +784,15 @@ namespace vm_rental.Data.Model
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Products_history_User1");
 
-                entity.HasOne(d => d.ProductProduct)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductHistory)
-                    .HasForeignKey(d => d.ProductProductId)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Product_History_Product1");
 
-                entity.HasOne(d => d.ProductSupplierSupplier)
+                entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.ProductHistory)
-                    .HasForeignKey(d => d.ProductSupplierSupplierId)
+                    .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Products_Product_Supplier10");
             });
@@ -808,15 +817,15 @@ namespace vm_rental.Data.Model
                 entity.HasIndex(e => e.CreatedBy)
                     .HasName("fk_Product_Supplier_history_User1_idx");
 
-                entity.HasIndex(e => e.ProductSupplierSupplierId)
+                entity.HasIndex(e => e.SupplierId)
                     .HasName("fk_Product_Supplier_history_Product_Supplier1_idx");
 
-                entity.HasIndex(e => e.Version)
-                    .HasName("indx_supplier_id_&_version")
+                entity.HasIndex(e => new { e.Version, e.CreatedBy })
+                    .HasName("Indx_created_by_id_&_version")
                     .IsUnique();
 
                 entity.Property(e => e.SupplierHistoryId)
-                    .HasColumnName("supplier_history_id")
+                    .HasColumnName("supplier_history_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedBy)
@@ -829,14 +838,14 @@ namespace vm_rental.Data.Model
                     .HasColumnName("is_active")
                     .HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.ProductSupplierSupplierId)
-                    .HasColumnName("Product_Supplier_supplier_ID")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.SupplierDescription)
                     .HasColumnName("supplier_description")
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.SupplierId)
+                    .HasColumnName("supplier_id")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.SupplierName)
                     .IsRequired()
@@ -859,9 +868,9 @@ namespace vm_rental.Data.Model
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Product_Supplier_history_User1");
 
-                entity.HasOne(d => d.ProductSupplierSupplier)
+                entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.ProductSupplierHistory)
-                    .HasForeignKey(d => d.ProductSupplierSupplierId)
+                    .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Product_Supplier_history_Product_Supplier1");
             });
@@ -870,17 +879,17 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("role", "vm_usage_reports");
 
-                entity.HasIndex(e => e.MachinesUsersMachinesUsersId)
+                entity.HasIndex(e => e.MachinesUsersId)
                     .HasName("fk_Role_Machines_Users1_idx");
 
                 entity.Property(e => e.RoleId)
-                    .HasColumnName("role_id")
+                    .HasColumnName("role_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.DateCreated).HasColumnName("date_created");
 
-                entity.Property(e => e.MachinesUsersMachinesUsersId)
-                    .HasColumnName("Machines_Users_machines_users_id")
+                entity.Property(e => e.MachinesUsersId)
+                    .HasColumnName("machines_users_id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.RoleName)
@@ -889,9 +898,9 @@ namespace vm_rental.Data.Model
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.MachinesUsersMachinesUsers)
+                entity.HasOne(d => d.MachinesUsers)
                     .WithMany(p => p.Role)
-                    .HasForeignKey(d => d.MachinesUsersMachinesUsersId)
+                    .HasForeignKey(d => d.MachinesUsersId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Role_Machines_Users1");
             });
@@ -902,33 +911,33 @@ namespace vm_rental.Data.Model
 
                 entity.ToTable("roles_permissions", "vm_usage_reports");
 
-                entity.HasIndex(e => e.PermissionPermissionId)
+                entity.HasIndex(e => e.PermissionId)
                     .HasName("fk_Roles_Permissions_Permission1_idx");
 
-                entity.HasIndex(e => e.RoleRoleId)
+                entity.HasIndex(e => e.RoleId)
                     .HasName("fk_Roles_Permissions_Role1_idx");
 
                 entity.Property(e => e.RolePermissionId)
                     .HasColumnName("role_permission_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.PermissionPermissionId)
-                    .HasColumnName("Permission_permission_ID")
+                entity.Property(e => e.PermissionId)
+                    .HasColumnName("permission_id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.RoleRoleId)
-                    .HasColumnName("Role_role_ID")
+                entity.Property(e => e.RoleId)
+                    .HasColumnName("role_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.PermissionPermission)
+                entity.HasOne(d => d.Permission)
                     .WithMany(p => p.RolesPermissions)
-                    .HasForeignKey(d => d.PermissionPermissionId)
+                    .HasForeignKey(d => d.PermissionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Roles_Permissions_Permission1");
 
-                entity.HasOne(d => d.RoleRole)
+                entity.HasOne(d => d.Role)
                     .WithMany(p => p.RolesPermissions)
-                    .HasForeignKey(d => d.RoleRoleId)
+                    .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Roles_Permissions_Role1");
             });
@@ -937,23 +946,23 @@ namespace vm_rental.Data.Model
             {
                 entity.ToTable("user", "vm_usage_reports");
 
-                entity.HasIndex(e => e.ClientClientId)
+                entity.HasIndex(e => e.ClientId)
                     .HasName("fk_User_Client1_idx");
 
                 entity.HasIndex(e => e.UserId)
                     .HasName("Indx_user_id");
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_id")
+                    .HasColumnName("user_ID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ClientClientId)
-                    .HasColumnName("Client_client_id")
+                entity.Property(e => e.ClientId)
+                    .HasColumnName("client_id")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.ClientClient)
+                entity.HasOne(d => d.Client)
                     .WithMany(p => p.User)
-                    .HasForeignKey(d => d.ClientClientId)
+                    .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_User_Client1");
             });
@@ -969,12 +978,12 @@ namespace vm_rental.Data.Model
                     .HasName("rec_id_UNIQUE")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Version)
-                    .HasName("Indx_user_id_&_version")
+                entity.HasIndex(e => new { e.CreatedBy, e.Version })
+                    .HasName("Indx_created_by_id_&_version")
                     .IsUnique();
 
                 entity.Property(e => e.UserHistoryId)
-                    .HasColumnName("user_history_id")
+                    .HasColumnName("user_history_ID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedBy)
@@ -982,17 +991,6 @@ namespace vm_rental.Data.Model
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.DateCreated).HasColumnName("date_created");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasColumnName("email")
-                    .HasMaxLength(254)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Fax)
-                    .HasColumnName("fax")
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -1010,21 +1008,26 @@ namespace vm_rental.Data.Model
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Phone)
-                    .IsRequired()
-                    .HasColumnName("phone")
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.PwdHash)
                     .IsRequired()
                     .HasColumnName("pwd_hash")
-                    .HasColumnType("binary(32)")
+                    .HasColumnType("binary(32)");
+
+                entity.Property(e => e.UserEmail)
+                    .IsRequired()
+                    .HasColumnName("user_email")
+                    .HasMaxLength(254)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserName)
+                entity.Property(e => e.UserPhone)
                     .IsRequired()
-                    .HasColumnName("user_name")
+                    .HasColumnName("user_phone")
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasColumnName("username")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 

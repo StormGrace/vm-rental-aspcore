@@ -11,9 +11,11 @@ namespace vm_rental.Data.Model
             MachineHistory = new HashSet<MachineHistory>();
             MachinesUsers = new HashSet<MachinesUsers>();
         }
+
         public int MachineId { get; set; }
-        public int ClientClientId { get; set; }
-        public virtual Client ClientClient { get; set; }
+        public int ClientId { get; set; }
+
+        public virtual Client Client { get; set; }
         public virtual ICollection<MachineComponent> MachineComponent { get; set; }
         public virtual ICollection<MachineHistory> MachineHistory { get; set; }
         public virtual ICollection<MachinesUsers> MachinesUsers { get; set; }

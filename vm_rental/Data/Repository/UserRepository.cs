@@ -13,10 +13,9 @@ namespace vm_rental.Data.Repository
         {
             
         }
-
         public User CreateUser(Client client)
         {
-            User user = new User() { ClientClient = client };
+            User user = new User() { Client = client };
 
             this.Add(user);
 
