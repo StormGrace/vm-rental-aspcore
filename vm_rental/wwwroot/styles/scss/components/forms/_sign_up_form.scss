@@ -5,7 +5,7 @@ $inputHorGap: 10px;
 $inputBorderWidth: 2px;
 $stateCityWidth: ($inputWidth / 2);
 
-
+//BEM - Naming Convention
 //Future Media Queries Should Break- At 500 - 540px;
 
 .error{
@@ -175,6 +175,7 @@ $stateCityWidth: ($inputWidth / 2);
 
     &__field-msg {
         display: flex;
+        align-items:center;
         width: 50%;
         border: 1px solid #ef3535;
         border-radius: 12px;
