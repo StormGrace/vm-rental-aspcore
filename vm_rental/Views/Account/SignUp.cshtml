@@ -5,8 +5,9 @@
     ViewData["Wrapper_Class"] = "page-signup-all-container";
 }
 @section Scripts{
-        <script src="@Url.Content("~/scripts/account_selection.js")"></script>
-        <script src="@Url.Content("~/scripts/sign-up.js")"></script>
+        <script src="@Url.Content("~/scripts/signup_countries.js")"></script>
+        <script src="@Url.Content("~/scripts/signup_selection.js")"></script>
+        <script src="@Url.Content("~/scripts/signup_validation.js")"></script>
 }
 <div class="page-signup-container">
     <div class="login">
@@ -75,9 +76,11 @@
                     </div>
                 </div>
                 <div class="acc-form__field-row">
-                    <div class="acc-form__field-subrow acc-form__field-subrow--2x1 acc-form__field-subrow--2x1--half">
-                        <input type="text" placeholder="State*" class="acc-form__field" name="state" asp-for="state" />
-                        <input type="text" placeholder="City*" class="acc-form__field" name="city" asp-for="city" />
+                    <div class="acc-form__field-subrow acc-form__field-subrow--2x1 acc-form__field-subrow--2x1--half ts">
+                        <input type="text" placeholder="State*" autocomplete="off" class="acc-form__field" name="state" asp-for="state" />
+                        <ul class="acc-form__field-states-dropdown">
+                        </ul>
+                        <input type="text" placeholder="City*" autocomplete="off" class="acc-form__field" name="city" asp-for="city" />
                         <span class="acc-form__field-msg-state acc-form__field-msg" asp-validation-for="state"></span>
                         <span class="acc-form__field-msg-city acc-form__field-msg" asp-validation-for="city"></span>
                     </div>

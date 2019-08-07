@@ -3,7 +3,7 @@ $inputHeight: 24px;
 $inputHorSpacing: 2%;
 $inputVerGap: 10px;
 $inputBorderWidth: 2px;
- 
+$inputPlaceholderColor:#BCBCBC;
 
 //BEM - Naming Convention
 //Future Media Queries Should Break- At 500 - 540px;
@@ -30,96 +30,97 @@ $inputBorderWidth: 2px;
     }
 }
 
-    .acc-type {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-        border: 2px solid #0091D1;
-        border-radius: 4px 4px 0px 0px;
-        box-sizing: border-box;
-        background-color: #EDEDED;
+.acc-type {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    border: 2px solid #0091D1;
+    border-radius: 4px 4px 0px 0px;
+    box-sizing: border-box;
+    background-color: #EDEDED;
+ 
+    &__header {
+        padding: 12px 20px 20px 20px;
 
-        &__header {
-            padding: 12px 20px 20px 20px;
-
-            h1 {
-                font-size: 1.6em;
-                font-weight: bold;
-            }
-
-            &__h-line {
-                display: flex;
-                border: 0.4px solid #DDDDDD;
-                width: 100%;
-            }
+        h1 {
+            font-size: 1.6em;
+            font-weight: bold;
         }
 
-        &__subheader {
+        &__h-line {
             display: flex;
-            justify-content: center;
-
-            h1 {
-                font-size: 1.6em;
-                font-weight: bold;
-            }
-        }
-
-        &__selector {
-            display: flex;
-            justify-content: center;
-            padding: 20px 0;
-            background-color: #EDEDED;
-        }
-
-        &__button-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            h1 {
-                font-size: 1.5em;
-                font-weight: bold;
-                color: #00ABD3;
-            }
-        }
-
-        &__button {
-
-            &--active {
-                background-color: #00C0F4;
-            }
-
-            &:hover {
-                cursor: pointer;
-                background-color: #0295BC;
-            }
-
-            display: flex;
-            width: 90px;
-            height: 90px;
-            border: 0px;
-            border-radius: 8px;
-            outline: 0;
-            margin-top: 5px;
-        }
-
-        &__button-separator {
-            display: flex;
-            align-self: flex-end;
-            height: 100px;
-            border-left: 1px solid #DDDDDD;
-            margin: 0 15px;
+            border: 0.4px solid #DDDDDD;
+            width: 100%;
         }
     }
 
+    &__subheader {
+        display: flex;
+        justify-content: center;
+
+        h1 {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+    }
+
+    &__selector {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        background-color: #EDEDED;
+    }
+
+    &__button-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00ABD3;
+        }
+    }
+
+    &__button {
+
+        &--active {
+            background-color: #00C0F4;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: #0295BC;
+        }
+
+        display: flex;
+        width: 90px;
+        height: 90px;
+        margin-top: 5px;
+        border: 0px;
+        border-radius: 8px;
+        outline: 0;
+        background-color: #DDDDDD;
+    }
+
+    &__button-separator {
+        display: flex;
+        align-self: flex-end;
+        height: 100px;
+        border-left: 1px solid #DDDDDD;
+        margin: 0 15px;
+    }
+}
 
 .acc-form {
     width: 100%;
     padding-top: 10px;
 
+    //TO-EDIT
     &__field-section {
-        padding: 12px 20px 20px 12px;
+        padding: 12px 20px 20px 20px;
     }
 
     &__field-header {
@@ -172,7 +173,13 @@ $inputBorderWidth: 2px;
 
     &__field {
         &::placeholder {
-            color: #BCBCBC;
+            color: $inputPlaceholderColor;
+        }
+        &::-ms-input-placeholder {
+            color: $inputPlaceholderColor;
+        }
+        &:-ms-input-placeholder {
+            color: $inputPlaceholderColor;
         }
 
         &:focus {
@@ -195,7 +202,7 @@ $inputBorderWidth: 2px;
     &__field-msg {
         display: flex;
         visibility: visible;
-        text-align:center;
+        text-align: center;
         width: 100%;
         border: 1.2px solid #ef3535;
         border-radius: 12px;
@@ -245,18 +252,43 @@ $inputBorderWidth: 2px;
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
     }
-
     //Initialization Section
     &__field-section[section-type="business"] {
         display: none;
     }
-
     &__field-msg {
         visibility: hidden;
     }
-
     //TO-BE REMOVED - WILL CHANGE IN FUTURE
     &__field-msg-email, &__field-msg-username, &__field-msg-password {
         width: 50% - $inputHorSpacing;
+    }
+}
+.ts{
+    position: relative;
+}
+.acc-form__field-states-dropdown {
+    display: flex;
+    position: absolute;
+    width: 48%;
+    left: 0;
+    top: $inputHeight + 2px;
+    background-color: lightgray;
+
+    &:nth-child() {
+        border-bottom: 2px solid #DDDDDD;
+    }
+
+    li {
+        width: 100%;
+        height: 100%;
+        padding: 6px 10px;
+        font-weight: bold;
+
+
+        &:hover {
+            background-color: ghostwhite;
+            cursor: pointer;
+        }
     }
 }

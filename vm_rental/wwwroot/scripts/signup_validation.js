@@ -187,18 +187,17 @@
         },
        
         messages: {
+            username: {
+                required: "Please enter your Username.",
+                minlength: "Username must contain at least {0} characters."
+            },
+            email: {
+                required:"Please enter an Email Address."
+            },
             password: {
                 validate_password: "Password must be at least 8 characters long and contain at least one 0-9, a-z, A-Z and special characters.",
                 maxlength: "Password is too long.",
                 minlength: "Password can't be shorter than 8 characters."
-            },
-            phone: {
-                required: "Please enter your Phone.",
-                maxlength: "Phone number must contain 9 characters."
-            },
-            username: {
-                required: "Please enter your Username.",
-                minlength: "Username must contain at least {0} characters."
             },
             firstname: {
                 required: "Please enter your First Name."
@@ -206,19 +205,19 @@
             lastname: {
                 required: "Please enter your Last Name."
             },
-            firmname: {
-                required:"Please enter your Business Name."
-            },
             state: {
                 required: "Please enter a State."
             },
             city:{
                 required:"Please enter a City."
             },
-            email: {
-                required:"Please enter an Email Address."
-            }
-
+            phone: {
+                required: "Please enter your Phone.",
+                maxlength: "Phone number must contain 9 characters."
+            },
+            firmname: {
+                required:"Please enter your Business Name."
+            },
         },
 
         errorPlacement: function (error, element) { 

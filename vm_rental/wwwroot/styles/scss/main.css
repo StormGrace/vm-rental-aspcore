@@ -591,10 +591,11 @@ footer {
     display: flex;
     width: 90px;
     height: 90px;
+    margin-top: 5px;
     border: 0px;
     border-radius: 8px;
     outline: 0;
-    margin-top: 5px; }
+    background-color: #DDDDDD; }
     .acc-type__button--active {
       background-color: #00C0F4; }
     .acc-type__button:hover {
@@ -611,7 +612,7 @@ footer {
   width: 100%;
   padding-top: 10px; }
   .acc-form__field-section {
-    padding: 12px 20px 20px 12px; }
+    padding: 12px 20px 20px 20px; }
   .acc-form__field-header h1 {
     font-size: 1.5em;
     font-weight: bold; }
@@ -651,6 +652,10 @@ footer {
     padding-left: 10px;
     color: #00a6cc; }
     .acc-form__field::placeholder {
+      color: #BCBCBC; }
+    .acc-form__field::-ms-input-placeholder {
+      color: #BCBCBC; }
+    .acc-form__field:-ms-input-placeholder {
       color: #BCBCBC; }
     .acc-form__field:focus {
       outline: 2px solid #00abd3; }
@@ -714,6 +719,27 @@ footer {
     visibility: hidden; }
   .acc-form__field-msg-email, .acc-form__field-msg-username, .acc-form__field-msg-password {
     width: 48%; }
+
+.ts {
+  position: relative; }
+
+.acc-form__field-states-dropdown {
+  display: flex;
+  position: absolute;
+  width: 48%;
+  left: 0;
+  top: 26px;
+  background-color: lightgray; }
+  .acc-form__field-states-dropdown:nth-child() {
+    border-bottom: 2px solid #DDDDDD; }
+  .acc-form__field-states-dropdown li {
+    width: 100%;
+    height: 100%;
+    padding: 6px 10px;
+    font-weight: bold; }
+    .acc-form__field-states-dropdown li:hover {
+      background-color: ghostwhite;
+      cursor: pointer; }
 
 .nav-bar-wrapper {
   height: auto;

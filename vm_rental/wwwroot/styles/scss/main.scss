@@ -23,7 +23,7 @@
 @import "components/header/util/lang_bar";
 @import "components/header/util/lang_dropdown";
 
-@import "components/forms/sign_up_form";
+@import "components/forms/signup_form";
 
 ///*Header - Middle*///
 @import "components/header/nav/nav_bar";
@@ -31,6 +31,6 @@
 
 
 @import "pages/_index";
-@import "pages/sign/sign_up";
-@import "pages/sign/sign_in";
+@import "pages/sign/signup";
+@import "pages/sign/signin";
 
