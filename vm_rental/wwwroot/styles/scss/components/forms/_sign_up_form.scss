@@ -8,17 +8,9 @@ $inputBorderWidth: 2px;
 //BEM - Naming Convention
 //Future Media Queries Should Break- At 500 - 540px;
 
-.has-error {
-    color: #ef3535;
-}
-.acc-form__field--error {
-    outline: 2px solid red;
-}
-
 .login {
     display: flex;
     align-items: center;
-    justify-content: center;
     height: 60px;
     background-color: #EDEDED;
     border: 2px solid #0091d1;
@@ -161,7 +153,7 @@ $inputBorderWidth: 2px;
         }
 
         &--2x1 {
-            display: flex;
+            display: flex !important;
             flex-wrap: wrap;
             flex-direction: row;
             justify-content: space-between;
@@ -179,16 +171,17 @@ $inputBorderWidth: 2px;
     }
 
     &__field {
-        outline-width: 2px;
-
         &::placeholder {
             color: #BCBCBC;
         }
 
         &:focus {
-            outline-color: #00abd3;
+            outline: 2px solid #00abd3;
         }
 
+        &--error {
+            outline: 2px solid red;
+        }
 
         width: 100%;
         height: $inputHeight;
@@ -200,9 +193,7 @@ $inputBorderWidth: 2px;
     }
 
     &__field-msg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        text-align:center;
         width: 100%;
         border: 1.2px solid #ef3535;
         border-radius: 12px;
@@ -253,7 +244,17 @@ $inputBorderWidth: 2px;
         border-bottom-left-radius: 0px;
     }
 
+    //Initialization Section
     &__field-section[section-type="business"] {
         display: none;
+    }
+
+    &__field-msg {
+        display: none;
+    }
+
+    //TO-BE REMOVED - WILL CHANGE IN FUTURE
+    &__field-msg-email, &__field-msg-username, &__field-msg-password {
+        width: 50% - $inputHorSpacing;
     }
 }

@@ -5,7 +5,6 @@
     var maxName = 20;
     var maxPhone = 9;
     var maxEmail = 254;
-
   
     //Валидация за име започва с главна буква
     $('input[name = firstname]').on('keydown', function (event) {
@@ -86,12 +85,11 @@
         }
     }, "Please enter a valid Password.");
 
-
-
     $('form[form-type=personal]').validate({
-        errorElement: 'span',
-        errorClass: 'has-error',
-        ignoreTitle: true,
+        errorElement: 'label',
+        errorClass: 'error',
+        validClass: 'valid',
+        ignoreTitle: true,  
 
         rules: {
             email: {
@@ -186,52 +184,7 @@
                 numbers_only:true
             }
         },
-
-        errorPlacement: function (error, element) {
-            var name = $(element).attr("name");
-
-            if ($(element).hasClass("has-error")) {
-                $(element).addClass("acc-form__field--error");
-                $(element.next()).show();
-            } else{
-                $(element).removeClass("has-error");
-                $(element).removeClass("acc-form__field--error");
-                $(element.parent().next("acc-form__field-msg").hide());
-            }    
-
-
-
-            if (name == "email" || name == "password" || name == "username") {
-                error.appendTo(element.parent().next());
-            }
-            else if (name == "firstname") {
-                error.appendTo($(".acc-form__field-msg-firstname"));
-            }
-            else if (name == "lastname") {
-                error.appendTo($(".acc-form__field-msg-lastname"));
-            }
-            else if (name == "state")
-            {
-                error.appendTo($(".acc-form__field-msg-state"));
-            }
-            else if (name == "city")
-            {
-                error.appendTo($(".acc-form__field-msg-city"));
-            }
-            else if (name == "phone")
-            {
-                error.appendTo($(".acc-form__field-msg-phone"));
-            }
-            else if (name == "firmname")
-            {
-                error.appendTo($(".acc-form__field-msg-firmname"));
-            }
-            else {
-                error.insertAfter(element);
-            }
-            
-        },
-
+       
         messages: {
             password: {
                 validate_password: "Password must be at least 8 characters long and contain at least one 0-9, a-z, A-Z and special characters.",
@@ -265,20 +218,42 @@
                 required:"Please enter an Email Address."
             }
 
-        }
+        },
+
+        errorPlacement: function (error, element) {   
+            error.appendTo(".acc-form__field-msg-" +  $(element).attr("name"));                  
+        },
+
+        highlight: function(element, errorClass, validClass) {
+            var errorContainer =  $(".acc-form__field-msg-" + $(element).attr("name"));
+
+            $(element).addClass("acc-form__field--" + errorClass).removeClass("acc-form__field--" + validClass);
+
+            if(errorContainer.is(":hidden")){
+                $(errorContainer).show();
+            }
+        },
+
+       unhighlight: function(element, errorClass, validClass) {
+            var errorContainer = $(".acc-form__field-msg-" + $(element).attr("name"));
+
+             $(element).addClass("acc-form__field--" + validClass).removeClass("acc-form__field--" + errorClass);
+
+            if(errorContainer.is(":visible")){
+                $(errorContainer).hide();
+            }  
+        },
     });
 
     var validator = $('form[form-type=personal]').validate();
 
     $(".acc-type__button--personal").click(function () {
         validator.resetForm();       //Рестартира формата, но не оправя проблема с дупликирането на еррор съобщенията.
-        $(".has-error").remove();    //Премахва зададения клас във кода на ред 152 за да не позволи дупликирането на еррор съобшенията
+        $(".error").remove();    //Премахва зададения клас във кода на ред 152 за да не позволи дупликирането на еррор съобшенията
     });
 
     $(".acc-type__button--business").click(function () {
         validator.resetForm(); 
-        $(".has-error").remove();
+        $(".error").remove();
     });
-
-
 });

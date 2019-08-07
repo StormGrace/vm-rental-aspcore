@@ -57,10 +57,8 @@
         $form.fadeOut("fast", function() {
             $fieldsToHide.hide();
             $fieldsToShow.show();
-                
+
             $form.fadeIn("slow");
         });
     }
-    
-
 });
