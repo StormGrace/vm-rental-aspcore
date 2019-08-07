@@ -39,7 +39,7 @@
             this.setSelectionRange(1, 1);
         }
     });
-    //добавен метод за валидация за емайл
+    //добавен метод за валидация за потребителското име
     jQuery.validator.addMethod("usernamevalidation", function (value) {
         if (/^[a-zA-Z0-9]+(?:[ _-][A-Za-z0-9]+)*$/.test(value)) {
            return true;
@@ -48,7 +48,7 @@
     }, "Only Latin, hyphens and underscores are supported.");
 
 
-    //добавен метод за валидация за емайл
+    //добавен метод за букви 
     jQuery.validator.addMethod("characters_only", function (value) {
         if (/^[a-zA-Z]+$/.test(value)) {
             return true;
@@ -56,7 +56,7 @@
         else { return false; }
     }, "Оnly Latin characters.");
 
-    //добавен метод за валидация за емайл
+    //добавен метод за валидация за числа
     jQuery.validator.addMethod("numbers_only", function (value) {
         if (/^[0-9]+$/.test(value)) {
             return true;
