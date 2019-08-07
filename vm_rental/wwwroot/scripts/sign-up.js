@@ -5,7 +5,8 @@
     var maxName = 20;
     var maxPhone = 9;
     var maxEmail = 254;
-  
+    var isBusinessType = false;
+   
     //Валидация за име започва с главна буква
     $('input[name = firstname]').on('keydown', function (event) {
         if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
@@ -221,11 +222,22 @@
         },
 
         errorPlacement: function (error, element) {   
-            error.appendTo(".acc-form__field-msg-" +  $(element).attr("name"));                  
+            if($isBusinessType){
+                error.appendTo(".acc-form__business-info .acc-form__field-msg-" +  $(element).attr("name"));
+            }else{
+                error.appendTo(".acc-form__personal-info .acc-form__field-msg-" +  $(element).attr("name"));
+            }
+           
         },
 
         highlight: function(element, errorClass, validClass) {
-            var errorContainer =  $(".acc-form__field-msg-" + $(element).attr("name"));
+            var errorContainer = null;
+            
+            if($isBusinessType){
+                errorContainer =  $(".acc-form__business-info .acc-form__field-msg-" + $(element).attr("name"));
+            }else{
+                errorContainer =  $(".acc-form__personal-info .acc-form__field-msg-" + $(element).attr("name"));
+            }
 
             $(element).addClass("acc-form__field--" + errorClass).removeClass("acc-form__field--" + validClass);
 
@@ -235,7 +247,13 @@
         },
 
        unhighlight: function(element, errorClass, validClass) {
-            var errorContainer = $(".acc-form__field-msg-" + $(element).attr("name"));
+            var errorContainer = null;
+            
+            if($isBusinessType){
+                errorContainer =  $(".acc-form__business-info .acc-form__field-msg-" + $(element).attr("name"));
+            }else{
+                errorContainer =  $(".acc-form__personal-info .acc-form__field-msg-" + $(element).attr("name"));
+            }
 
              $(element).addClass("acc-form__field--" + validClass).removeClass("acc-form__field--" + errorClass);
 
@@ -248,12 +266,12 @@
     var validator = $('form[form-type=personal]').validate();
 
     $(".acc-type__button--personal").click(function () {
-        validator.resetForm();       //Рестартира формата, но не оправя проблема с дупликирането на еррор съобщенията.
-        $(".error").remove();    //Премахва зададения клас във кода на ред 152 за да не позволи дупликирането на еррор съобшенията
+        validator.resetForm();    
+        $isBusinessType = false;
     });
 
     $(".acc-type__button--business").click(function () {
         validator.resetForm(); 
-        $(".error").remove();
+        $isBusinessType = true;
     });
 });

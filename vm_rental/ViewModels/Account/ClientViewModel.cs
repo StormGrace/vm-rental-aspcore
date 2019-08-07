@@ -21,6 +21,11 @@ namespace vm_rental.ViewModels.Account
         public string address { get; set; }
         public string phone { get; set; }
         public string firmName { get; set; }     
+        public string ownerFirstName { get; set; }
+        public string ownerLastName { get; set; }
+        public string ownerState { get; set; }
+        public string ownerCity { get; set; }
+        public string ownerPhone { get; set; }
 
         public bool _isBusinessClient = false;
 
