@@ -11,11 +11,8 @@
     $businessFields = $(".acc-form__field-section[section-type='business']");
     
     $isBusinessType = false;
-  
-    $lastSelected = null;
 
     onTypeChange();
-
 
     $($buttons).click(function(){    
         if($(this).is($personalButton)){

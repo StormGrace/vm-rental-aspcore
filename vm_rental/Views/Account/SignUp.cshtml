@@ -61,7 +61,7 @@
                     <span class="acc-form__field-msg-password acc-form__field-msg" asp-validation-for="password"></span>
                 </div>
             </div>
-            <div class="acc-form__personal-info acc-form__field-section" section-type="personal">
+            <div class="acc-form__field-section">
                 <div class="acc-form__field-header">
                     <h1>Personal Information</h1>
                     <span class="acc-form__h-line"></span>
@@ -99,30 +99,7 @@
                     <div class="acc-form__field-subrow acc-form__field-subrow--half">
                         <input type="text" placeholder="Business Name*" class="acc-form__field" name="firmname" asp-for="firmName" />
                         <span class="acc-form__field-msg-firmname acc-form__field-msg" asp-validation-for="firmName"></span>
-                    </div>
-                </div>
-                <div class="acc-form__field-row">
-                    <div class="acc-form__field-subrow acc-form__field-subrow--2x1">
-                        <input type="text" placeholder="Owner's First Name*" class="acc-form__field" name="firstname" asp-for="firstName" />
-                        <input type="text" placeholder="Owner's Last Name*" class="acc-form__field" name="lastname" asp-for="lastName" />
-                        <span class="acc-form__field-msg-firstname acc-form__field-msg" asp-validation-for="firstName"></span>
-                        <span class="acc-form__field-msg-lastname acc-form__field-msg" asp-validation-for="lastName"></span>
-                    </div>
-                </div>
-                <div class="acc-form__field-row">
-                    <div class="acc-form__field-subrow acc-form__field-subrow--2x1 acc-form__field-subrow--2x1--half">
-                        <input type="text" placeholder="State*" class="acc-form__field" name="state" asp-for="state" />
-                        <input type="text" placeholder="City*" class="acc-form__field" name="city" asp-for="city" />
-                        <span class="acc-form__field-msg-state acc-form__field-msg" asp-validation-for="state"></span>
-                        <span class="acc-form__field-msg-city acc-form__field-msg" asp-validation-for="city"></span>
-                    </div>
-                    <div class="acc-form__field-subrow acc-form__field-subrow--half">
-                        <div class="acc-form__field-subrow">
-                            <span class="acc-form__country-code">+359</span>
-                            <input type="tel" placeholder="Mobile Phone*" class="acc-form__field" name="phone" asp-for="phone" />
-                        </div>
-                        <span class="acc-form__field-msg-phone acc-form__field-msg" asp-validation-for="phone"></span>
-                    </div>
+                    </div>      
                 </div>
             </div>
             <div class="acc-form__terms">

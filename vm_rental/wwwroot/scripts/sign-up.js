@@ -221,52 +221,40 @@
 
         },
 
-        errorPlacement: function (error, element) {   
-            if($isBusinessType){
-                error.appendTo(".acc-form__business-info .acc-form__field-msg-" +  $(element).attr("name"));
-            }else{
-                error.appendTo(".acc-form__personal-info .acc-form__field-msg-" +  $(element).attr("name"));
-            }
-           
+        errorPlacement: function (error, element) { 
+             var sourceClass = null;
+             var elementName = $(element).attr("name");
+   
+             error.appendTo(".acc-form__field-msg-" +  elementName);
         },
 
         highlight: function(element, errorClass, validClass) {
             var errorContainer = null;
-            
-            if($isBusinessType){
-                errorContainer =  $(".acc-form__business-info .acc-form__field-msg-" + $(element).attr("name"));
-            }else{
-                errorContainer =  $(".acc-form__personal-info .acc-form__field-msg-" + $(element).attr("name"));
-            }
+            var elementName = $(element).attr("name");
+                
+            errorContainer =  $(".acc-form__field-msg-" + elementName);
 
             $(element).addClass("acc-form__field--" + errorClass).removeClass("acc-form__field--" + validClass);
 
-            if(errorContainer.is(":hidden")){
-                $(errorContainer).show();
-            }
+            $(errorContainer).css("visibility", "visible");
         },
 
        unhighlight: function(element, errorClass, validClass) {
             var errorContainer = null;
-            
-            if($isBusinessType){
-                errorContainer =  $(".acc-form__business-info .acc-form__field-msg-" + $(element).attr("name"));
-            }else{
-                errorContainer =  $(".acc-form__personal-info .acc-form__field-msg-" + $(element).attr("name"));
-            }
+            var elementName = $(element).attr("name");
 
-             $(element).addClass("acc-form__field--" + validClass).removeClass("acc-form__field--" + errorClass);
+            errorContainer =  $(".acc-form__field-msg-" + elementName); 
 
-            if(errorContainer.is(":visible")){
-                $(errorContainer).hide();
-            }  
+            $(element).addClass("acc-form__field--" + validClass).removeClass("acc-form__field--" + errorClass);
+
+            $(errorContainer).css("visibility", "hidden");
         },
     });
 
     var validator = $('form[form-type=personal]').validate();
 
     $(".acc-type__button--personal").click(function () {
-        validator.resetForm();    
+        validator.resetForm();  
         $isBusinessType = false;
     });
 

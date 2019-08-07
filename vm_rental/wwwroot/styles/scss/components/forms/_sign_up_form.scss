@@ -193,6 +193,8 @@ $inputBorderWidth: 2px;
     }
 
     &__field-msg {
+        display: flex;
+        visibility: visible;
         text-align:center;
         width: 100%;
         border: 1.2px solid #ef3535;
@@ -250,7 +252,7 @@ $inputBorderWidth: 2px;
     }
 
     &__field-msg {
-        display: none;
+        visibility: hidden;
     }
 
     //TO-BE REMOVED - WILL CHANGE IN FUTURE
