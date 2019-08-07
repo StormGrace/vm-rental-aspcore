@@ -523,6 +523,9 @@ footer {
 .has-error {
   color: #ef3535; }
 
+.acc-form__field--error {
+  outline: 2px solid red; }
+
 .login {
   display: flex;
   align-items: center;
@@ -713,12 +716,6 @@ footer {
     border-bottom-left-radius: 0px; }
   .acc-form__field-section[section-type="business"] {
     display: none; }
-
-.acc-form__field--error {
-  outline: 2px solid red; }
-
-.rar {
-  outline: 2px solid red; }
 
 .nav-bar-wrapper {
   height: auto;

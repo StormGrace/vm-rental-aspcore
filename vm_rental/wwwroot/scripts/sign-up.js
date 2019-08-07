@@ -191,12 +191,12 @@
             var name = $(element).attr("name");
 
             if ($(element).hasClass("has-error")) {
-                $(element).toggleClass("acc-form__field--error");
+                $(element).addClass("acc-form__field--error");
                 $(element.next()).show();
-            } else {
+            } else{
                 $(element).removeClass("has-error");
                 $(element).removeClass("acc-form__field--error");
-                $(element.parent().next()).hide();
+                $(element.parent().next("acc-form__field-msg").hide());
             }    
 
 
