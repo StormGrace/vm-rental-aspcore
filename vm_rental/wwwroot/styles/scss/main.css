@@ -714,7 +714,7 @@ footer {
   .acc-form__field-section[section-type="business"] {
     display: none; }
 
-.acc-form__field--error {
+.has-error {
   outline: 2px solid red; }
 
 .nav-bar-wrapper {

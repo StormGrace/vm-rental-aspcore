@@ -123,11 +123,15 @@
 
 
     // добавен метод за емайл
-    jQuery.validator.addMethod("validate_email", function (value) {
+    jQuery.validator.addMethod("validate_email", function (value, element) {
 
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value)) {
+            $(".acc-form__field[name='email']").addClass("has-error");
+            $(".acc-form__field-msg-email").hide();
             return true;
         } else {
+            $(".acc-form__field[name='email']").removeClass("has-error");
+            $(".acc-form__field-msg-email").show();
             return false;
         }
     }, "Please enter a valid Email Address.");
@@ -181,6 +185,7 @@
             },
             firmemail: {
                 validate_email:true
+        
             },
             phone: {
                 required: true,
@@ -190,17 +195,15 @@
         },
 
         errorPlacement: function (error, element) {
-            var name = $(element).attr("name");
-
-                if($(element).hasClass("has-error")){
-                    $(element).addClass("acc-form__field--error");
-                    $(element.next()).show();
-                }else{
-                    $(element).removeClass("has-error");
-                    $(element).removeClass("acc-form__field--error");
-                    $(element.parent().next()).hide();
-                }    
-
+            var name = $(element).attr("name");  
+            
+            if(!$(element).hasClass("has-error")){
+                $(".acc-form__field[name='email']").addClass("has-error");
+                $(".acc-form__field-msg-email").hide(); 
+            }else{
+                 $(".acc-form__field[name='email']").removeClass("has-error");
+                $(".acc-form__field-msg-email").show(); 
+            }
             if (name == "email" || name == "password" || name == "username") {
                 error.appendTo(element.parent().next());
             }

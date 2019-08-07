@@ -1,16 +1,13 @@
 ﻿@model vm_rental.ViewModels.Account.ClientViewModel
-
 @{
     ViewData["Title"] = "Sign Up";
     ViewData["Description"] = "A Convenient Rental Service for Virtual Machines.";
     ViewData["Wrapper_Class"] = "page-signup-all-container";
 }
-
 @section Scripts{
-    <script src="@Url.Content("~/scripts/account_selection.js")"></script>
-    <script src="@Url.Content("~/scripts/sign-up.js")"></script>
+        <script src="@Url.Content("~/scripts/account_selection.js")"></script>
+        <script src="@Url.Content("~/scripts/sign-up.js")"></script>
 }
-<!--Sign Up-->
 <div class="page-signup-container">
     <div class="login">
         <h1>Already have an account?</h1>
