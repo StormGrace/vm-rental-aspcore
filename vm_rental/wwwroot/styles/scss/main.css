@@ -520,7 +520,7 @@ footer {
       background-color: aqua;
       cursor: pointer; }
 
-.error {
+.has-error {
   color: #ef3535; }
 
 .login {
@@ -715,6 +715,9 @@ footer {
     display: none; }
 
 .acc-form__field--error {
+  outline: 2px solid red; }
+
+.rar {
   outline: 2px solid red; }
 
 .nav-bar-wrapper {
