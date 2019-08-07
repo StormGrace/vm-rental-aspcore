@@ -1,93 +1,12 @@
 ﻿$(document).ready(function () {
     var minChar = 8;
+    var minName = 4;
     var maxChar = 100;
-    var maxName = 50;
+    var maxName = 20;
     var maxPhone = 9;
+    var maxEmail = 254;
 
-    // Валидация за емайл
-    $('input[name=email]').keypress(function (event) {
-        var ew = event.which;
-        if (ew == 32)
-            return true;
-        if (ew == 46)
-            return true;
-        if (48 <= ew && ew <= 57)
-            return true;
-        if (64 <= ew && ew <= 90)
-            return true;
-        if (97 <= ew && ew <= 122)
-            return true;
-        return false;
-    });
-
-    //Валидация за потребителско име 
-    $('input[name=username]').keypress(function (event) {
-        var ew = event.which;
-        if (48 <= ew && ew <= 57)
-            return true;
-        if (64 <= ew && ew <= 90)
-            return true;
-        if (97 <= ew && ew <= 122)
-            return true;
-        return false;
-    });
-
-    //Валидация за името на фирмата
-    $('input[name=firmname]').keypress(function (event) {
-        var ew = event.which;
-        if (64 <= ew && ew <= 90)
-            return true;
-        if (97 <= ew && ew <= 122)
-            return true;
-        return false;
-    });
-
-    //Валидация за име 
-    $('input[name=firstname]').keypress(function (event) {
-        var ew = event.which;
-        if (64 <= ew && ew <= 90)
-            return true;
-        if (97 <= ew && ew <= 122)
-            return true;
-        return false;
-
-    });
-
-    //Валидация за фамилно име
-    $('input[name=lastname]').keypress(function (event) {
-        var ew = event.which;
-        if (64 <= ew && ew <= 90)
-            return true;
-        if (97 <= ew && ew <= 122)
-            return true;
-        return false;
-
-    });
-
-    // Валидация за паролата
-    $('input[name=password]').keypress(function (event) {
-        var ew = event.which;
-        if (32 <= ew && ew <=47)
-            return true;
-        if (48 <= ew && ew <= 57)
-            return true;
-        if (65 <= ew && ew <= 90)
-            return true;
-        if (97 <= ew && ew <= 122)
-            return true;
-        return false;
-    });
-
-    // Валидация за телефон само цифри
-    $('input[name=phone]').keypress(function (event) {
-        var ew = event.which;
-        if (48 <= ew && ew <= 57)
-            return true;
-        else
-            return false;
-    });
-
-
+  
     //Валидация за име започва с главна буква
     $('input[name = firstname]').on('keydown', function (event) {
         if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
@@ -120,18 +39,39 @@
             this.setSelectionRange(1, 1);
         }
     });
+    //добавен метод за валидация за потребителското име
+    jQuery.validator.addMethod("usernamevalidation", function (value) {
+        if (/^[a-zA-Z0-9]+(?:[ _-][A-Za-z0-9]+)*$/.test(value)) {
+           return true;
+        }
+        else { return false;}
+    }, "Only Latin, hyphens and underscores are supported.");
+
+
+    //добавен метод за букви 
+    jQuery.validator.addMethod("characters_only", function (value) {
+        if (/^[a-zA-Z]+$/.test(value)) {
+            return true;
+        }
+        else { return false; }
+    }, "Оnly Latin characters.");
+
+    //добавен метод за валидация за числа
+    jQuery.validator.addMethod("numbers_only", function (value) {
+        if (/^[0-9]+$/.test(value)) {
+            return true;
+        }
+        else { return false; }
+    }, "Phone Number should contain only numbers.");
+
 
 
     // добавен метод за емайл
-    jQuery.validator.addMethod("validate_email", function (value, element) {
+    jQuery.validator.addMethod("validate_email", function (value) {
 
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value)) {
-            $(".acc-form__field[name='email']").addClass("has-error");
-            $(".acc-form__field-msg-email").hide();
             return true;
         } else {
-            $(".acc-form__field[name='email']").removeClass("has-error");
-            $(".acc-form__field-msg-email").show();
             return false;
         }
     }, "Please enter a valid Email Address.");
@@ -152,63 +92,139 @@
         errorElement: 'span',
         errorClass: 'has-error',
         ignoreTitle: true,
+
         rules: {
             email: {
-                validate_email: true
+                validate_email: true,
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                maxlength: maxEmail
             },
             password: {
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
                 validate_password: true,
                 minlength: minChar,
                 maxlength: maxChar
             },
             username: {
-                required: true,
-                maxlength: maxName
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                maxlength: maxName,
+                minlength: minName,
+                usernamevalidation: true,
+
             },
             firstname: {
-                required: true,
-                maxlength: maxName
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                maxlength: maxName,
+                characters_only:true
             },
             lastname: {
-                required: true,
-                maxlength: maxName
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                maxlength: maxName,
+                 characters_only: true
             },
             state: {
-                required: true,
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                characters_only: true
             },
             city: {
-                required: true,
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                characters_only: true
             },
             firmname: {
-                required: true,
-                maxlength: maxName
-            },
-            firmemail: {
-                validate_email:true
-        
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                maxlength: maxName,
+                characters_only: true
             },
             phone: {
-                required: true,
-                minlength: maxPhone,
-                maxlength: maxPhone
+                required: {
+                    depends: function () {
+                        $(this).val($.trim($(this).val()));
+                        return true;
+                    }
+                },
+                maxlength: maxPhone,
+                numbers_only:true
             }
         },
 
         errorPlacement: function (error, element) {
-            var name = $(element).attr("name");  
-            
-            if(!$(element).hasClass("has-error")){
-                $(".acc-form__field[name='email']").addClass("has-error");
-                $(".acc-form__field-msg-email").hide(); 
-            }else{
-                 $(".acc-form__field[name='email']").removeClass("has-error");
-                $(".acc-form__field-msg-email").show(); 
-            }
+            var name = $(element).attr("name");
+
+            if ($(element).hasClass("has-error")) {
+                $(element).addClass("acc-form__field--error");
+                $(element.next()).show();
+            } else{
+                $(element).removeClass("has-error");
+                $(element).removeClass("acc-form__field--error");
+                $(element.parent().next("acc-form__field-msg").hide());
+            }    
+
+
+
             if (name == "email" || name == "password" || name == "username") {
                 error.appendTo(element.parent().next());
             }
-            else if (name == "firstname" || name=="lastname" || name=="firmname" || name=="firmemail" || name=="phone" || name=="state" || name=="city") {
-                error.appendTo(element.parents().find(".acc-form__field-msg-personal"));
+            else if (name == "firstname") {
+                error.appendTo($(".acc-form__field-msg-firstname"));
+            }
+            else if (name == "lastname") {
+                error.appendTo($(".acc-form__field-msg-lastname"));
+            }
+            else if (name == "state")
+            {
+                error.appendTo($(".acc-form__field-msg-state"));
+            }
+            else if (name == "city")
+            {
+                error.appendTo($(".acc-form__field-msg-city"));
+            }
+            else if (name == "phone")
+            {
+                error.appendTo($(".acc-form__field-msg-phone"));
+            }
+            else if (name == "firmname")
+            {
+                error.appendTo($(".acc-form__field-msg-firmname"));
             }
             else {
                 error.insertAfter(element);
@@ -218,15 +234,17 @@
 
         messages: {
             password: {
-                validate_password: "Password must be at least 8 characters long and contain at least one 0-9, a-z, A-Z and special characters."
+                validate_password: "Password must be at least 8 characters long and contain at least one 0-9, a-z, A-Z and special characters.",
+                maxlength: "Password is too long.",
+                minlength: "Password can't be shorter than 8 characters."
             },
             phone: {
-                required: "Phone number isn't Specified.",
-                minlength: "Phone number must contain 9 characters.",
-                maxlength: "Phone number is not correct."
+                required: "Please enter your Phone.",
+                maxlength: "Phone number must contain 9 characters."
             },
             username: {
-                required: "Please enter a Username."
+                required: "Please enter your Username.",
+                minlength: "Username must contain at least {0} characters."
             },
             firstname: {
                 required: "Please enter your First Name."
@@ -261,5 +279,6 @@
         validator.resetForm(); 
         $(".has-error").remove();
     });
+
 
 });
