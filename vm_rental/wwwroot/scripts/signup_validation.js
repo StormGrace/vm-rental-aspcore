@@ -6,20 +6,20 @@
     var maxPhone = 9;
     var maxEmail = 254;
     $bannedWordsArray = [];
-    $regex = null;
+    var regex = null;
 
     $.getJSON("/restricted_words.json", function (data) {
         var tempArr = [];
         $.each(data, function (index, value) {
             tempArr.push(value);
         });
-        bannedWordsArray = tempArr;
-        console.log(bannedWordsArray);
-        regex = new RegExp(bannedWordsArray, 'i');
+        $bannedWordsArray = tempArr;
+        $regexStr = $bannedWordsArray.toString().replace(/,/g, '|');
+        regex = new RegExp("(" + $regexStr + ")", 'i');
     });
 
     jQuery.validator.addMethod("bannedWords", function (value) {
-       if (regex.test(value)) { return true; }
+       if (!regex.test(value)) { return true; }
         else { return false; } 
    }, "This username is not allowed!");
 
