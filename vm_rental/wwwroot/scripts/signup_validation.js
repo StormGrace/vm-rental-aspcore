@@ -1,4 +1,4 @@
-﻿
+﻿$(document).ready(function () {
     var minChar = 8;
     var minName = 4;
     var maxChar = 100;
@@ -6,6 +6,25 @@
     var maxPhone = 9;
     var maxEmail = 254;
     var isBusinessType = false;
+    var bannedWordsArray = [];
+
+
+    $.getJSON("/restricted_words.json", function (data) {
+        let that = this;
+        var tempArr = [];
+        $.each(data, function (index, value) {
+            tempArr.push(value);
+        });
+        that.bannedWordsArray = tempArr;
+    });
+
+    jQuery.validator.addMethod("bannedWords", function (value) {
+        if (new RegExp('\\b' + bannedWordsArray.join("\\b|\\b") + '//b', 'i').test(value)) { return true; }
+        else { return false; }
+    }, "This username is not allowed!");
+
+
+
 
     //Валидация за име започва с главна буква
     $('input[name = firstname]').on('keydown', function (event) {
@@ -123,8 +142,8 @@
                 },
                 maxlength: maxName,
                 minlength: minName,
-                usernamevalidation: true,
-
+                bannedWords: true,
+                usernamevalidation: true
             },
             firstname: {
                 required: {
@@ -149,6 +168,7 @@
             state: {
                 required: {
                     depends: function () {
+                        $(this).val($.trim($(this).val()));
                         return true;
                     }
                 },
@@ -188,7 +208,7 @@
         messages: {
             username: {
                 required: "Please enter your Username.",
-                minlength: "Username is too short, min of {0} symbols are required."
+                minlength: "Username must contain at least {0} characters."
             },
             email: {
                 required:"Please enter an Email Address."
@@ -199,16 +219,16 @@
                 minlength: "Password can't be shorter than 8 characters."
             },
             firstname: {
-                required: "Please enter First Name."
+                required: "Please enter your First Name."
             },
             lastname: {
-                required: "Please enter Last Name."
+                required: "Please enter your Last Name."
             },
             state: {
-                required: "Please enter State."
+                required: "Please enter a State."
             },
             city:{
-                required:"Please enter City."
+                required:"Please enter a City."
             },
             phone: {
                 required: "Please enter your Phone.",
@@ -260,3 +280,4 @@
         validator.resetForm(); 
         $isBusinessType = true;
     });
+});
