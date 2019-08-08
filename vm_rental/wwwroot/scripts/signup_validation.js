@@ -5,26 +5,23 @@
     var maxName = 20;
     var maxPhone = 9;
     var maxEmail = 254;
-    var isBusinessType = false;
-    var bannedWordsArray = [];
-
+    $bannedWordsArray = [];
+    $regex = null;
 
     $.getJSON("/restricted_words.json", function (data) {
-        let that = this;
         var tempArr = [];
         $.each(data, function (index, value) {
             tempArr.push(value);
         });
-        that.bannedWordsArray = tempArr;
+        bannedWordsArray = tempArr;
+        console.log(bannedWordsArray);
+        regex = new RegExp(bannedWordsArray, 'i');
     });
 
     jQuery.validator.addMethod("bannedWords", function (value) {
-        if (new RegExp('\\b' + bannedWordsArray.join("\\b|\\b") + '//b', 'i').test(value)) { return true; }
-        else { return false; }
-    }, "This username is not allowed!");
-
-
-
+       if (regex.test(value)) { return true; }
+        else { return false; } 
+   }, "This username is not allowed!");
 
     //Валидация за име започва с главна буква
     $('input[name = firstname]').on('keydown', function (event) {
@@ -142,8 +139,8 @@
                 },
                 maxlength: maxName,
                 minlength: minName,
-                bannedWords: true,
-                usernamevalidation: true
+                usernamevalidation: true,
+                bannedWords:true
             },
             firstname: {
                 required: {
