@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿
     var minChar = 8;
     var minName = 4;
     var maxChar = 100;
@@ -6,7 +6,7 @@
     var maxPhone = 9;
     var maxEmail = 254;
     var isBusinessType = false;
-   
+
     //Валидация за име започва с главна буква
     $('input[name = firstname]').on('keydown', function (event) {
         if (this.selectionStart == 0 && event.keyCode >= 65 && event.keyCode <= 90 && !(event.shiftKey) && !(event.ctrlKey) && !(event.metaKey) && !(event.altKey)) {
@@ -149,7 +149,6 @@
             state: {
                 required: {
                     depends: function () {
-                        $(this).val($.trim($(this).val()));
                         return true;
                     }
                 },
@@ -189,7 +188,7 @@
         messages: {
             username: {
                 required: "Please enter your Username.",
-                minlength: "Username must contain at least {0} characters."
+                minlength: "Username is too short, min of {0} symbols are required."
             },
             email: {
                 required:"Please enter an Email Address."
@@ -200,16 +199,16 @@
                 minlength: "Password can't be shorter than 8 characters."
             },
             firstname: {
-                required: "Please enter your First Name."
+                required: "Please enter First Name."
             },
             lastname: {
-                required: "Please enter your Last Name."
+                required: "Please enter Last Name."
             },
             state: {
-                required: "Please enter a State."
+                required: "Please enter State."
             },
             city:{
-                required:"Please enter a City."
+                required:"Please enter City."
             },
             phone: {
                 required: "Please enter your Phone.",
@@ -261,4 +260,3 @@
         validator.resetForm(); 
         $isBusinessType = true;
     });
-});

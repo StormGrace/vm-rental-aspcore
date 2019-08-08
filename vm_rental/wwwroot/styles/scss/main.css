@@ -723,21 +723,21 @@ footer {
 .ts {
   position: relative; }
 
-.acc-form__field-states-dropdown {
+.acc-form__field-states-dropdown, .dropdown {
   display: flex;
   position: absolute;
   width: 48%;
   left: 0;
   top: 26px;
   background-color: lightgray; }
-  .acc-form__field-states-dropdown:nth-child() {
+  .acc-form__field-states-dropdown:nth-child(), .dropdown:nth-child() {
     border-bottom: 2px solid #DDDDDD; }
-  .acc-form__field-states-dropdown li {
+  .acc-form__field-states-dropdown li, .dropdown li {
     width: 100%;
     height: 100%;
     padding: 6px 10px;
     font-weight: bold; }
-    .acc-form__field-states-dropdown li:hover {
+    .acc-form__field-states-dropdown li:hover, .dropdown li:hover {
       background-color: ghostwhite;
       cursor: pointer; }
 

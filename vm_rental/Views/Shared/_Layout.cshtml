@@ -35,11 +35,20 @@
         }
 
     </div>
-    @if (!IsSectionDefined("Header") && IsSectionDefined("Scripts"))
+
+    @*Global Scripts*@
+    <script src="@Url.Content("~/scripts/countries.js")"></script>
+
+    @*Page Specific - Header*@
+    @if (!IsSectionDefined("Header"))
     {
         <script src="@Url.Content("~/scripts/nav_bar.js")"></script>
         <script src="@Url.Content("~/scripts/lang_tray.js")"></script>
-        @RenderSection("Scripts");
+
+        if (IsSectionDefined("Scripts"))
+        {
+            @RenderSection("Scripts");
+        }
     }
 </body>
 </html>

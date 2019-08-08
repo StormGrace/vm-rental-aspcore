@@ -267,7 +267,7 @@ $inputPlaceholderColor:#BCBCBC;
 .ts{
     position: relative;
 }
-.acc-form__field-states-dropdown {
+.acc-form__field-states-dropdown, .dropdown {
     display: flex;
     position: absolute;
     width: 48%;
@@ -284,7 +284,6 @@ $inputPlaceholderColor:#BCBCBC;
         height: 100%;
         padding: 6px 10px;
         font-weight: bold;
-
 
         &:hover {
             background-color: ghostwhite;
