@@ -1,5 +1,4 @@
-﻿$(document).ready(function(){
-    $isBusinessByDefault = false;
+﻿    $isBusinessByDefault = false;
 
     $form = $(".acc-form");
     $buttons = $(".acc-type__button");
@@ -58,4 +57,3 @@
             $form.fadeIn("slow");
         });
     }
-});
