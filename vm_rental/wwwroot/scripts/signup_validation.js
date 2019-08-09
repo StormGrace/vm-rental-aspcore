@@ -13,14 +13,13 @@
         $.each(data, function (index, value) {
             tempArr.push(value);
         });
-
         $bannedWordsArray = tempArr;
         $regexStr = $bannedWordsArray.toString().replace(/,/g, '|');
         regex = new RegExp("(" + $regexStr + ")", 'i');
     });
 
     jQuery.validator.addMethod("bannedWords", function (value) {
-       if (!value.match(regex)) { return true; }
+       if (!regex.test(value)) { return true; }
         else { return false; } 
    }, "This username is not allowed!");
 
@@ -166,10 +165,11 @@
             state: {
                 required: {
                     depends: function () {
-                        //$(this).val($.trim($(this).val()));
+                        $(this).val($.trim($(this).val()));
                         return true;
                     }
                 },
+                characters_only: true
             },
             city: {
                 required: {
