@@ -67,6 +67,10 @@ th {
   padding: 0;
   text-align: left; }
 
+a:link, a:visited {
+  text-decoration: none;
+  color: black; }
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -372,10 +376,6 @@ template {
 [hidden] {
   display: none; }
 
-a:link, a:visited {
-  text-decoration: none;
-  color: black; }
-
 @font-face {
   font-family: 'OpenSans-Bold';
   font-weight: bold;
@@ -544,11 +544,11 @@ footer {
     border-radius: 4.5px;
     overflow: hidden;
     outline: 0px;
-    border: 3px solid #00b8ea;
+    border: 3px solid #00B8EA;
     margin-left: 10px; }
     .login__button:hover {
       cursor: pointer;
-      background-color: #00c4f9; }
+      background-color: #00C4F9; }
 
 .acc-type {
   display: flex;
@@ -673,6 +673,22 @@ footer {
     font-style: italic;
     font-weight: bold;
     background-color: #f7f7f7; }
+  .acc-form__field-state-dropdown {
+    display: flex;
+    position: absolute;
+    width: 48%;
+    height: auto;
+    top: 26px;
+    left: 0;
+    background-color: lightgray; }
+    .acc-form__field-state-dropdown:nth-child() {
+      width: 100%;
+      height: 100%;
+      padding: 6px 10px;
+      font-weight: bold; }
+      .acc-form__field-state-dropdown:nth-child():hover {
+        cursor: pointer;
+        background-color: ghostwhite; }
   .acc-form__country-code {
     display: flex;
     align-items: center;
@@ -704,11 +720,11 @@ footer {
     border-radius: 0px;
     overflow: hidden;
     outline: 0px;
-    border: 3px solid #00b8ea;
+    border: 3px solid #00B8EA;
     width: 100%; }
     .acc-form__signup-button:hover {
       cursor: pointer;
-      background-color: #00c4f9; }
+      background-color: #00C4F9; }
   .acc-form__field[name="phone"] {
     border-left: 0;
     border-top-left-radius: 0px;
@@ -719,27 +735,6 @@ footer {
     visibility: hidden; }
   .acc-form__field-msg-email, .acc-form__field-msg-username, .acc-form__field-msg-password {
     width: 48%; }
-
-.ts {
-  position: relative; }
-
-.acc-form__field-states-dropdown, .dropdown {
-  display: flex;
-  position: absolute;
-  width: 48%;
-  left: 0;
-  top: 26px;
-  background-color: lightgray; }
-  .acc-form__field-states-dropdown:nth-child(), .dropdown:nth-child() {
-    border-bottom: 2px solid #DDDDDD; }
-  .acc-form__field-states-dropdown li, .dropdown li {
-    width: 100%;
-    height: 100%;
-    padding: 6px 10px;
-    font-weight: bold; }
-    .acc-form__field-states-dropdown li:hover, .dropdown li:hover {
-      background-color: ghostwhite;
-      cursor: pointer; }
 
 .nav-bar-wrapper {
   height: auto;

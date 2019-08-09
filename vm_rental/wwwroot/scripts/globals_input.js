@@ -1,157 +1,213 @@
-﻿var searchBox = {
-        data: null,
-        inputField: null,
-        dropdown: null,
-        searchParam: "",
-        foundData: [],
-        resultLimit: 5,
-        inputDelay: 500, //For Performance Optimization.
-        isInDelay: false,
+﻿//Search Box - v1.0
+var searchBox = {
+  data: [],
+  inputField: {},
+  dropdown: {},
+  searchParam: "",
+  returnParam: "",
+  foundData: [],
+  selected: {},
+  resultLimit: 5,
+  inputDelay: 500, //For Performance Optimization.
+  onFullMatchCallback: null,
+  onFocusOutCallback: null,
+  isFullMatch: false,
 
-        createSearchBox: function(field, repository, searchparam, maxresults, inputdelay){
-            $(field).attr('autocomplete', 'off');
-            $inputContainer = field.parent();
-            $inputContainer.css('position', 'relative');
+  createSearchBox: function(
+    field,
+    repository,
+    searchparam,
+    returnparam,
+    dropdownclass,
+    maxresults,
+    inputdelay
+  ){
+    $inputContainer = field.parent();
+    $inputContainer.css('position', 'relative');
 
-            inputField = field;
-            data = repository;
-            searchParam = searchparam;
+    this.inputField = field;
+    this.data = repository;
+    this.searchParam = searchparam;
+    this.returnParam = returnparam;
+    
+       isInDelay = false;
 
-            isInDelay = false;
+    if (typeof maxresults !== typeof undefined) {
+      this.resultLimit = maxresults;
+    }
 
-            if(typeof(maxresults) !== typeof undefined){
-                resultLimit = maxresults;   
-            }else{ resultLimit = 5;}
+    if (typeof inputdelay !== typeof undefined) {
+      this.inputDelay = inputdelay;
+    }
 
-            if(typeof(inputDelay) !== typeof undefined){
-               inputDelay = inputdelay;
-            }else{ inputDelay = 500;}
+    this.dropdown = searchDropdown.createDropdown(
+      this,
+      this.inputField,
+      dropdownclass,
+    );
 
-            dropdown = searchDropdown.createDropdown(inputField, ".dropdown");
-            
-            this.search();
+    this.onSearch();
+    this.onFocusOut();
 
-            return this;
-        },
+    return this;
+  },
 
-        search: function(){
-           $(inputField).on('keyup', function(e){
-            if(isInDelay == false && (e.keyCode >= 65 && e.keyCode <= 90 || e.keyCode == 8 || e.keyCode == 32)){  
-               isInDelay = true;
-      
-               setTimeout(function(){    
-                    this.foundData = [];
+  onSearch: function() {
+    var self = this;
 
-                    $userInput = $(inputField).val().trim().replace(/\s\s+/g, ' ');
+    $(this.inputField).on("keyup", function(e) {
+      if (isInDelay == false &&
+          (!e.ctrlKey && !e.altKey && (e.keyCode >= 65 && e.keyCode <= 90)) ||
+           e.keyCode == 8 || e.keyCode == 32 
+      ){
+        isInDelay = true;
+
+        setTimeout(() =>{
+          self.foundData = []; $filteredData = [];
+
+          $userInput = $(self.inputField)
+            .val()
+            .trim()
+            .replace(/\s\s+/g, " ");
+
+          $partialMatch = new RegExp('^' + $userInput, 'gi');
+             $fullMatch = new RegExp('^' + $userInput + '$', 'gi');
+
+          if ($userInput.length > 0) {
+            for (i = 0; i < self.data.length; i++) {
+              $dataItem = self.data[i];
+              $filteredItem = $dataItem[self.searchParam];
+
+              if ($fullMatch.test($filteredItem)) {
+                self.isFullMatch = true;
                 
-                    $partialMatch = new RegExp('^' + $userInput, "gi");
-                    $fullMatch    = new RegExp('^' + $userInput + '$', "gi");
-                    
-                    $isFullMatch = false;
+                self.foundData = []; $filteredData = [];
+               
+                self.inputField.val($filteredItem);
 
-                   if($userInput.length > 0){
-                        console.log($userInput);
-            
-                        for(i = 0; i < this.data.length; i++){
-                            $dataItem = data[i];
-                            console.log("hey");
+                self.foundData.push($dataItem);
+                 $filteredData.push($filteredItem);
 
-                            if($dataItem[searchParam].match($fullMatch)){
-                                 this.foundData = [];
-                                 this.foundData.push($dataItem[searchParam]);
-                                 $isFullMatch = true;
-                                 break;
-                            }
-                            else if($dataItem[searchParam].match($partialMatch)){;
-                                this.foundData.push($dataItem[searchParam]);
-                            }
-                        }        
+                //console.log("in Search");
+                self.selected = $dataItem;
+                self.onFullMatch();     
+                break;
 
-                        if(this.foundData.length > this.resultLimit){
-                            foundData = foundData.slice(0, this.resultLimit);
-                        }
-                    }
+              } else if ($partialMatch.test($filteredItem)) {
+                 self.isFullMatch = false;
 
-                    isInDelay = false;
-                    dropdown.updateDropdown(foundData, $isFullMatch);
-
-                 }, inputDelay);
+                 self.foundData.push($dataItem);
+                  $filteredData.push($filteredItem);              
               }
-          });
-      },
- };
-
-let searchDropdown = {
-        inputElement: null,
-        dropdownElement: null,
-        data: [],
-        dropdownClass: 'dropdown',
-        onActiveClass: 'active',
-        isHidden: true,
-
-        createDropdown: function(inputelement, dropdownclass){
-            inputElement = inputelement;
-
-            if(typeof(dropdownclass) == "String"){
-                dropdownClass = dropdownclass;
             }
 
-            $('<ul/>', {"class": this.dropdownClass}).insertAfter(inputElement);
-
-            this.dropdownElement = $(dropdownclass);
-
-            this.hideDropdown();
-
-            return this;
-        },
-
-        updateDropdown: function(data, isFullMatch){
-            this.data = data;
-
-            //Room for Improvement 
-            //(the newly found element might already exist, why delete it?)
-            //Probably faster to Empty-All for small element count, instead of increasing the complexity.          
-            $(this.dropdownElement).empty(); 
-           
-            for(i = 0; i < this.data.length; i++)
-            {
-                $(this.dropdownElement).append('<li>' + this.data[i] + '</li>');
-            } 
-            
-            if((this.data.length == 0 || isFullMatch) && this.isHidden == false)
-            {
-                this.hideDropdown(); return;              
+            if ($filteredData.length > self.resultLimit) {
+              $filteredData = $filteredData.slice(0, self.resultLimit);
             }
-            else if(this.data.length > 0 && this.isHidden)
-            {
-                this.showDropdown();
-            }
+          }
+        
+          self.dropdown.updateDropdown($filteredData, self.isFullMatch);
+          isInDelay = false;
 
-            this.setClickListeners();
-       },
+        }, self.inputDelay);
+      }
+    });
+  },
 
-       setClickListeners : function(callback){   
-          var self = this;
-   
-          $(this.dropdownElement).children().on("click", function(callback) 
-          {
-               inputElement.val($(this).text());
-               self.hideDropdown();
+  onFocusOut: function() {
+    var self = this;
 
-               if(typeof callback === "function")
-               {
-                  callback();
-               }
-           });        
-       },   
-   
-       showDropdown: function(){
-           this.isHidden = false;
-           $(this.dropdownElement).show();
-       },
+    $(this.inputField).focusout(function() {
+      self.dropdown.hideDropdown();
 
-       hideDropdown: function(){
-           this.isHidden = true;
-           $(this.dropdownElement).hide();
-       },
+      self.fireCallback(this.onFocusOutCallback);
+    });
+  },
+ 
+ onFullMatch: function() {
+      this.fireCallback(this.onFullMatchCallback);
+  },
+
+ fireCallback: function (callback) {
+    if (typeof callback === "function") {
+         setTimeout(() => {callback(this.selected[this.returnParam]);}, 0);
+     }
+  },
+};
+
+var searchDropdown = {
+  searchBox: {},
+  inputElement: {},
+  dropdownElement: {},
+  data: [],
+  dropdownClass: "dropdown",
+  onActiveClass: "active",
+  isHidden: true,
+
+  createDropdown: function(searchbox, inputelement, dropdownclass) {
+    this.searchBox = searchbox;
+    this.inputElement = inputelement;
+
+    if (typeof dropdownclass !== typeof undefined) {
+      this.dropdownClass = dropdownclass;
+    }
+
+    $("<ul/>", { class: this.dropdownClass + " dropdown-search"}).insertAfter(this.inputElement);
+
+    this.dropdownElement = $("." + this.dropdownClass);
+
+    this.hideDropdown();
+
+    return this;
+  },
+
+  updateDropdown: function(data, isFullMatch) {
+    this.data = data;
+
+    //Room for Optimization
+    //(the newly found element might already exist, why delete all to add it again?)
+    //Probably faster this way for small results.
+    $(this.dropdownElement).empty();
+
+    for (i = 0; i < this.data.length; i++) {
+      $(this.dropdownElement).append("<li>" + this.data[i] + "</li>");
+    }
+
+    if (this.data.length == 0 || isFullMatch) {
+      this.hideDropdown();
+      return;
+    } else if (this.data.length > 0 && !isFullMatch) {
+      this.showDropdown();
+    }
+
+    this.setClickListeners();
+  },
+
+  setClickListeners: function() {
+    var self = this;
+
+    $(this.dropdownElement)
+      .children()
+      .mousedown(function() {
+        self.inputElement.val($(this).text());
+        $itemSelected = self.searchBox.foundData[$(this).index()];
+        self.searchBox.selected = $itemSelected;
+        self.searchBox.onFullMatch();
+        self.hideDropdown();
+      });
+  },
+
+  showDropdown: function() {
+    if (this.isHidden == true) {
+      this.isHidden = false;
+      $(this.dropdownElement).show();
+    }
+  },
+
+  hideDropdown: function() {
+    if (this.isHidden == false) {
+      this.isHidden = true;
+      $(this.dropdownElement).hide();
+    }
+  }
 };

@@ -75,3 +75,8 @@ th {
     padding: 0;
     text-align: left;
 }
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+}

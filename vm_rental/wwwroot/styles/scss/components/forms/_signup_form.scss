@@ -118,7 +118,6 @@ $inputPlaceholderColor:#BCBCBC;
     width: 100%;
     padding-top: 10px;
 
-    //TO-EDIT
     &__field-section {
         padding: 12px 20px 20px 20px;
     }
@@ -175,9 +174,11 @@ $inputPlaceholderColor:#BCBCBC;
         &::placeholder {
             color: $inputPlaceholderColor;
         }
+
         &::-ms-input-placeholder {
             color: $inputPlaceholderColor;
         }
+
         &:-ms-input-placeholder {
             color: $inputPlaceholderColor;
         }
@@ -212,7 +213,10 @@ $inputPlaceholderColor:#BCBCBC;
         font-weight: bold;
         background-color: #f7f7f7;
     }
-
+   
+    &__field-state-dropdown {
+        @include dropdown-search($width: 48%, $yPos: $inputHeight + 2px);
+    }
 
     &__country-code {
         display: flex;
@@ -256,38 +260,12 @@ $inputPlaceholderColor:#BCBCBC;
     &__field-section[section-type="business"] {
         display: none;
     }
+
     &__field-msg {
         visibility: hidden;
     }
     //TO-BE REMOVED - WILL CHANGE IN FUTURE
     &__field-msg-email, &__field-msg-username, &__field-msg-password {
         width: 50% - $inputHorSpacing;
-    }
-}
-.ts{
-    position: relative;
-}
-.acc-form__field-states-dropdown, .dropdown {
-    display: flex;
-    position: absolute;
-    width: 48%;
-    left: 0;
-    top: $inputHeight + 2px;
-    background-color: lightgray;
-
-    &:nth-child() {
-        border-bottom: 2px solid #DDDDDD;
-    }
-
-    li {
-        width: 100%;
-        height: 100%;
-        padding: 6px 10px;
-        font-weight: bold;
-
-        &:hover {
-            background-color: ghostwhite;
-            cursor: pointer;
-        }
     }
 }
