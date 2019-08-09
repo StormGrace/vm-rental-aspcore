@@ -681,12 +681,12 @@ footer {
     top: 26px;
     left: 0;
     background-color: lightgray; }
-    .acc-form__field-state-dropdown:nth-child() {
+    .acc-form__field-state-dropdown > * {
       width: 100%;
       height: 100%;
       padding: 6px 10px;
       font-weight: bold; }
-      .acc-form__field-state-dropdown:nth-child():hover {
+      .acc-form__field-state-dropdown > *:hover {
         cursor: pointer;
         background-color: ghostwhite; }
   .acc-form__country-code {
