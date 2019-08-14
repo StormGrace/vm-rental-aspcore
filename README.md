@@ -1,1 +1,1 @@
-# Web App for renting Virtual Machines
+# Web App for renting Virtual Machines (JQuery)
