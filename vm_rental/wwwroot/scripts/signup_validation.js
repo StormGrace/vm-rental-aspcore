@@ -80,7 +80,9 @@
         else { return false; }
     }, "Phone Number should contain only numbers.");
 
-
+    jQuery.validator.addMethod("state-validator", function(value){
+     
+    });
 
     // добавен метод за емайл
     jQuery.validator.addMethod("validate_email", function (value) {

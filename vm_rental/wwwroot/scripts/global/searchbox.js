@@ -79,8 +79,6 @@ var searchBox = {
               $filteredItem = $dataItem[self.searchParam];
 
               if ($fullMatch.test($filteredItem)) {
-                self.isFullMatch = true;
-                
                 self.foundData = []; $filteredData = [];
                
                 self.inputField.val($filteredItem);
@@ -125,6 +123,7 @@ var searchBox = {
   },
  
  onFullMatch: function() {
+      this.isFullMatch = true;
       this.fireCallback(this.onFullMatchCallback);
   },
 

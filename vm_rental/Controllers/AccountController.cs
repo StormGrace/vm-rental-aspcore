@@ -18,8 +18,10 @@ namespace vm_rental.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IUserHistoryRepository _userHistoryRepository;
 
-        public AccountController(IClientRepository clientRepository, IClientHistoryRepository clientHistoryRepository,
-                                 IUserRepository userRepository, IUserHistoryRepository userHistoryRepository)
+        public AccountController(IClientRepository clientRepository, 
+                                 IClientHistoryRepository clientHistoryRepository,
+                                 IUserRepository userRepository, 
+                                 IUserHistoryRepository userHistoryRepository)
         {
             _clientRepository = clientRepository;
             _clientHistoryRepository = clientHistoryRepository;

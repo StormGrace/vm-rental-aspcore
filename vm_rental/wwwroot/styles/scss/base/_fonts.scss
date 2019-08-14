@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: bold;
+  src: url("../../../fonts/OpenSans-Regular.ttf") format('truetype');
+}
+
+@font-face{
+  font-family: 'icons';
+  src: url('../../../fonts/icons/icons.eot?hb3zma');
+  src: url('../../../fonts/icons/icons.eot?hb3zma#iefix') format('embedded-opentype'), 
+       url('../../../fonts/icons/icons.ttf?hb3zma') format('truetype'), 
+       url('../../../fonts/icons/icons.woff?hb3zma') format('woff'), 
+       url('../../../fonts/icons/icons.svg?hb3zma#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

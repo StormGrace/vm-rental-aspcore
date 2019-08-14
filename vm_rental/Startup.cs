@@ -32,8 +32,10 @@ namespace vm_rental
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddLiveReload();
+            services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
 
             services.ConfigureMySqlContext(Configuration);
 
@@ -56,8 +58,7 @@ namespace vm_rental
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
-            services.AddLiveReload();
+            return services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,10 +78,11 @@ namespace vm_rental
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
+    
 
+            app.UseStaticFiles();
+            app.UseHttpsRedirection();
+ 
             app.UseMvc(routes =>
             {
         

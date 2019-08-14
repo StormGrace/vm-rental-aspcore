@@ -12,7 +12,7 @@ namespace vm_rental.Models.Services
                                                       IConfiguration config)
         {
             var connectionString = config["mysqlconnection:connectionString"];
-            services.AddDbContext<vmDbContext>(o => o.UseMySql(connectionString));
+            services.AddDbContext<vmDbContext>(o => o.UseMySQL(connectionString));
         }
     }
 }

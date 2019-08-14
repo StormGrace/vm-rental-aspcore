@@ -7,30 +7,18 @@
 ///////*Base*//////
 @import "base/reset";
 @import "base/normalizer";
-@import "base/typography";
+@import "base/fonts";
+@import "base/icons";
 //////////////////
 
-//////*Layout*//////
-@import "layout/header";
-@import "layout/main";
-@import "layout/footer";
-////////////////////
-
-@import "components/header/util/logo";
-@import "components/header/util/util_nav_right";
-@import "components/header/util/account_tray";
-@import "components/header/util/shopping_cart";
-@import "components/header/util/lang_bar";
-@import "components/header/util/lang_dropdown";
-
+//////*Components*//////
+@import "components/header/header";
+@import "components/footer/footer";
 @import "components/forms/signup_form";
-
-///*Header - Middle*///
-@import "components/header/nav/nav_bar";
 ///////////////////////
 
-
-@import "pages/_index";
-@import "pages/sign/signup";
-@import "pages/sign/signin";
-
+//////*Layout*//////
+@import "pages/home/_home_page.scss";
+@import "pages/account/signup_page";
+@import "pages/account/signin_page";
+///////////////////////
