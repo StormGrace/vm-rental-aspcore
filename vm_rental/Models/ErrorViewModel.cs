@@ -1,4 +1,3 @@
-using System;
 
 namespace vm_rental.Models
 {

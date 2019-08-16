@@ -1,6 +1,10 @@
 $headerUtilColor: #3694ff;
 $headerNavColor: #2189ff;
 
+/// <reference path="../../abstracts/functions.scss" />
+/// <reference path="../../abstracts/mixins.scss" />
+/// <reference path="../../abstracts/variables.scss" />
+
 .header {
   display: grid;
   grid-template-rows: auto auto;
@@ -41,10 +45,6 @@ $headerNavColor: #2189ff;
 
     &__btn {
       @include button-util;
-
-      &::active {
-        background-color: white !important;
-      }
     }
   }
 
@@ -62,7 +62,7 @@ $headerNavColor: #2189ff;
     &__bar {
       display: flex;
       width: 100%;
- 
+
 
       ul {
         display: flex;

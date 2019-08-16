@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using vm_rental.Data.Model;
-using vm_rental.ViewModels.Account;
+﻿using vm_rental.Data.Model;
+using vm_rental.ViewModels;
+
 
 namespace vm_rental.Data.Interface
 {
     public interface IUserHistoryRepository : IRepository<UserHistory>
     {
-        UserHistory CreateUserHistory(ClientViewModel clientVM, User user);
+        UserHistory CreateUserHistory(string username, string email, string password, string firstName, string lastName, string phone, User user);
+        bool EmailExists(string email);
     }
 }

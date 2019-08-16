@@ -7,6 +7,7 @@ $inputPlaceholderColor:#BCBCBC;
 
 //BEM - Naming Convention
 //Future Media Queries Should Break- At 500 - 540px;
+/// <reference path="../../abstracts/_mixins.scss" />
 
 .login {
     display: flex;
@@ -115,157 +116,150 @@ $inputPlaceholderColor:#BCBCBC;
 }
 
 .acc-form {
+  width: 100%;
+  padding-top: 10px;
+
+  &__field-section {
+    padding: 12px 20px 20px 20px;
+  }
+
+  &__field-header {
+    h1 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+
+  &__h-line {
+    display: flex;
     width: 100%;
-    padding-top: 10px;
+    border: 0.5px solid #DDDDDD;
+  }
 
-    &__field-section {
-        padding: 12px 20px 20px 20px;
+  &__field-row {
+    display: flex;
+    margin-left: 12px;
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+
+  &__field-subrow {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    &--half {
+      flex-wrap: wrap;
+      width: calc(50% - #{$inputHorSpacing});
     }
 
-    &__field-header {
-        h1 {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
+    &--2x1 {
+      display: flex !important;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      * {
+        flex-direction: column;
+        flex-basis: calc(50% - #{$inputHorSpacing});
+      }
+
+      &--half {
+        width: calc(50% - #{$inputHorSpacing});
+      }
+    }
+  }
+
+  &__field {
+    &::placeholder {
+      color: $inputPlaceholderColor;
     }
 
-    &__h-line {
-        display: flex;
-        width: 100%;
-        border: 0.5px solid #DDDDDD;
+    &::-ms-input-placeholder {
+      color: $inputPlaceholderColor;
     }
 
-    &__field-row {
-        display: flex;
-        margin-left: 12px;
-        margin-top: 10px;
-        justify-content: space-between;
+    &:-ms-input-placeholder {
+      color: $inputPlaceholderColor;
     }
 
-    &__field-subrow {
-        display: flex;
-        width: 100%;
-        height: 100%;
-
-        &--half {
-            flex-wrap: wrap;
-            width: calc(50% - #{$inputHorSpacing});
-        }
-
-        &--2x1 {
-            display: flex !important;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 100%;
-
-            * {
-                flex-direction: column;
-                flex-basis: calc(50% - #{$inputHorSpacing});
-            }
-
-            &--half {
-                width: calc(50% - #{$inputHorSpacing});
-            }
-        }
+    &:focus {
+      outline: 2px solid #00abd3;
     }
 
-    &__field {
-        &::placeholder {
-            color: $inputPlaceholderColor;
-        }
+    width: 100%;
+    height: $inputHeight;
+    border: $inputBorderWidth solid #DDDDDD;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    color: #00a6cc;
+  }
 
-        &::-ms-input-placeholder {
-            color: $inputPlaceholderColor;
-        }
+  ///On Validation Error
+  &__field.input-validation-error {
+    outline: 2px solid red;
+  }
 
-        &:-ms-input-placeholder {
-            color: $inputPlaceholderColor;
-        }
+  &__field-msg {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    color: red;
+  }
+  //
 
-        &:focus {
-            outline: 2px solid #00abd3;
-        }
+  &__field-state-dropdown {
+    @include dropdown-search($width: 48%, $yPos: $inputHeight);
+  }
 
-        &--error {
-            outline: 2px solid red;
-        }
 
-        width: 100%;
-        height: $inputHeight;
-        border: $inputBorderWidth solid #DDDDDD;
-        border-radius: 3px;
-        box-sizing: border-box;
-        padding-left: 10px;
-        color: #00a6cc;
+
+  &__country-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: $inputHeight;
+    border: $inputBorderWidth solid #DDDDDD;
+    border-radius: 2px 0px 0px 2px;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: dodgerblue;
+    background-color: #FCFCFC;
+  }
+
+  &__terms {
+    padding: 10px 0 20px 0;
+
+    p {
+      text-align: center;
+      font-weight: bold;
+      width: auto;
+
+      i {
+        color: #3366BB;
+      }
     }
+  }
 
-    &__field-msg {
-        display: flex;
-        visibility: visible;
-        text-align: center;
-        width: 100%;
-        border: 1.2px solid #ef3535;
-        border-radius: 12px;
-        padding: 0 10px;
-        font-size: 0.8em;
-        font-style: italic;
-        font-weight: bold;
-        background-color: #f7f7f7;
-    }
-   
-    &__field-state-dropdown {
-        @include dropdown-search($width: 48%, $yPos: $inputHeight + 2px);
-    }
+  &__signup-button {
+    @include btn-style-1(180px, 50px, 15pt, 0px);
+    width: 100%;
+  }
 
-    &__country-code {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 80px;
-        height: $inputHeight;
-        border: $inputBorderWidth solid #DDDDDD;
-        border-radius: 2px 0px 0px 2px;
-        box-sizing: border-box;
-        font-weight: bold;
-        color: dodgerblue;
-        background-color: #FCFCFC;
-    }
-
-    &__terms {
-        padding: 10px 0 20px 0;
-
-        p {
-            text-align: center;
-            font-weight: bold;
-            width: auto;
-
-            i {
-                color: #3366BB;
-            }
-        }
-    }
-
-    &__signup-button {
-        @include btn-style-1(180px, 50px, 15pt, 0px);
-        width: 100%;
-    }
-
-    &__field[name="phone"] {
-        border-left: 0;
-        border-top-left-radius: 0px;
-        border-bottom-left-radius: 0px;
-    }
-    //Initialization Section
-    &__field-section[section-type="business"] {
-        display: none;
-    }
-
-    &__field-msg {
-        visibility: hidden;
-    }
-    //TO-BE REMOVED - WILL CHANGE IN FUTURE
-    &__field-msg-email, &__field-msg-username, &__field-msg-password {
-        width: 50% - $inputHorSpacing;
-    }
+  &__field[name="phone"] {
+    border-left: 0;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  //Initialization Section
+  &__field-section[section-type="business"] {
+    display: none;
+  }
+  //TO-BE REMOVED - WILL CHANGE IN FUTURE
+  &__field-msg-email, &__field-msg-username, &__field-msg-password {
+    width: 50% - $inputHorSpacing;
+  }
 }

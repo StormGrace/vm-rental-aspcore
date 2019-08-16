@@ -42,6 +42,6 @@
     };
 
  //Request the Countries-JSON.
- $jqxhr = $.getJSON("../countries-main.json", function(jsonData){
+ $jqxhr = $.getJSON("../data/countries.json", function(jsonData){
      countriesRepository.initialize(jsonData.countries);
  });

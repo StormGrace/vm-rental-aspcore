@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using vm_rental.Data.Interface;
 using vm_rental.Data.Model;
-using vm_rental.ViewModels.Account;
+using vm_rental.ViewModels;
 
 namespace vm_rental.Data.Repository
 {
@@ -14,15 +11,15 @@ namespace vm_rental.Data.Repository
         {
 
         }
-        public UserHistory CreateUserHistory(ClientViewModel clientVM, User user)
+        public UserHistory CreateUserHistory(string username, string email, string password, string firstName, string lastName, string phone, User user)
         {
             UserHistory userHistory = new UserHistory(
-                clientVM.userName, 
-                clientVM.email, 
-                clientVM.password, 
-                clientVM.firstName,
-                clientVM.lastName, 
-                clientVM.phone)
+                username, 
+                email, 
+                password, 
+                firstName,
+                lastName, 
+                phone)
             {
                 CreatedByNavigation = user
             };
@@ -31,5 +28,11 @@ namespace vm_rental.Data.Repository
 
             return userHistory;
         }
-    }
+
+        public bool EmailExists(string email)
+        {
+          var emailExists = this._context.UserHistory.Any(em => em.UserEmail.ToString() == email);
+          return emailExists;
+        }
+  }
 }

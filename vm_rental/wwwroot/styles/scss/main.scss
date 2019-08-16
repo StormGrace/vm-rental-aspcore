@@ -1,4 +1,4 @@
-///////*Helpers*//////
+﻿///////*Helpers*//////
 @import "abstracts/_variables";
 @import "abstracts/_functions";
 @import "abstracts/_mixins";
@@ -19,6 +19,6 @@
 
 //////*Layout*//////
 @import "pages/home/_home_page.scss";
-@import "pages/account/signup_page";
-@import "pages/account/signin_page";
+@import "pages/sign/signup_page";
+@import "pages/sign/signin_page";
 ///////////////////////

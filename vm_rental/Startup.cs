@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using vm_rental.Data;
-using vm_rental.Data.Interface;
-using vm_rental.Data.Model;
-using vm_rental.Data.Repository;
 using Westwind.AspNetCore.LiveReload;
-using Microsoft.EntityFrameworkCore.InMemory;
-using vm_rental.Models.Services;
 using FluentValidation.AspNetCore;
-using vm_rental.ViewModels.Account;
- 
+using vm_rental.Data;
+using vm_rental.Data.JSON;
+using vm_rental.Data.Interface;
+using vm_rental.Data.Repository;
+using vm_rental.Models.Services;
+using vm_rental.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using vm_rental.Models;
+
 namespace vm_rental
 {
-    public class Startup
+  public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -35,6 +31,7 @@ namespace vm_rental
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddLiveReload();
+
             services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
 
             services.ConfigureMySqlContext(Configuration);
@@ -44,11 +41,14 @@ namespace vm_rental
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserHistoryRepository, UserHistoryRepository>();
 
-            services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddScoped<IUserManager, UserManager>();
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                     .AddFluentValidation(fv =>
                     {
-                        fv.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                      fv.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                      fv.RegisterValidatorsFromAssemblyContaining<Startup>();
                     }); 
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -65,10 +65,9 @@ namespace vm_rental
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseLiveReload();
-
+      
             if (env.IsDevelopment())
             {
- 
                 app.UseDeveloperExceptionPage(); 
             }
             else
@@ -78,29 +77,26 @@ namespace vm_rental
                 app.UseHsts();
             }
 
-    
-
             app.UseStaticFiles();
             app.UseHttpsRedirection();
  
             app.UseMvc(routes =>
             {
-        
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                  name: "default",
+                  template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
-                    name: "SignUp",
-                    template: "{controller=Account}/{action=SignUp}/{id?}");
+                  name: "SignUp",
+                  template: "{controller=Sign}/{action=SignUp}/{id?}");
 
                 routes.MapRoute(
                   name: "SignIn",
-                  template: "{controller=Account}/{action=SignIn}/{id?}");
+                  template: "{controller=Sign}/{action=SignIn}/{id?}");
             });
 
             DbInitializer.Seed(app);
-
+            JSONRepository.Initialize();
         }
     }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using vm_rental.Data.Model;
-using vm_rental.ViewModels.Account;
+﻿using vm_rental.Data.Model;
+using vm_rental.ViewModels;
+
 
 namespace vm_rental.Data.Interface
 {
     public interface IClientHistoryRepository : IRepository<ClientHistory>
     {
-        ClientHistory CreateClientHistory(ClientViewModel clientVM, Client client, User user);
+        ClientHistory CreateClientHistory(string firmName, string firstName, string lastName, string email, string phone, string state, string city, bool isBusinessClient, Client client, User user);
     }
 }

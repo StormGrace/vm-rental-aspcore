@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using vm_rental.Data.Model;
 using vm_rental.Data.Interface;
-using vm_rental.ViewModels.Account;
+using vm_rental.ViewModels;
 
 namespace vm_rental.Data.Repository
 {
@@ -14,16 +11,16 @@ namespace vm_rental.Data.Repository
         {
 
         }
-        public ClientHistory CreateClientHistory(ClientViewModel clientVM, Client client, User user)
+        public ClientHistory CreateClientHistory(string firmName, string firstName, string lastName, string email, string phone, string state, string city, bool isBusinessClient, Client client, User user)
         {
             ClientHistory clientHistory = new ClientHistory(
-                 clientVM.firmName, 
-                 clientVM.firstName + " " + clientVM.lastName, 
-                 clientVM.email, 
-                 clientVM.phone, 
-                 clientVM.state,
-                 clientVM.city,
-                 Convert.ToByte(clientVM.isBusinessClient))
+                 firmName, 
+                 firstName + " " + lastName, 
+                 email, 
+                 phone, 
+                 state,
+                 city,
+                 Convert.ToByte(isBusinessClient))
             {
                 Client = client,
                 CreatedByNavigation = user

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using vm_rental.Data.Model;
 using Microsoft.Extensions.DependencyInjection;
 using vm_rental.Data;
+
 
 namespace vm_rental.Models.Services
 {

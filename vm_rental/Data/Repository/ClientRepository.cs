@@ -1,18 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using vm_rental.Data.Interface;
 using vm_rental.Data.Model;
-using vm_rental.ViewModels.Account;
+using vm_rental.ViewModels;
 
 namespace vm_rental.Data.Repository
 {
    public class ClientRepository : Repository<Client>, IClientRepository
     {
         public ClientRepository(vmDbContext context) : base(context){}
-        public Client CreateClient(ClientViewModel clientVM)
+        public Client CreateClient()
         {
             Client client = new Client();
 

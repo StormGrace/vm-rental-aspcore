@@ -442,8 +442,6 @@ template {
         cursor: pointer;
         background-color: #54a4ff;
         transition: background-color 0.18s ease-in; }
-      .header__util__btn::active {
-        background-color: white !important; }
   .header__nav {
     background-color: #2189ff; }
     .header__nav__wrapper {
@@ -628,26 +626,19 @@ footer {
       color: #BCBCBC; }
     .acc-form__field:focus {
       outline: 2px solid #00abd3; }
-    .acc-form__field--error {
-      outline: 2px solid red; }
+  .acc-form__field.input-validation-error {
+    outline: 2px solid red; }
   .acc-form__field-msg {
     display: flex;
-    visibility: visible;
     text-align: center;
     width: 100%;
-    border: 1.2px solid #ef3535;
-    border-radius: 12px;
-    padding: 0 10px;
-    font-size: 0.8em;
-    font-style: italic;
-    font-weight: bold;
-    background-color: #f7f7f7; }
+    color: red; }
   .acc-form__field-state-dropdown {
     display: flex;
     position: absolute;
     width: 48%;
     height: auto;
-    top: 26px;
+    top: 24px;
     left: 0;
     background-color: lightgray; }
     .acc-form__field-state-dropdown > * {
@@ -700,8 +691,6 @@ footer {
     border-bottom-left-radius: 0px; }
   .acc-form__field-section[section-type="business"] {
     display: none; }
-  .acc-form__field-msg {
-    visibility: hidden; }
   .acc-form__field-msg-email, .acc-form__field-msg-username, .acc-form__field-msg-password {
     width: 48%; }
 
