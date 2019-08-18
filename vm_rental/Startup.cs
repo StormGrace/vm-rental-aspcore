@@ -43,7 +43,7 @@ namespace vm_rental
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserHistoryRepository, UserHistoryRepository>();
 
-            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ISignManager, SignManager>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

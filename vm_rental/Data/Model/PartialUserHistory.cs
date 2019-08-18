@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 //This Class is meant to extend the functionality of it's referenced Entity Class, by protecting it from the EF Generator.
 //Add the new functionality here.
@@ -29,6 +28,7 @@ namespace vm_rental.Data.Model
             FirstName = firstName;
             LastName = lastName;
             UserPhone = userPhone;
+            Version = 1;
             IsActive = 1;
             DateCreated = DateTime.UtcNow;
         }
@@ -37,7 +37,7 @@ namespace vm_rental.Data.Model
         {
             byte[] password = ASCIIEncoding.ASCII.GetBytes(passwordStr);
 
-            var argon2 = new Argon2id(password);
+            Argon2id argon2 = new Argon2id(password);
 
             byte[] salt = CreateSalt();
 
@@ -54,9 +54,12 @@ namespace vm_rental.Data.Model
         }
         private byte[] CreateSalt()
         {
-            var buffer = new byte[16];
-            var rng = new RNGCryptoServiceProvider();
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+
+            byte[] buffer = new byte[16];
+
             rng.GetBytes(buffer);
+
             return buffer;
         }
     }

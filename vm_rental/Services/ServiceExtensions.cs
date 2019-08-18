@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using vm_rental.Data;
-
+ 
 
 namespace vm_rental.Models.Services
 {
@@ -12,7 +12,7 @@ namespace vm_rental.Models.Services
                                                       IConfiguration config)
         {
             var connectionString = config["mysqlconnection:connectionString"];
-            services.AddDbContext<vmDbContext>(o => o.UseMySQL(connectionString));
+            services.AddDbContext<vmDbContext>(o => o.UseMySql(connectionString));
         }
     }
 }

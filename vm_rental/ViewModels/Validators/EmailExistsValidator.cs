@@ -1,12 +1,10 @@
 ﻿using FluentValidation.Validators;
 using vm_rental.Data.Interface;
 
-
-namespace vm_rental.ViewModels.CustomValidators
+namespace vm_rental.ViewModels.Validators
 {
   public class EmailExistsValidator : PropertyValidator
   {
-    //Server-Side Email Validator
     IUserHistoryRepository _userHistoryRepository;
 
     //DI
@@ -17,7 +15,6 @@ namespace vm_rental.ViewModels.CustomValidators
 
     protected override bool IsValid(PropertyValidatorContext validatorContext)
     {
-      //Bad Practice, but it's a solution to the long chaining of DI.
       if (validatorContext.PropertyValue != null)
       {
         string email = (string)validatorContext.PropertyValue;

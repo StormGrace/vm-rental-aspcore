@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -9,8 +10,27 @@ namespace vm_rental.Data.JSON
     public List<Country> countries { get; set; }
 
     public bool CountryExists(string countryName)
-    {                
-      return countries.Exists(c => c.Name.Equals(countryName.Trim()));
+    {
+      bool countryExists = false;
+
+      if (countryName != null && countries != null)
+      {
+        countryExists = countries.Exists(c => c.Name.Equals(countryName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+      }
+
+      return countryExists;
+    }
+
+    public string GetCountryCodeByCountryName(string countryName)
+    {
+      Country country = null;
+
+      if(countryName != null && countries != null)
+      {
+        country = countries.Find(c => c.Name.Equals(countryName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+      }
+
+      return (country?.Country_code ?? "");
     }
   }
   public class Country

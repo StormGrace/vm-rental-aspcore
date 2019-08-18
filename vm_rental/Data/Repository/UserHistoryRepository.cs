@@ -29,10 +29,28 @@ namespace vm_rental.Data.Repository
             return userHistory;
         }
 
-        public bool EmailExists(string email)
+        public bool UsernameExists(string username)
         {
-          var emailExists = this._context.UserHistory.Any(em => em.UserEmail.ToString() == email);
-          return emailExists;
+          bool usernameExists = false;
+
+          if (username != null)
+          {
+            usernameExists = _context.UserHistory.Any(em => em.Username.ToString() == username); ;
+          }
+
+          return usernameExists;
         }
-  }
+
+        public bool EmailExists(string email)
+            {
+              bool emailExists = false;
+
+              if (email != null)
+              {
+                emailExists = _context.UserHistory.Any(em => em.UserEmail.ToString() == email);
+              }
+
+              return emailExists;
+            }
+        }
 }

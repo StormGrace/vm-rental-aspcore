@@ -44,7 +44,6 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="8.4.0" />
     <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.2.1" />
-    <PackageReference Include="MailKit" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -55,12 +54,15 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.17" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
     <PackageReference Include="Westwind.AspnetCore.LiveReload" Version="0.1.5.2" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Views\CPanel\" />
+    <Folder Include="Views\AdminCPanel\" />
+    <Folder Include="Views\ClientCPanel\" />
+    <Folder Include="wwwroot\images\icons\" />
   </ItemGroup>
 
 </Project>

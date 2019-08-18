@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace vm_rental.Data.Model
 {
-    public partial class ProductHistory
+    public partial class ProductHistory 
     {
         public int ProductHistoryId { get; set; }
         public int ProductId { get; set; }

@@ -28,7 +28,7 @@ $headerNavColor: #2189ff;
       align-self: center;
       height: 50%;
       margin: 0 10px;
-      border-right: 2px solid white;
+      border-right: 1px solid white;
       border-radius: 1px;
     }
 
@@ -74,4 +74,9 @@ $headerNavColor: #2189ff;
       border-bottom: 2px solid #a3ffa3;
     }
   }
+}
+
+
+.header__util__info-btn{
+  font-size: 0.95em;
 }

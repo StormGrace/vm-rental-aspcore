@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace vm_rental.Data.Model
 {
-    public partial class Client
+    public partial class Client 
     {
         public Client()
         {
@@ -12,7 +13,7 @@ namespace vm_rental.Data.Model
             Machine = new HashSet<Machine>();
             User = new HashSet<User>();
         }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ClientId { get; set; }
 
         public virtual ICollection<ClientDiscount> ClientDiscount { get; set; }

@@ -7,6 +7,7 @@ namespace vm_rental.Data.Interface
     public interface IUserHistoryRepository : IRepository<UserHistory>
     {
         UserHistory CreateUserHistory(string username, string email, string password, string firstName, string lastName, string phone, User user);
-        bool EmailExists(string email);
+        bool UsernameExists(string username);
+        bool EmailExists(string email);      
     }
 }

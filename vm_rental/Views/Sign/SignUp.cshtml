@@ -12,7 +12,7 @@
   <script src="@Url.Content("~/scripts/validation.js")"></script>
 }
 
-@Html.ValidationSummary(false)
+@*@Html.ValidationSummary(false)*@
 
 <div class="page-signup-container">
   <div class="login">
@@ -112,6 +112,7 @@
         <p>By Clicking Sign Up, You agree to the</p>
         <p><a href="#"><i>Terms of Service</i></a> and <a href="#"><i>Privacy Policy</i></a>.</p>
       </div>
+      <input type="checkbox" class="is-business" name="IsBusinessClient" asp-for="IsBusinessClient" />
       <button type="submit" class="acc-form__signup-button">Sign Up</button>
     </form>
   </div>
