@@ -11,6 +11,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-question:before {
+  content: "\e903";
+}
+
 .icon-smphone:before {
   content: "\e902";
   font-size: 1.4em;

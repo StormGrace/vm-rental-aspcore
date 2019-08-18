@@ -1,34 +1,29 @@
 ﻿using System.Linq;
 using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
 using vm_rental.Data.Interface;
-using vm_rental.ViewModels.ValidatorRules;
+using vm_rental.ViewModels.RuleBuilders;
 
 namespace vm_rental.ViewModels
 {
   public class ClientValidator : AbstractValidator<ClientViewModel>
   {
-    IUserHistoryRepository _userHistoryRepository;
-    public ClientValidator()
-    {
-
-    }
+    private readonly IUserHistoryRepository _userHistoryRepository;
+    public ClientValidator(){}
     public ClientValidator(IUserHistoryRepository userHistoryRepository)
     {
       _userHistoryRepository = userHistoryRepository;
 
-      RuleFor(client => client.UserName).Cascade(CascadeMode.StopOnFirstFailure).Username();
+      RuleFor(client => client.UserName).Cascade(CascadeMode.StopOnFirstFailure).Username(_userHistoryRepository);
       RuleFor(client => client.Email).Cascade(CascadeMode.StopOnFirstFailure).Email(_userHistoryRepository);
       RuleFor(client => client.Password).Cascade(CascadeMode.StopOnFirstFailure).Password();
-      RuleFor(client => client.FirstName).FirstName();
-      RuleFor(client => client.LastName).LastName();
-      RuleFor(client => client.State).State();
-      RuleFor(client => client.City).City();
-      RuleFor(client => client.Phone).Phone();
-      RuleFor(client => client.FirmName).FirmName();
+      RuleFor(client => client.FirstName).Cascade(CascadeMode.StopOnFirstFailure).FirstName();
+      RuleFor(client => client.LastName).Cascade(CascadeMode.StopOnFirstFailure).LastName();
+      RuleFor(client => client.State).Cascade(CascadeMode.StopOnFirstFailure).State();
+      RuleFor(client => client.City).Cascade(CascadeMode.StopOnFirstFailure).City();
+      RuleFor(client => client.Phone).Cascade(CascadeMode.StopOnFirstFailure).Phone();
+      RuleFor(client => client.FirmName).Cascade(CascadeMode.StopOnFirstFailure).FirmName();
     }
   }
-
 
   public class ClientViewModel : ClientValidator
 {
@@ -42,21 +37,19 @@ namespace vm_rental.ViewModels
     private string phone;
     private string firmName;
 
-    public ClientViewModel() : base()
-    {
-
-    }
-    public ClientViewModel(IUserHistoryRepository userHistoryRepository) : base (userHistoryRepository)
-    {
-
-    }
+    public ClientViewModel() : base(){}
+    public ClientViewModel(IUserHistoryRepository userHistoryRepository) : base (userHistoryRepository){}
 
     public string UserName {
       get {
         return userName;
       }
       set {
-        userName = value.Trim();
+        userName = value;
+
+        if (!string.IsNullOrEmpty(userName)) {
+          userName = userName.Trim();
+        }
       }
     }
 
@@ -65,7 +58,12 @@ namespace vm_rental.ViewModels
         return email;
       }
       set {
-        email = value.Trim();
+        email = value;
+
+        if (!string.IsNullOrEmpty(email))
+        {
+          email = email.Trim();
+        }
       }
     }
 
@@ -74,7 +72,12 @@ namespace vm_rental.ViewModels
         return password;
       }
       set {
-        password = value.Trim();
+        password = value;
+
+        if (!string.IsNullOrEmpty(password))
+        {
+          password = password.Trim();
+        }
       }
     }
 
@@ -83,7 +86,7 @@ namespace vm_rental.ViewModels
         return firstName;
       }
       set {
-        firstName = GetCaseNormalizedString(value.Trim());
+        firstName = GetCaseNormalizedString(value);
       }
     }
 
@@ -92,17 +95,16 @@ namespace vm_rental.ViewModels
         return lastName;
       }
       set {
-        lastName = GetCaseNormalizedString(value.Trim());
+        lastName = GetCaseNormalizedString(value);
       }
     }
 
-    //[Remote("CountryIsValid", "Sign", ErrorMessage = "Invalid State.")]
     public string State {
       get {
         return state;
       }
       set {
-        state = GetCaseNormalizedString(value.Trim());
+        state = GetCaseNormalizedString(value);
       }
     }
 
@@ -111,7 +113,7 @@ namespace vm_rental.ViewModels
         return city;
       }
       set {
-        city = GetCaseNormalizedString(value.Trim());
+        city = GetCaseNormalizedString(value);
       }
     }
 
@@ -120,7 +122,12 @@ namespace vm_rental.ViewModels
         return phone;
       }
       set {
-        phone = value.Trim();
+        phone = value;
+
+        if (!string.IsNullOrEmpty(phone))
+        {
+          phone = phone.Trim();
+        }
       }
     }
 
@@ -129,7 +136,7 @@ namespace vm_rental.ViewModels
         return firmName;
       }
       set {
-        firmName = GetCaseNormalizedString(value.Trim());
+        firmName = GetCaseNormalizedString(value);
       }
     }
 
@@ -145,16 +152,22 @@ namespace vm_rental.ViewModels
       {
         _isBusinessClient = value;
 
-        if (!_isBusinessClient && FirmName == null && (FirstName != null && LastName != null))
+        if (!_isBusinessClient && FirmName == null || FirmName == "")
         {
-          FirmName = FirstName + " " + LastName;
+          FirmName = "N/A";
         }
       }
     }
 
-    public string GetCaseNormalizedString(string input)
+    public string GetCaseNormalizedString(string str)
     {
-      return string.Concat(char.ToUpper(input.First()), input.Substring(1).ToLower());
+      if (!string.IsNullOrEmpty(str))
+      {
+        str = str.Trim();
+        str = string.Concat(char.ToUpper(str.First()), str.Substring(1).ToLower());
+      }
+
+      return str;
     }
   }
 }

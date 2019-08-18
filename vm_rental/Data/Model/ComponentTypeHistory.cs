@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace vm_rental.Data.Model
 {
-    public partial class ComponentTypeHistory
+    public partial class ComponentTypeHistory 
     {
         public int ComponentTypeHistoryId { get; set; }
         public int ComponentTypeId { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace vm_rental.Data.Model
 {
-    public partial class Permission
+    public partial class Permission 
     {
         public Permission()
         {

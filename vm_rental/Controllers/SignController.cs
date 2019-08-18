@@ -3,7 +3,6 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using vm_rental.Data.Interface;
 using vm_rental.Data.JSON;
-using vm_rental.Data.Model;
 using vm_rental.Models;
 using vm_rental.ViewModels;
 
@@ -11,11 +10,11 @@ namespace vm_rental.Controllers
 {
   public class SignController : Controller
   {
-    private readonly IUserManager _userManager;
+    private readonly ISignManager _signManager;
     private readonly IUserHistoryRepository _userHistoryRepository;
 
-    public SignController(IUserManager userManager, IUserHistoryRepository userHistoryRepository){
-      _userManager = userManager;
+    public SignController(ISignManager signManager, IUserHistoryRepository userHistoryRepository){
+      _signManager = signManager;
       _userHistoryRepository = userHistoryRepository;
     }
 
@@ -37,51 +36,20 @@ namespace vm_rental.Controllers
     public IActionResult SignUp(ClientViewModel clientVM)
     {
       ClientValidator clientValidator = new ClientValidator(_userHistoryRepository);
-      ValidationResult results = clientValidator.Validate(clientVM);
+      ValidationResult validationResults = clientValidator.Validate(clientVM);
 
-      if (ModelState.IsValid)
+      if (validationResults.IsValid)
       {
-        _userManager.RegisterClient(clientVM);
+        _signManager.RegisterClient(clientVM);
 
          return RedirectToAction("SignUp");
       }
       else
       {
-        results.AddToModelState(ModelState, null);
+        validationResults.AddToModelState(ModelState, null);
       }
 
       return View("SignUp", clientVM);
-    }
-
-    public IActionResult EmailExists(string Email)
-    {
-      bool result;
-
-      if (Email.Equals("nightavenger54@abv.bg"))
-      {
-        result = false;
-      }
-      else
-      {
-        result = true;
-      }
-      return Json(result);
-    }
-
-    public IActionResult CountryIsValid(string State)
-     {
-      bool result;
-
-      if (JSONRepository.countries.CountryExists(State))
-      {
-        result = true;
-      }
-      else
-      {
-        result = false;
-      }
-
-      return Json(result);
     }
   }
 }

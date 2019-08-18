@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using vm_rental.Data.Model;
 
 namespace vm_rental.Data.Model
 {
-    public partial class MachineComponentHistory
+    public partial class MachineComponentHistory 
     {
         public int ComponentHistoryId { get; set; }
         public int MachineComponentId { get; set; }

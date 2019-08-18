@@ -1,5 +1,4 @@
-﻿$stateField = $("input[name='state']");
-$cityField  = $("input[name='city']");
+﻿$stateField = $("input[name='State']");
 
 $country_code = $(".acc-form__country-code");  
  

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using vm_rental.Data.JSON;
 
 //This Class is meant to extend the functionality of it's referenced Entity Class, by protecting it from the EF Generator.
 //Add the new functionality here.
@@ -23,7 +24,7 @@ namespace vm_rental.Data.Model
             FirmName = firmName;
             FirmOwner = firmOwner;
             FirmEmail = firmEmail;
-            FirmPhone = firmPhone;
+            FirmPhone = (("(" + (JSONRepository.countries.GetCountryCodeByCountryName(state) + ")")) + firmPhone);
             FirmRegNumber = firmRegNumber;
             VatNumber = vatNumber;
             FirmFax = firmFax;
@@ -31,6 +32,7 @@ namespace vm_rental.Data.Model
             City = city;
             Address = address;
             IsFirm = isFirm;
+            Version = 1;
             IsVatTaxed = 1;
             IsActive = 1;
             DateCreated = DateTime.UtcNow;

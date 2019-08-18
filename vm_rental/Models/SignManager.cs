@@ -4,18 +4,18 @@ using vm_rental.ViewModels;
 
 namespace vm_rental.Models
 {
-  public interface IUserManager
+  public interface ISignManager
   {
     void RegisterClient(ClientViewModel clientVM);
   }
-  public class UserManager : IUserManager
+  public class SignManager : ISignManager
   {
     private readonly IClientRepository _clientRepository;
     private readonly IClientHistoryRepository _clientHistoryRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUserHistoryRepository _userHistoryRepository;
 
-    public UserManager(IClientRepository clientRepo, IClientHistoryRepository clientHistoryRepo,
+    public SignManager(IClientRepository clientRepo, IClientHistoryRepository clientHistoryRepo,
                        IUserRepository userRepo, IUserHistoryRepository userHistoryRepo)
     {
       _clientRepository = clientRepo;
