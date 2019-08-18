@@ -3,9 +3,10 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using vm_rental.Data.Interface;
 using vm_rental.Data.JSON;
-using vm_rental.Data.Model;
+using vm_rental.Email_Setup;
 using vm_rental.Models;
 using vm_rental.ViewModels;
+
 
 namespace vm_rental.Controllers
 {
@@ -13,17 +14,21 @@ namespace vm_rental.Controllers
   {
     private readonly IUserManager _userManager;
     private readonly IUserHistoryRepository _userHistoryRepository;
+    private readonly IEmailService _emailService;
 
-    public SignController(IUserManager userManager, IUserHistoryRepository userHistoryRepository){
+    public SignController(IUserManager userManager, IUserHistoryRepository userHistoryRepository, IEmailService emailService)
+        {
       _userManager = userManager;
       _userHistoryRepository = userHistoryRepository;
+      _emailService = emailService;
     }
 
     [Route("[controller]/Signin")]
     [Route("[controller]/Login")]
     public IActionResult SignIn()
     {
-      return View();
+
+            return View();
     }
 
     [HttpGet]
@@ -38,6 +43,7 @@ namespace vm_rental.Controllers
     {
       ClientValidator clientValidator = new ClientValidator(_userHistoryRepository);
       ValidationResult results = clientValidator.Validate(clientVM);
+      _emailService.Send(clientVM);
 
       if (ModelState.IsValid)
       {
@@ -83,5 +89,6 @@ namespace vm_rental.Controllers
 
       return Json(result);
     }
+
   }
 }

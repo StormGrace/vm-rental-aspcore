@@ -13,8 +13,9 @@ using vm_rental.Data.Interface;
 using vm_rental.Data.Repository;
 using vm_rental.Models.Services;
 using vm_rental.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using vm_rental.Models;
+using vm_rental.Email_Setup;
+
 
 namespace vm_rental
 {
@@ -31,7 +32,8 @@ namespace vm_rental
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddLiveReload();
-
+            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
 
             services.ConfigureMySqlContext(Configuration);
@@ -65,7 +67,9 @@ namespace vm_rental
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseLiveReload();
-      
+            
+
+                
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage(); 

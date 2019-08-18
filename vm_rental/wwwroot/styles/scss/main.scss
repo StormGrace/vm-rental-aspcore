@@ -17,6 +17,10 @@
 @import "components/forms/signup_form";
 ///////////////////////
 
+//////*Email-Template*//////
+@import "pages/email-template/email-template.scss";
+///////////////////////
+
 //////*Layout*//////
 @import "pages/home/_home_page.scss";
 @import "pages/sign/signup_page";

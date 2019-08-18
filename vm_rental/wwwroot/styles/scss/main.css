@@ -694,6 +694,40 @@ footer {
   .acc-form__field-msg-email, .acc-form__field-msg-username, .acc-form__field-msg-password {
     width: 48%; }
 
+.form-email {
+  display: flex;
+  justify-content: center; }
+
+.rec-email {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  height: 350px;
+  width: 650px; }
+
+.info-name {
+  font-size: 28pt;
+  color: #66BECD; }
+
+.info {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+.text {
+  font-size: 14pt; }
+
+.verifyemail {
+  margin-top: 80px;
+  background-color: #3AAEE0;
+  width: 250px;
+  height: 50px;
+  border: none;
+  font-size: 16pt;
+  color: white; }
+
 .page-index-all-container {
   display: grid;
   grid-template-columns: 100%;
