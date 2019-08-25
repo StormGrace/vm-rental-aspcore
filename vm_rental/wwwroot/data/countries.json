@@ -1,0 +1,151 @@
+﻿{
+  "countries": [
+    {
+      "name": "Bulgaria",
+      "code2": "BG",
+      "country_code": "+359",
+      "lang": "Bulgarian",
+      "lang_native": "Български"
+    },
+    {
+      "name": "England",
+      "code2": "EN",
+      "country_code": "+44",
+      "lang": "English",
+      "lang_native": "English"
+    },
+    {
+      "name": "Greece",
+      "code2": "EL",
+      "country_code": "+30",
+      "lang": "Greek",
+      "lang_native": "Ελληνικά"
+    },
+    {
+      "name": "Serbia",
+      "code2": "RS",
+      "country_code": "+381",
+      "lang": "Serbian",
+      "lang_native": "Српски"
+    },
+    {
+      "name": "Romania",
+      "code2": "RO",
+      "country_code": "+40",
+      "lang": "Romanian",
+      "lang_native": "România"
+    },
+    {
+      "name": "Italy",
+      "code2": "IT",
+      "country_code": "+39",
+      "lang": "Italian",
+      "lang_native": "Italiano"
+    },
+    {
+      "name": "Hungary",
+      "code2": "HU",
+      "country_code": "+36",
+      "lang": "Hungarian",
+      "lang_native": "Magyar"
+    },
+    {
+      "name": "Czechia",
+      "code2": "CZ",
+      "country_code": "+420",
+      "lang": "Czech",
+      "lang_native": "Čeština"
+    },
+    {
+      "name": "Poland",
+      "code2": "PL",
+      "country_code": "+48",
+      "lang": "Polish",
+      "lang_native": "Polski"
+    },
+    {
+      "name": "Croatia",
+      "code2": "HR",
+      "country_code": "+385",
+      "lang": "Croatian",
+      "lang_native": "Hrvatski"
+    },
+    {
+      "name": "Finland",
+      "code2": "FI",
+      "country_code": "+358",
+      "lang": "Finnish",
+      "lang_native": "Suomalainen"
+    },
+    {
+      "name": "Norway",
+      "code2": "NO",
+      "country_code": "+47",
+      "lang": "Norwegian",
+      "lang_native": "Norsk"
+    },
+    {
+      "name": "Portugal",
+      "code2": "PT",
+      "country_code": "+351",
+      "lang": "Portuguese",
+      "lang_native": "Português"
+    },
+    {
+      "name": "Spain",
+      "code2": "ES",
+      "country_code": "+34",
+      "lang": "Spanish",
+      "lang_native": "Español"
+    },
+    {
+      "name": "France",
+      "code2": "FR",
+      "country_code": "+33",
+      "lang": "French",
+      "lang_native": "Français"
+    },
+    {
+      "name": "Germany",
+      "code2": "DE",
+      "country_code": "+49",
+      "language_name": "German",
+      "language_name_native": "Deutsch"
+    },
+    {
+      "name": "Sweden",
+      "code2": "SE",
+      "country_code": "+46",
+      "lang": "Swedish",
+      "lang_native": "Svenska"
+    },
+    {
+      "name": "Denmark",
+      "code2": "DK",
+      "country_code": "+45",
+      "lang": "Danish",
+      "lang_native": "Dansk"
+    },
+    {
+      "name": "Belarus",
+      "code2": "BY",
+      "country_code": "+375",
+      "lang": "Belarusian",
+      "lang_native": "Беларуская"
+    },
+    {
+      "name": "Ukraine",
+      "code2": "UA",
+      "country_code": "+380",
+      "lang": "Ukrainian",
+      "lang_native": "Українська"
+    },
+    {
+      "name": "Russia",
+      "code2": "RU",
+      "country_code": "+7",
+      "lang": "Russian",
+      "lang_native": "Русский"
+    }
+  ]
+}

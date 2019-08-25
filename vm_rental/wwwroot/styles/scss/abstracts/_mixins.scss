@@ -1,0 +1,87 @@
+/// <reference path="variables.scss" />
+
+@mixin button-base($width: auto, $height: auto, $txt-size: 0.8em, $radius: 0, $color: #3C97FF, $txt-color: white, $hover-color: #00C4F9, $border-width: 0, $border-color: #00B8EA) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 10px;
+  width: $width;
+  height: $height;
+  background-color: $color;
+  font-family: Arial;
+  font-size: $txt-size;
+  font-weight: bold;
+  color: $txt-color;
+  border-radius: $radius;
+  overflow: hidden;
+  outline: 0px;
+  border: $border-width solid $border-color;
+
+  i {
+    font-size: 1.2em;
+  }
+
+  i:not(:only-child) {
+    margin-right: 6px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $hover-color;
+    transition: background-color 0.18s ease-in;
+  }
+}
+
+@mixin button-primary() {
+  @include button-base($color: #3C97FF, $hover-color: red, $border-width: 0);
+}
+
+@mixin button-util() {
+  @include button-base($color: $headerUtilColor, $hover-color: #54a4ff, $txt-size: 0.72em);
+}
+
+@mixin button-nav() {
+  @include button-base($color: $headerUtilColor, $hover-color: #54a4ff, $txt-size: 1.3em);
+  padding: 6px 22px;
+}
+
+@mixin btn-style-1( $width: 120px, $height: 40px, $txt-size: 100%, $radius: 4.5px, $color: #00BBFC, $txt-color: white, $hover-color: #00C4F9, $border-color: #00B8EA) {
+    width: $width;
+    height: $height;
+    background-color: $color;
+    font-family: Arial;
+    font-size: $txt-size;
+    font-weight: bold;
+    color: $txt-color;
+    border-radius: $radius;
+    overflow: hidden;
+    outline: 0px;
+    border: 3px solid $border-color;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $hover-color;
+    }
+}
+
+@mixin dropdown-search($width: 100%, $height: auto, $yPos: 0, $xPos: 0, $color: lightgray, $hoverColor: ghostwhite) {
+    display: flex;
+    position: absolute;
+    width: $width;
+    height: $height;
+    top: $yPos;
+    left: $xPos;
+    background-color: $color;
+
+    & > * {
+        width: 100%;
+        height: 100%;
+        padding: 6px 10px;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $hoverColor;
+        }
+    }
+}

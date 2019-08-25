@@ -1,0 +1,24 @@
+﻿///////*Helpers*//////
+@import "abstracts/_variables";
+@import "abstracts/_functions";
+@import "abstracts/_mixins";
+/////////////////////
+
+///////*Base*//////
+@import "base/reset";
+@import "base/normalizer";
+@import "base/fonts";
+@import "base/icons";
+//////////////////
+
+//////*Components*//////
+@import "components/header/header";
+@import "components/footer/footer";
+@import "components/forms/signup_form";
+///////////////////////
+
+//////*Layout*//////
+@import "pages/home/_home_page.scss";
+@import "pages/sign/signup_page";
+@import "pages/sign/signin_page";
+///////////////////////

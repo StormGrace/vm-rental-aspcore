@@ -1,0 +1,38 @@
+﻿[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icons' !important;
+  font-size: 100%;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-question:before {
+  content: "\e903";
+}
+
+.icon-smphone:before {
+  content: "\e902";
+  font-size: 1.4em;
+}
+
+.icon-cart:before {
+  content: "\e901";
+}
+
+.icon-login:before {
+  content: "\e900";
+}
+
+.icon-server:before{
+
+  content: "\e910";
+}
+
+.icon-server2:before {
+  content: "\e911";
+}

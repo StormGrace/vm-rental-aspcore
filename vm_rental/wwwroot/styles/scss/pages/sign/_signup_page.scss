@@ -1,0 +1,18 @@
+/// <reference path="../../abstracts/functions.scss" />
+/// <reference path="../../abstracts/mixins.scss" />
+/// <reference path="../../abstracts/variables.scss" />
+
+.page-signup-all-container {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto 200px;
+}
+
+.page-signup-container {
+    max-width: $maxSiteWidth / 2; 
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 0;
+    color: #57686b;
+    font-family: 'Open Sans', sans-serif;
+}

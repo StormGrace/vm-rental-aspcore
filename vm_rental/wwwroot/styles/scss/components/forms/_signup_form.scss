@@ -1,0 +1,270 @@
+﻿$inputWidth: 200px;
+$inputHeight: 24px;
+$inputHorSpacing: 2%;
+$inputVerGap: 10px;
+$inputBorderWidth: 2px;
+$inputPlaceholderColor:#BCBCBC;
+
+//BEM - Naming Convention
+//Future Media Queries Should Break- At 500 - 540px;
+/// <reference path="../../abstracts/_mixins.scss" />
+.is-business {
+  display: none !important;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    background-color: #EDEDED;
+    border: 2px solid #0091d1;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px;
+
+    h1 {
+        font-size: 16pt;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    &__button {
+        @include btn-style-1(140px, 34px);
+        margin-left: 10px;
+    }
+}
+
+.acc-type {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    border: 2px solid #0091D1;
+    border-radius: 4px 4px 0px 0px;
+    box-sizing: border-box;
+    background-color: #EDEDED;
+ 
+    &__header {
+        padding: 12px 20px 20px 20px;
+
+        h1 {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+
+        &__h-line {
+            display: flex;
+            border: 0.4px solid #DDDDDD;
+            width: 100%;
+        }
+    }
+
+    &__subheader {
+        display: flex;
+        justify-content: center;
+
+        h1 {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+    }
+
+    &__selector {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        background-color: #EDEDED;
+    }
+
+    &__button-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00ABD3;
+        }
+    }
+
+    &__button {
+
+        &--active {
+            background-color: #00C0F4;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: #0295BC;
+        }
+
+        display: flex;
+        width: 90px;
+        height: 90px;
+        margin-top: 5px;
+        border: 0px;
+        border-radius: 8px;
+        outline: 0;
+        background-color: #DDDDDD;
+    }
+
+    &__button-separator {
+        display: flex;
+        align-self: flex-end;
+        height: 100px;
+        border-left: 1px solid #DDDDDD;
+        margin: 0 15px;
+    }
+}
+
+.acc-form {
+  width: 100%;
+  padding-top: 10px;
+
+  &__field-section {
+    padding: 12px 20px 20px 20px;
+  }
+
+  &__field-header {
+    h1 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+
+  &__h-line {
+    display: flex;
+    width: 100%;
+    border: 0.5px solid #DDDDDD;
+  }
+
+  &__field-row {
+    display: flex;
+    margin-left: 12px;
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+
+  &__field-subrow {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    &--half {
+      flex-wrap: wrap;
+      width: calc(50% - #{$inputHorSpacing});
+    }
+
+    &--2x1 {
+      display: flex !important;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      * {
+        flex-direction: column;
+        flex-basis: calc(50% - #{$inputHorSpacing});
+      }
+
+      &--half {
+        width: calc(50% - #{$inputHorSpacing});
+      }
+    }
+  }
+
+  &__field {
+    &::placeholder {
+      color: $inputPlaceholderColor;
+    }
+
+    &::-ms-input-placeholder {
+      color: $inputPlaceholderColor;
+    }
+
+    &:-ms-input-placeholder {
+      color: $inputPlaceholderColor;
+    }
+
+    &:focus {
+      outline: 2px solid #00abd3;
+    }
+
+    width: 100%;
+    height: $inputHeight;
+    border: $inputBorderWidth solid #DDDDDD;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    color: #00a6cc;
+  }
+
+  ///On Validation Error
+  &__field.input-validation-error {
+    outline: 2px solid red;
+  }
+
+  &__field-msg {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    color: red;
+  }
+  //
+
+  &__field-state-dropdown {
+    @include dropdown-search($width: 48%, $yPos: $inputHeight);
+  }
+
+
+
+  &__country-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: $inputHeight;
+    border: $inputBorderWidth solid #DDDDDD;
+    border-radius: 2px 0px 0px 2px;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: dodgerblue;
+    background-color: #FCFCFC;
+  }
+
+  &__terms {
+    padding: 10px 0 20px 0;
+
+    p {
+      text-align: center;
+      font-weight: bold;
+      width: auto;
+
+      i {
+        color: #3366BB;
+      }
+    }
+  }
+
+  &__signup-button {
+    @include btn-style-1(180px, 50px, 15pt, 0px);
+    width: 100%;
+  }
+
+  &__field[name="phone"] {
+    border-left: 0;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  //Initialization Section
+  &__field-section[section-type="business"] {
+    display: none;
+  }
+
+  //TO-BE REMOVED - WILL CHANGE IN FUTURE
+  &__field-msg-email, &__field-msg-username, &__field-msg-password {
+    width: 50% - $inputHorSpacing;
+  }
+}

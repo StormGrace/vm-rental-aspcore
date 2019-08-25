@@ -1,0 +1,45 @@
+﻿<header class='header'>
+  <div class="header__util">
+    <div class="header__util__wrapper">
+      <div class="header__util__bar">
+        <div class="header__util__info-btn header__util__btn">
+          <i class="icon-question"></i>
+        </div>
+        <span class="header__util__divider"></span>
+        <div class="header__util__phone-btn header__util__btn">
+          <i class="icon-smphone"></i><i>+(359) 52 888 606 285</i>
+        </div>
+        <span class="header__util__divider"></span>
+        <div class="header__util__cart-btn header__util__btn">
+          <i class="icon-cart"></i><p>Cart</p>
+        </div>
+        <a asp-controller="Sign" asp-action="Signin">
+          <div class="header__util__login-btn header__util__btn">
+            <i class="icon-login"></i><p>LOGIN</p>
+          </div>
+        </a>
+        <a asp-controller="Sign" asp-action="Signup">
+          <div class="header__util__reg-btn header__util__btn">
+            <p>CREATE AN ACCOUNT</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="header__nav">
+    <div class="header__nav__wrapper">
+      <a asp-controller="Home" asp-action="Index">
+       <i class="icon-logo"></i>
+      </a>
+      <nav class="header__nav__bar" is-toggled="false">
+        <ul>    
+          <li class="header__nav__servers-btn header__nav__btn">
+            <a asp-controller="Sign" asp-action="Signup"></a> <i class="icon-server"></i><p>Servers</p>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+
