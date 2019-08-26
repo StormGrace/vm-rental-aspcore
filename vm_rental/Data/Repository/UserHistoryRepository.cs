@@ -29,7 +29,7 @@ namespace vm_rental.Data.Repository
                     Username = toUser.UserName,
                     Email = toUser.Email,
                     PhoneNumber = toUser.PhoneNumber,
-                    PasswordHash = Encoding.ASCII.GetBytes(toUser.PasswordHash),
+                    PasswordHash = toUser.PasswordHash,
                     FirstName = toUser.FirstName,
                     LastName = toUser.LastName,
                     IsActive = 1,

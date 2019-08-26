@@ -13,10 +13,10 @@ namespace vm_rental.Models
 {
   public class CustomUserManager : UserManager<User>
   {
-    IUserRepository userRepository;
-    IClientRepository clientRepository;
-    IUserHistoryRepository userHistoryRepository;
-    IClientHistoryRepository clientHistoryRepository;
+    private readonly IUserRepository userRepository;
+    private readonly IClientRepository clientRepository;
+    private readonly IUserHistoryRepository userHistoryRepository;
+    private readonly IClientHistoryRepository clientHistoryRepository;
 
     public CustomUserManager(IUserHistoryRepository userHistoryRepository,
                              IClientRepository clientRepository,
@@ -70,15 +70,15 @@ namespace vm_rental.Models
         Client = client
       };
 
-        clientRepository.Add(client);
+      clientRepository.Add(client);
 
-        IdentityResult result = await base.CreateAsync(user);
+      IdentityResult result = await base.CreateAsync(user);
 
-        userHistoryRepository.CreateInitialHistory(user, user);
+      userHistoryRepository.CreateInitialHistory(user, user);
 
-        clientHistoryRepository.CreateInitialHistory(client, user);
+      clientHistoryRepository.CreateInitialHistory(client, user);
 
-        return IdentityResult.Success;
+      return IdentityResult.Success;
     }
   }
 }

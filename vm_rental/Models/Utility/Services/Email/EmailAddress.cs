@@ -1,5 +1,5 @@
 ﻿
-namespace vm_rental.Models.Utility.Email
+namespace vm_rental.Models.Utility.Services.Email
 {
     public class EmailAddress
     {

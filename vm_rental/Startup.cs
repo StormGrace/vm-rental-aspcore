@@ -1,23 +1,23 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
+using Westwind.AspNetCore.LiveReload;
 using vm_rental.Data.Repository.Interface;
-using vm_rental.Models.Utility.Email;
+using vm_rental.Models.Utility.Services.Email;
 using vm_rental.Data.Repository;
 using vm_rental.Models.Services;
 using vm_rental.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using vm_rental.Models;
-using Westwind.AspNetCore.LiveReload;
-using FluentValidation.AspNetCore;
 using vm_rental.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System;
 using vm_rental.Data.JSON;
 using vm_rental.Data.Model;
+ 
 
 namespace vm_rental
 {
@@ -58,6 +58,7 @@ namespace vm_rental
       services.AddScoped<IdentityUser<int>, User>();
       services.AddScoped<UserManager<User>, CustomUserManager>();
       services.AddScoped<IUserStore<User>, UserRepository>();
+      services.AddScoped<IPasswordHasher<User>, CustomPasswordHasher>();
       //
 
       services.Configure<CookiePolicyOptions>(options =>
@@ -81,7 +82,6 @@ namespace vm_rental
       });
 
       services.ConfigureMySqlContext(Configuration);
-
 
       //Identity Framework
       services.AddIdentity<User, UserRole>()

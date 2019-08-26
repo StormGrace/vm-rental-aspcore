@@ -1191,8 +1191,8 @@ namespace vm_rental.Data
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
                     .HasColumnName("password_hash")
-                    .HasColumnType("binary(32)")
-                    .HasDefaultValueSql("0x30");
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("N/A");
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
@@ -1320,8 +1320,8 @@ namespace vm_rental.Data
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
                     .HasColumnName("password_hash")
-                    .HasColumnType("binary(32)")
-                    .HasDefaultValueSql("0x30");
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("N/A");
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
