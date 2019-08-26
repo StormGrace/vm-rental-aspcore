@@ -10,19 +10,21 @@ using vm_rental.Data.Model;
 using System.Threading.Tasks;
 using vm_rental.Data.JSON;
 using vm_rental.Data.Repository.Interface;
+using vm_rental.Models.Utility.Email;
 
 namespace vm_rental.Controllers
 {
   public class SignController : Controller
   {
     private readonly CustomUserManager userManager;
-
+    private readonly IEmailService emailServices;
     private readonly IUserRepository userRepository;
 
-    public SignController(CustomUserManager customUserManager, IUserRepository userRepo)
+    public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailServ)
     {
       userManager = customUserManager;
       userRepository = userRepo;
+            emailServices = emailServ;
     }
 
     [Route("[controller]/Signin")]
@@ -50,6 +52,7 @@ namespace vm_rental.Controllers
       {
 
         IdentityResult result = await userManager.CreateUser(clientVM);
+        emailServices.Send(clientVM.FirstName, clientVM.Email);
         return RedirectToAction("SignUp");
       }
       else

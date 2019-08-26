@@ -10,10 +10,6 @@ namespace vm_rental.Models.Utility.Services.Email
         string SenderEmail { get; set; }
         string SenderUsername { get; set; }
         string ConfirmEmailSubject { get; set; }
-        string PopServer { get; }
-        int PopPort { get; }
-        string PopUsername { get; }
-        string PopPassword { get; }
     }
 
 
@@ -26,10 +22,6 @@ namespace vm_rental.Models.Utility.Services.Email
         public string SenderEmail { get; set; }
         public string SenderUsername { get; set; }
         public string ConfirmEmailSubject { get; set; }
-        public string PopServer { get; set; }
-        public int PopPort { get; set; }
-        public string PopUsername { get; set; }
-        public string PopPassword { get; set; }
     }
 
 }
