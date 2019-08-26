@@ -17,7 +17,7 @@
 <div class="page-signup-container">
   <div class="login">
     <h1>Already have an account?</h1>
-    <button class="login__button" asp-controller="Sign" asp-action="SignIn">Login Here!</button>
+    <button class="login__button" asp-controller="Sign" asp-action="SignIn" onclick="location.href='@Url.Action("SignIn", "Sign")'">Login Here!</button>
   </div>
   <div class="acc-type">
     <div class="acc-type__header">

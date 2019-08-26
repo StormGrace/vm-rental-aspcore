@@ -1,1 +1,46 @@
-﻿ 
+﻿
+@{
+    ViewData["Title"] = "Sign In";
+    ViewData["Description"] = "A Convenient Rental Service for Virtual Machines.";
+    ViewData["Wrapper_Class"] = "page-signin-all-container";
+}
+
+<div class="page-signin-container">
+    <div class="login-type">
+        <form class="acc-form" form-type="personal" method="POST" asp-controller="Sign" asp-action="SignIn">
+            <div class="acc-form__acc-info acc-form__field-section">
+                <div class="acc-form__field-login">
+                    <h1>Login</h1>
+                    <span class="acc-form__h-line"></span>
+                </div>
+                <div class="acc-form__field-row">
+                    <div class="acc-form__field-subrow acc-form__field-subrow--half">
+                        <input type="text" placeholder="Email/Username*" class="acc-form__field" data-val="true" />
+                        <span class="acc-form__field-status-email"></span>
+                    </div>
+                    <span class="acc-form__field-msg-email acc-form__field-msg error"></span>
+                </div>
+                <div class="acc-form__field-row ">
+                    <div class="acc-form__field-subrow acc-form__field-subrow--half">
+                        <input type="password" placeholder="Password*" class="acc-form__field" />
+                        <span class="acc-form__field-status-password"></span>
+                    </div>
+                    <span class="acc-form__field-msg-password acc-form__field-msg error"></span>
+                </div>
+                <div class="acc-form__field-row">
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="remember"> Remember me</label>
+                    </div>
+                </div>
+            </div>
+            <div class="acc-form__forgot-password">
+                <p><a href="#"><i>Forgot Password?</i></a></p>
+            </div>
+            <button type="submit" class="acc-form__signup-button">Sign In</button>
+            <div class="acc-form__acc-register">
+                <p class="text-acc-yet">Have not account yet?</p>
+                <p class="text-acc-signup"><a onclick="location.href='@Url.Action("SignUp", "Sign")'">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</div>

@@ -15,33 +15,6 @@ namespace vm_rental.Models.Utility.Email
 
         public EmailService(IEmailConfiguration emailConfiguration) { _emailConfiguration = emailConfiguration; }
 
-        public List<EmailMessage> ReceiveEmail(int maxCount = 10)
-        {
-            using (var emailClient = new Pop3Client())
-            {
-                emailClient.Connect(_emailConfiguration.PopServer, _emailConfiguration.PopPort, true);
-                emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
-                emailClient.Authenticate(_emailConfiguration.PopUsername, _emailConfiguration.PopPassword);
-
-                List<EmailMessage> emails = new List<EmailMessage>();
-
-                for (int i = 0; i < emailClient.Count && i < maxCount; i++)
-                {
-                    var message = emailClient.GetMessage(i);
-                    var emailMessage = new EmailMessage
-                    {
-                        Content = !string.IsNullOrEmpty(message.HtmlBody) ? message.HtmlBody : message.TextBody,
-                        Subject = message.Subject
-                    };
-
-                    emailMessage.ToAddress.AddRange(message.To.Select(x => (MailboxAddress)x).Select(x => new EmailAddress { Address = x.Address, Name = x.Name }));
-                    emailMessage.FromAddress.AddRange(message.From.Select(x => (MailboxAddress)x).Select(x => new EmailAddress { Address = x.Address, Name = x.Name }));
-                    emails.Add(emailMessage);
-                }
-                return emails;
-            }
-
-        }
 
         public async void Send(string receiverEmail,string receiverName)
         {
