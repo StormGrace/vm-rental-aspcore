@@ -2,10 +2,10 @@
 
 namespace vm_rental.Utility.Security.Hashing.Argon2
 {
-  //Argon hashing options for the ArgonHasher, used during the Verify and Hash phases.
+  //The Argon hashing options for the ArgonHasher, used during the Verify and Hash phases.
   public class ArgonHashOptions : IHashOptions
   {
-    //Default Hashing Options.
+    //The Default Hashing Options.
     //Changing these options will affect all future hashes.
     //Each Parameter adds to the overall computational cost.
     private struct Default
@@ -21,6 +21,7 @@ namespace vm_rental.Utility.Security.Hashing.Argon2
       //The number of Cores used during the hashing phase, affecting the degree of parallelism. [ 1 to 2^(24)-1 ]
       public const int Parallelism = 16; //4 Cores
     }
+
     public ArgonHashOptions()
     {
       Algorithm   = Default.Algorithm;

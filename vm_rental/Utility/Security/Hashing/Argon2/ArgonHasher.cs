@@ -15,12 +15,13 @@ namespace vm_rental.Utility.Security.Hashing.Argon2
 
     private ArgonHash GenerateArgon2idHash(string text, byte[] salt, ArgonHashOptions hashOptions)
     {
-      Argon2id argon2 = new Argon2id(Encoding.UTF8.GetBytes(text));
-
-      argon2.DegreeOfParallelism = hashOptions.Parallelism;
-      argon2.MemorySize = hashOptions.MemorySize;
-      argon2.Iterations = hashOptions.Iterations;
-      argon2.Salt = salt;
+      Argon2id argon2 = new Argon2id(Encoding.UTF8.GetBytes(text))
+      {
+        DegreeOfParallelism = hashOptions.Parallelism,
+        MemorySize = hashOptions.MemorySize,
+        Iterations = hashOptions.Iterations,
+        Salt = salt
+      };
 
       string hash = Encoding.UTF8.GetString(argon2.GetBytes(32));
 
@@ -85,11 +86,6 @@ namespace vm_rental.Utility.Security.Hashing.Argon2
       rng.Dispose();
 
       return buffer;
-    }
-
-    public string Hash(string providedString, string providedSalt, ArgonHashOptions hashOptions)
-    {
-      throw new NotImplementedException();
     }
   }
 }
