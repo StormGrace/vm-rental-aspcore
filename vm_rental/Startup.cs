@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using Westwind.AspNetCore.LiveReload;
 using vm_rental.Data.Repository.Interface;
-using vm_rental.Models.Utility.Services.Email;
 using vm_rental.Data.Repository;
 using vm_rental.Models.Services;
 using vm_rental.ViewModels;
@@ -17,7 +16,7 @@ using vm_rental.Models;
 using vm_rental.Data;
 using vm_rental.Data.JSON;
 using vm_rental.Data.Model;
- 
+using vm_rental.Utility.Services.Email;
 
 namespace vm_rental
 {

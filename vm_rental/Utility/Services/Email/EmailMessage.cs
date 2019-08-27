@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace vm_rental.Models.Utility.Services.Email
+namespace vm_rental.Utility.Services.Email
 {
     public class EmailMessage
     {

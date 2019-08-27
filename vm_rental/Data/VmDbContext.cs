@@ -35,6 +35,8 @@ namespace vm_rental.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
             //Identity Framework Ignores
@@ -1191,7 +1193,7 @@ namespace vm_rental.Data
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
                     .HasColumnName("password_hash")
-                    .HasMaxLength(255)
+                    .HasMaxLength(400)
                     .HasDefaultValueSql("N/A");
 
                 entity.Property(e => e.PhoneNumber)
@@ -1320,7 +1322,7 @@ namespace vm_rental.Data
                 entity.Property(e => e.PasswordHash)
                     .IsRequired()
                     .HasColumnName("password_hash")
-                    .HasMaxLength(255)
+                    .HasMaxLength(400)
                     .HasDefaultValueSql("N/A");
 
                 entity.Property(e => e.PhoneNumber)

@@ -8,8 +8,8 @@ using System;
 
 namespace vm_rental.Data.Repository
 {
-   public class UserRepository : Repository<User>, IUserRepository, IUserStore<User>
-  {
+   public class UserRepository : Repository<User>, IUserRepository, IUserStore<User>, IUserPasswordStore<User>
+   {
         public UserRepository(VmDbContext context) : base(context){ }
 
         public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
@@ -89,12 +89,43 @@ namespace vm_rental.Data.Repository
 
         public void Dispose()
         {
-          //Console.WriteLine("bad");
+           
         }
 
-        public User CreateUser(Client client)
+   public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
+   {
+     return Task.Run(() =>
+     {
+        user.PasswordHash = passwordHash;
+     });
+   }
+
+   public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
+   {
+     return Task.Run(() =>
+     {
+       return user.PasswordHash;
+     });
+   }
+
+   public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
+   {
+      return Task.Run(() =>
+      {
+        bool flag = false;
+
+        if (String.IsNullOrEmpty(user.PasswordHash))
         {
-          throw new System.NotImplementedException();
+          flag = true;
         }
+
+        return Task.FromResult(flag);
+     });
+   }
+
+    public User CreateUser(Client client)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

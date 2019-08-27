@@ -1,6 +1,6 @@
 ﻿
 
-namespace vm_rental.Models.Utility.Encrypt.Argon2
+namespace vm_rental.Utility.Security.Hashing.Argon2
 {
   //Argon hashing options for the ArgonHasher, used during the Verify and Hash phases.
   public class ArgonHashOptions : IHashOptions
@@ -14,11 +14,11 @@ namespace vm_rental.Models.Utility.Encrypt.Argon2
       public const string Algorithm = "argon2id";
       //Version of the Argon Hashing Algorithm. [Not Yet Implemented - Changing it won't affect the hashing]
       public const string Version = "1.2.1";
-      //The amount of RAM used during the hashing phase, affecting the memory cost (measured in Kbits).
-      public const int MemorySize = 1024 * 1024;  //1GB 
-      //The number of Iterations during the hashing phase, affecting the time cost.
-      public const int Iterations = 1;  
-      //The number of Cores used during the hashing phase, affecting the degree of parallelism.
+      //The amount of RAM used during the hashing phase, affecting the memory cost [ 8 * p to 2^(32)-1 ].
+      public const int MemorySize = 1024 * 1024; //<-(in kibibytes)
+      //The number of Iterations during the hashing phase, affecting the time cost. [ 1 to 2^(32)-1 ]
+      public const int Iterations = 1;
+      //The number of Cores used during the hashing phase, affecting the degree of parallelism. [ 1 to 2^(24)-1 ]
       public const int Parallelism = 16; //4 Cores
     }
     public ArgonHashOptions()

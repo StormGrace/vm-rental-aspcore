@@ -1,16 +1,12 @@
-﻿using FluentValidation.AspNetCore;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using vm_rental.Models;
 using vm_rental.ViewModels;
-using System;
-using vm_rental.Data.Model;
-using System.Threading.Tasks;
-using vm_rental.Data.JSON;
 using vm_rental.Data.Repository.Interface;
-using vm_rental.Models.Utility.Email;
+using vm_rental.Utility.Services.Email;
 
 namespace vm_rental.Controllers
 {
@@ -50,9 +46,8 @@ namespace vm_rental.Controllers
 
       if (validationResults.IsValid)
       {
-
         IdentityResult result = await userManager.CreateUser(clientVM);
-        emailServices.Send(clientVM.FirstName, clientVM.Email);
+        //emailServices.Send(clientVM.FirstName, clientVM.Email); <- За да не спамим на чужди емайли.
         return RedirectToAction("SignUp");
       }
       else

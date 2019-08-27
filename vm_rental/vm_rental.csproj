@@ -31,7 +31,6 @@
   <ItemGroup>
     <Folder Include="Data\Model\AbstractClass\" />
     <Folder Include="Data\Model\Interface\" />
-    <Folder Include="Models\Utility\Services\" />
     <Folder Include="Views\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

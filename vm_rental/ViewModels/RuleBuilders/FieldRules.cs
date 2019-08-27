@@ -20,7 +20,7 @@ namespace vm_rental.ViewModels.RuleBuilders
     ////Username Rules
     public static IRuleBuilderOptions<T, string> Username<T>(this IRuleBuilder<T, string> ruleBuilder, IUserRepository userRepository)
     {
-      int minLength = 4, maxLength = 20;
+      int minLength = 4, maxLength = 50;
 
       return ruleBuilder.NotNull().WithMessage("Please enter your Username.")
                         .MinimumLength(minLength).WithMessage($"Username must be at least {minLength} characters long.")
@@ -33,12 +33,12 @@ namespace vm_rental.ViewModels.RuleBuilders
     ////Password Rules
     public static IRuleBuilderOptions<T, string> Password<T>(this IRuleBuilder<T, string> ruleBuilder)
     {
-      int minLength = 8, maxLength = 20;
+      int minLength = 8, maxLength = 100;
 
       return ruleBuilder.NotNull().WithMessage("Please enter your Password.")
                         .MinimumLength(minLength).WithMessage($"Password must be at least {minLength} characters long.")
                         .MaximumLength(maxLength).WithMessage($"Password is too long.")
-                        .Matches(new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$"))
+                        .Matches(new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]+$"))
                         .WithMessage("Password is invalid. 1 uppercase and lowercase letter, 1 special character and 1 number is required.");
     }                   
     ////
