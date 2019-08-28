@@ -7,20 +7,20 @@ using vm_rental.Models;
 using vm_rental.ViewModels;
 using vm_rental.Data.Repository.Interface;
 using vm_rental.Utility.Services.Email;
+using vm_rental.Data.Model;
 
 namespace vm_rental.Controllers
 {
   public class SignController : Controller
   {
     private readonly CustomUserManager userManager;
-    private readonly IEmailService emailServices;
     private readonly IUserRepository userRepository;
-
-    public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailServ)
+    private readonly IEmailService emailService;
+    public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailService)
     {
       userManager = customUserManager;
       userRepository = userRepo;
-            emailServices = emailServ;
+      this.emailService = emailService;
     }
 
     [Route("[controller]/Signin")]
@@ -46,8 +46,10 @@ namespace vm_rental.Controllers
 
       if (validationResults.IsValid)
       {
-        IdentityResult result = await userManager.CreateUser(clientVM);
-        //emailServices.Send(clientVM.FirstName, clientVM.Email); <- За да не спамим на чужди емайли.
+        User user = await userManager.CreateUser(clientVM);
+        string emailToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+        emailService.SendEmailAsync(clientVM.FirstName, clientVM.Email);
+
         return RedirectToAction("SignUp");
       }
       else

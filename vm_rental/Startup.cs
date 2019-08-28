@@ -67,6 +67,16 @@ namespace vm_rental
         options.MinimumSameSitePolicy = SameSiteMode.None;
       });
 
+      services.AddDefaultIdentity<User>(config =>
+      {
+        config.SignIn.RequireConfirmedEmail = true;
+        config.Tokens.ProviderMap.Add("CustomEmailConfirmation", new TokenProviderDescriptor
+        (
+          typeof(CustomEmailConfirmationTokenProvider<User>))
+        );
+        config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+      });
+
       services.ConfigureApplicationCookie(options =>
       {
         options.AccessDeniedPath = "/Identity/Account/AccessDenied";

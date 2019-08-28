@@ -1,9 +1,6 @@
-﻿using MailKit.Net.Pop3;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MimeKit;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using RazorEngine;
 using RazorEngine.Templating;
 
@@ -15,8 +12,7 @@ namespace vm_rental.Utility.Services.Email
 
         public EmailService(IEmailConfiguration emailConfiguration) { _emailConfiguration = emailConfiguration; }
 
-
-        public async void Send(string receiverEmail,string receiverName)
+        public async void SendEmailAsync(string receiverEmail,string receiverName)
         {
             MimeMessage message = new MimeMessage();
             MailboxAddress from = new MailboxAddress(_emailConfiguration.SenderUsername, _emailConfiguration.SenderEmail);
@@ -24,7 +20,7 @@ namespace vm_rental.Utility.Services.Email
 
             message.From.Add(from);
             message.To.Add(to);
-            message.Subject = _emailConfiguration.ConfirmEmailSubject;
+            message.Subject = "Napomnqme vi za Aktivno Pla6tane za noviqt kurs po C#";
 
             BodyBuilder bodyBuilder = new BodyBuilder();
 
@@ -43,6 +39,7 @@ namespace vm_rental.Utility.Services.Email
             await client.AuthenticateAsync(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
 
             await client.SendAsync(message);
+
             await client.DisconnectAsync(true);
 
             client.Dispose();
