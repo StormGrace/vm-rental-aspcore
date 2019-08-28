@@ -23,16 +23,16 @@ namespace vm_rental.Models
       IClientRepository clientRepository,
       IClientHistoryRepository clientHistoryRepository,
       IUserRepository userRepository,
-      IUserStore<User> store, 
-      IOptions<IdentityOptions> optionsAccessor, 
-      IPasswordHasher<User> passwordHasher, 
-      IEnumerable<IUserValidator<User>> userValidators, 
-      IEnumerable<IPasswordValidator<User>> passwordValidators, 
-      ILookupNormalizer keyNormalizer, 
-      IdentityErrorDescriber errors, 
-      IServiceProvider services, 
+      IUserStore<User> store,
+      IOptions<IdentityOptions> optionsAccessor,
+      IPasswordHasher<User> passwordHasher,
+      IEnumerable<IUserValidator<User>> userValidators,
+      IEnumerable<IPasswordValidator<User>> passwordValidators,
+      ILookupNormalizer keyNormalizer,
+      IdentityErrorDescriber errors,
+      IServiceProvider services,
       ILogger<UserManager<User>> logger
-    ) 
+    )
     : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
     {
       this.userRepository = userRepository;
@@ -47,8 +47,9 @@ namespace vm_rental.Models
       return result;
     }
 
-    public async Task<IdentityResult> CreateUser(ClientViewModel clientVM)
+    public async Task<User> CreateUser(ClientViewModel clientVM)
     {
+
       Client client = new Client()
       {
         FirmName = clientVM.FirmName,
@@ -81,7 +82,7 @@ namespace vm_rental.Models
 
       clientHistoryRepository.CreateInitialHistory(client, user);
 
-      return IdentityResult.Success;
+      return user;
     }
   }
 }

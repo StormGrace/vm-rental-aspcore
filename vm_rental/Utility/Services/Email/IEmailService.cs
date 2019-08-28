@@ -4,6 +4,6 @@ namespace vm_rental.Utility.Services.Email
 {
   public interface IEmailService
   {
-    void Send(string receiverEmail, string receiverName);
+    void SendEmailAsync(string receiverEmail, string receiverName);
   }
 }

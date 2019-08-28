@@ -9,9 +9,7 @@ namespace vm_rental.Utility.Services.Email
         string SmtpPassword { get; set; }
         string SenderEmail { get; set; }
         string SenderUsername { get; set; }
-        string ConfirmEmailSubject { get; set; }
     }
-
 
     public class EmailConfiguration : IEmailConfiguration
     {
@@ -21,7 +19,6 @@ namespace vm_rental.Utility.Services.Email
         public string SmtpPassword { get; set; }
         public string SenderEmail { get; set; }
         public string SenderUsername { get; set; }
-        public string ConfirmEmailSubject { get; set; }
     }
 
 }
