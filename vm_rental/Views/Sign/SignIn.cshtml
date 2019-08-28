@@ -1,4 +1,4 @@
-﻿
+﻿@model  vm_rental.ViewModels.LoginViewModel
 @{
     ViewData["Title"] = "Sign In";
     ViewData["Description"] = "A Convenient Rental Service for Virtual Machines.";
@@ -15,21 +15,21 @@
                 </div>
                 <div class="acc-form__field-row">
                     <div class="acc-form__field-subrow acc-form__field-subrow--half">
-                        <input type="text" placeholder="Email/Username*" class="acc-form__field" data-val="true" />
+                        <input type="text" placeholder="Email" class="acc-form__field" data-val="true" name="Email" asp-for="Email" />
                         <span class="acc-form__field-status-email"></span>
                     </div>
-                    <span class="acc-form__field-msg-email acc-form__field-msg error"></span>
+                    <span class="acc-form__field-msg-email acc-form__field-msg error" asp-validation-for="Email"></span>
                 </div>
                 <div class="acc-form__field-row ">
                     <div class="acc-form__field-subrow acc-form__field-subrow--half">
-                        <input type="password" placeholder="Password*" class="acc-form__field" />
+                        <input type="password" placeholder="Password*" class="acc-form__field" name="Password" asp-for="Password" />
                         <span class="acc-form__field-status-password"></span>
                     </div>
-                    <span class="acc-form__field-msg-password acc-form__field-msg error"></span>
+                    <span class="acc-form__field-msg-password acc-form__field-msg error" asp-validation-for="Password"></span>
                 </div>
                 <div class="acc-form__field-row">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="remember"> Remember me</label>
+                        <label asp-for="RememberMe"><input type="checkbox" name="remember" asp-for="RememberMe">@Html.DisplayNameFor(m=>m.RememberMe)</label>
                     </div>
                 </div>
             </div>

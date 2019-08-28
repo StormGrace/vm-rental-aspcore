@@ -13,21 +13,43 @@ namespace vm_rental.Controllers
   public class SignController : Controller
   {
     private readonly CustomUserManager userManager;
-    private readonly IEmailService emailServices;
+    private readonly CustomSignInManager signInManager;
+    //private readonly IEmailService emailServices;
     private readonly IUserRepository userRepository;
 
-    public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailServ)
+    public SignController(CustomUserManager customUserManager, IUserRepository userRepo,CustomSignInManager signInMan)
     {
       userManager = customUserManager;
       userRepository = userRepo;
-            emailServices = emailServ;
+      //emailServices = emailServ;
+      signInManager = signInMan;     
     }
 
     [Route("[controller]/Signin")]
     [Route("[controller]/Login")]
+
+    [HttpGet]
     public IActionResult SignIn()
     {
       return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SignIn(LoginViewModel loginVm)
+    {
+            if(ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(loginVm.Email, loginVm.Password, loginVm.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("SignIn");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+
+            }
+            return View("SignIn", loginVm);
     }
 
     [HttpGet]
@@ -36,6 +58,7 @@ namespace vm_rental.Controllers
     {
       return View(new ClientViewModel(userRepository));
     }
+
    
     [HttpPost]
     [Route("Sign/Signup")]
@@ -58,4 +81,5 @@ namespace vm_rental.Controllers
       return View("SignUp", clientVM);
     }
   }
+
 }

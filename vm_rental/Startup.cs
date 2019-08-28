@@ -36,6 +36,7 @@ namespace vm_rental
 
       //UserManager Config
       services.AddTransient<UserManager<User>, CustomUserManager>();
+      services.AddTransient<SignInManager<User>, CustomSignInManager>();
       //
 
       services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
@@ -56,6 +57,7 @@ namespace vm_rental
       //Identity Framework
       services.AddScoped<IdentityUser<int>, User>();
       services.AddScoped<UserManager<User>, CustomUserManager>();
+      services.AddScoped<SignInManager<User>, CustomSignInManager>();
       services.AddScoped<IUserStore<User>, UserRepository>();
       services.AddScoped<IPasswordHasher<User>, CustomPasswordHasher>();
       //
@@ -86,6 +88,7 @@ namespace vm_rental
       services.AddIdentity<User, UserRole>()
               .AddEntityFrameworkStores<VmDbContext>()
               .AddUserManager<CustomUserManager>()
+              .AddSignInManager<CustomSignInManager>()
               .AddUserStore<UserRepository>()
               .AddDefaultTokenProviders();
       //
