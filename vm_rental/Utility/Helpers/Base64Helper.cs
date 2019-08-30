@@ -2,7 +2,7 @@
 using System.Text;
 
 
-namespace vm_rental.Utility.Security.Helpers
+namespace vm_rental.Utility.Helpers
 {
   //Helper Class, used for Base64 Encoding and Decoding.
   public static class Base64Helper

@@ -1,0 +1,40 @@
+﻿@using vm_rental.Utility.Services.Email
+ 
+<table>
+  <thead>
+    <tr>
+      <td><a href="#">Logo</a></td>
+    </tr>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+       @if (Model.EmailSubject == EmailSubject.EmailConfirmationSubject.GetSubjectName()){
+        <table>
+          <tr>
+            <td>
+              Hello, @Model.ReceiverName, thank you for signing up, you need to verify your email address, in order to continue using our services.
+              To verify your email address, use the button:
+              <a target="_blank" href="#">Verify Account</a>
+              Or click the link below: @Model.URL
+            </td>
+          </tr>
+        </table>
+      }
+      else if (Model.EmailSubject == EmailSubject.PasswordChangeSubject.GetSubjectName()){
+          
+      }
+      else if (Model.EmailSubject == EmailSubject.PasswordForgottenSubject.GetSubjectName())
+      {
+          
+      }
+      </td>
+    </tr>
+  <tbody>
+  <tfoot>
+
+  </tfoot>
+</table>

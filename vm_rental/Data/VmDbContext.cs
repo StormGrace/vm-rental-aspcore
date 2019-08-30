@@ -44,6 +44,7 @@ namespace vm_rental.Data
             modelBuilder.Entity<User>().Ignore(u => u.NormalizedUserName);
             modelBuilder.Entity<User>().Ignore(u => u.PhoneNumberConfirmed);
             modelBuilder.Entity<User>().Ignore(u => u.TwoFactorEnabled);
+  
             //
 
             modelBuilder.Entity<Client>(entity =>
@@ -1475,13 +1476,13 @@ namespace vm_rental.Data
                 entity.Property(e => e.LoginProvider)
                     .IsRequired()
                     .HasColumnName("login_provider")
-                    .HasMaxLength(128)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
-                    .HasMaxLength(128)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId)
@@ -1491,8 +1492,8 @@ namespace vm_rental.Data
                 entity.Property(e => e.Value)
                     .IsRequired()
                     .HasColumnName("value")
-                    .HasMaxLength(128)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
+                    //.IsUnicode(false);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserToken)

@@ -8,8 +8,8 @@ using System;
 
 namespace vm_rental.Data.Repository
 {
-   public class UserRepository : Repository<User>, IUserRepository, IUserStore<User>, IUserPasswordStore<User>
-   {
+   public class UserRepository : Repository<User>, IUserRepository, IUserStore<User>, IUserPasswordStore<User>, IUserEmailStore<User>, IUserAuthenticationTokenStore<User>
+  {
         public UserRepository(VmDbContext context) : base(context){ }
 
         public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
@@ -126,6 +126,96 @@ namespace vm_rental.Data.Repository
     public User CreateUser(Client client)
     {
       throw new NotImplementedException();
+    }
+
+    public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
+    {
+      return Task.Run(() =>
+      {
+        user.Email = email;
+      });
+    }
+
+    public Task<string> GetEmailAsync(User user, CancellationToken cancellationToken)
+    {
+      return Task.Run(() =>
+      {
+        return user.Email;
+      });
+    }
+
+    public Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancellationToken)
+    {
+      return Task.Run(() =>
+      {
+        return user.EmailConfirmed;
+      });
+    }
+
+    public Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancellationToken)
+    {
+      return Task.Run(() =>
+      {
+        user.EmailConfirmed = confirmed;
+      });
+    }
+
+    public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+    {
+      return Task.FromResult(_context.User.FirstOrDefault(u => u.Email.ToUpper().Equals(normalizedEmail)));
+    }
+
+    public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
+    {
+      return Task.Run(() =>
+      {
+        return user.Email.ToUpper();
+      });
+    }
+
+    public Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
+    {
+      return Task.Run(() =>
+      {
+        user.NormalizedEmail = normalizedEmail;
+      });
+    }
+
+    public Task SetTokenAsync(User user, string loginProvider, string name, string value, CancellationToken cancellationToken)
+    {
+      UserToken userToken = new UserToken
+      {
+        LoginProvider = loginProvider,
+        Name = name,
+        Value = value,
+        User = user,
+        UserId = user.Id  
+      };
+
+      _context.Add(userToken);
+      _context.SaveChanges();
+
+      return Task.Run(() =>
+      {
+        return Task.CompletedTask;
+      });
+    }
+
+    public Task RemoveTokenAsync(User user, string loginProvider, string name, CancellationToken cancellationToken)
+    {
+      UserToken token = _context.UserToken.FirstOrDefault(u => u.LoginProvider.Equals(loginProvider) && u.Name.Equals(name));
+
+      _context.Remove(token);
+      _context.SaveChanges();
+
+      return Task.CompletedTask;
+    }
+
+    public Task<string> GetTokenAsync(User user, string loginProvider, string name, CancellationToken cancellationToken)
+    {
+      UserToken token = _context.UserToken.FirstOrDefault(u => u.LoginProvider.Equals(loginProvider) && u.Name.Equals(name));
+
+      return Task.FromResult(token.Value);
     }
   }
 }

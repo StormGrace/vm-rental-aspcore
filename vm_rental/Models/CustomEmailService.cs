@@ -17,7 +17,7 @@ namespace vm_rental.Models
     {
       return Task.Run(() =>
       {
-        emailService.SendEmailAsync(subject, email);
+        emailService.SendEmailAsync(email, subject, EmailSubject.EmailConfirmationSubject);
       });
     }
   }

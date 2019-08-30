@@ -1,5 +1,5 @@
 ﻿using System;
-using vm_rental.Utility.Security.Helpers;
+using vm_rental.Utility.Helpers;
 
 namespace vm_rental.Utility.Security.Hashing.Argon2
 {

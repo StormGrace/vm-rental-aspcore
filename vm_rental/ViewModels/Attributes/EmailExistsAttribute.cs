@@ -14,6 +14,7 @@ namespace vm_rental.ViewModels.Attributes
     {
       _userRepository = userRepository;
     }
+
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
       if (value != null)
@@ -25,6 +26,7 @@ namespace vm_rental.ViewModels.Attributes
           return new ValidationResult("Email is already exists.");
         }
       }
+
       return ValidationResult.Success;
     }
 

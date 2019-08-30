@@ -17,6 +17,8 @@ using vm_rental.Data;
 using vm_rental.Data.JSON;
 using vm_rental.Data.Model;
 using vm_rental.Utility.Services.Email;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace vm_rental
 {
@@ -36,7 +38,7 @@ namespace vm_rental
 
       //UserManager Config
       services.AddTransient<UserManager<User>, CustomUserManager>();
-      services.AddTransient<SignInManager<User>, CustomSignInManager>();
+      //services.AddTransient<SignInManager<User>, CustomSignInManager>();
       //
 
       services.AddTransient<FluentValidation.IValidator<ClientViewModel>, ClientValidator>();
@@ -50,6 +52,7 @@ namespace vm_rental
 
       services.AddScoped<IUserRepository, UserRepository>();
       services.AddScoped<IClientRepository, ClientRepository>();
+      services.AddScoped<IUserTokenRepository, UserTokenRepository>();
 
       services.AddScoped<IClientHistoryRepository, ClientHistoryRepository>();
       services.AddScoped<IUserHistoryRepository, UserHistoryRepository>();
@@ -57,9 +60,9 @@ namespace vm_rental
       //Identity Framework
       services.AddScoped<IdentityUser<int>, User>();
       services.AddScoped<UserManager<User>, CustomUserManager>();
-      services.AddScoped<SignInManager<User>, CustomSignInManager>();
       services.AddScoped<IUserStore<User>, UserRepository>();
       services.AddScoped<IPasswordHasher<User>, CustomPasswordHasher>();
+      services.AddScoped<IUserAuthenticationTokenStore<User>, UserRepository>();
       //
 
       services.Configure<CookiePolicyOptions>(options =>
@@ -69,14 +72,26 @@ namespace vm_rental
         options.MinimumSameSitePolicy = SameSiteMode.None;
       });
 
-      services.AddDefaultIdentity<User>(config =>
+      services.AddAuthentication(options =>
       {
-        config.SignIn.RequireConfirmedEmail = true;
-        config.Tokens.ProviderMap.Add("CustomEmailConfirmation", new TokenProviderDescriptor
-        (
-          typeof(CustomEmailConfirmationTokenProvider<User>))
-        );
-        config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+      }).AddJwtBearer(options =>
+      {
+        var signingKey = Convert.FromBase64String(Configuration["JWT:Key"]);
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuer = true,
+          ValidateAudience = true,
+          ValidAudience = Configuration["JTW:Site"],
+          ValidIssuer = Configuration["JTW:Site"],
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(signingKey)
+        };
       });
 
       services.ConfigureApplicationCookie(options =>
@@ -95,12 +110,23 @@ namespace vm_rental
       services.ConfigureMySqlContext(Configuration);
 
       //Identity Framework
-      services.AddIdentity<User, UserRole>()
-              .AddEntityFrameworkStores<VmDbContext>()
-              .AddUserManager<CustomUserManager>()
-              .AddSignInManager<CustomSignInManager>()
-              .AddUserStore<UserRepository>()
-              .AddDefaultTokenProviders();
+      services.AddIdentity<User, UserRole>(config =>
+      {
+        config.SignIn.RequireConfirmedEmail = true;
+
+        config.Tokens.ProviderMap.Add("CustomEmailConfirmation", new TokenProviderDescriptor
+        (
+          typeof(CustomEmailConfirmationTokenProvider<User>))
+        );
+
+        config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+
+      }).AddEntityFrameworkStores<VmDbContext>()
+        .AddUserManager<CustomUserManager>()
+        .AddSignInManager<CustomSignInManager>()
+        .AddUserStore<UserRepository>()
+        .AddDefaultTokenProviders()
+        .AddCustomEmailTokenProvider();
       //
 
       services.AddMvc()

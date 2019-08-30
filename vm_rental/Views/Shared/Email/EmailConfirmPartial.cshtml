@@ -1,0 +1,13 @@
+﻿@{
+  @*@ViewData["EmailTitle"] = "Email Confirmation";*@
+}
+<table>
+  <tr>
+    <td>
+      Hello, @Model.ReceiverName, thank you for signing up, you must verify your email address to continue using our services.
+      To verify your email address, use the button:
+      <a target="_blank" href="#">Verify Account</a>
+      Or click the link below: @Model.URL
+    </td>
+  </tr>
+</table>

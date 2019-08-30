@@ -40,6 +40,10 @@ namespace vm_rental.Models
       this.userHistoryRepository = userHistoryRepository;
       this.clientHistoryRepository = clientHistoryRepository;
     }
+    public override Task<string> GenerateEmailConfirmationTokenAsync(User user)
+    {
+      return base.GenerateEmailConfirmationTokenAsync(user);
+    }
 
     public override Task<IdentityResult> CreateAsync(User user)
     {
