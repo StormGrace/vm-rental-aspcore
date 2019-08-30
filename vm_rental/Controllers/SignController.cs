@@ -16,6 +16,9 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace vm_rental.Controllers
 {
@@ -34,12 +37,12 @@ namespace vm_rental.Controllers
       signInManager = signInMan;
     }
 
-    [Route("[controller]/Signin")]
-    [Route("[controller]/Login")]
-
     [HttpGet]
+    [Route("[controller]/Signin")]
+    [Route("Signin")]
     public IActionResult SignIn()
     {
+      //string test = Request.Headers["Authorization"];
       return View();
     }
 
@@ -48,17 +51,17 @@ namespace vm_rental.Controllers
     {
       if (ModelState.IsValid)
       {
-        var result = await signInManager.PasswordSignInAsync(loginVm.Email, loginVm.Password, loginVm.RememberMe, false);
-
+        var result = await signInManager.PasswordSignInAsync(loginVm.Email, loginVm.Password, true, false);
+     
         if (result.Succeeded)
         {
-          return RedirectToAction("SignIn");
+           RedirectToAction("Signin");
         }
 
         ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
       }
-      return View("SignIn", loginVm);
+      return View("Signin", loginVm);
     }
 
     [HttpGet]
@@ -67,7 +70,7 @@ namespace vm_rental.Controllers
     {
       return View(new ClientViewModel(userRepository));
     }
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+ 
     [Route("confirm/{emailToken}")]
     public async Task<object> ConfirmEmail(string emailToken)
     {
@@ -127,11 +130,15 @@ namespace vm_rental.Controllers
 
         string emailConfirmToken = await userManager.GenerateUserTokenAsync(user, "CustomEmailConfirmation", "email-confirm");
 
-        await userManager.SetAuthenticationTokenAsync(user, "CustomEmailConfirmation", "email-confirm", emailConfirmToken);
+        //await userManager.SetAuthenticationTokenAsync(user, "CustomEmailConfirmation", "email-confirm", emailConfirmToken);
+  
+       // var HTTPClient = new HttpClient();
+
+       /// HTTPClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Authorization", "Bearer " + emailConfirmToken);
 
         emailService.SendEmailAsync(clientVM.Email, clientVM.OwnerName, emailConfirmToken, EmailSubject.EmailConfirmationSubject);
 
-        return RedirectToAction("SignUp");
+        RedirectToAction("SignIn");
       }
       else
       {

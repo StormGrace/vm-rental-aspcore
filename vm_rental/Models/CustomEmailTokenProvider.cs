@@ -16,13 +16,11 @@ namespace vm_rental.Models
 {
   //Change to Email Token Provider ->                               v
   public class CustomEmailConfirmationTokenProvider<User>: DataProtectorTokenProvider<User> where User : vm_rental.Data.Model.User
-  {
-    private readonly IUserTokenRepository userTokenRepository;
-
-    public CustomEmailConfirmationTokenProvider(IUserTokenRepository userTokenRepository, IDataProtectionProvider dataProtectionProvider, IOptions<EmailConfirmationTokenProviderOptions> options)
+  { 
+    public CustomEmailConfirmationTokenProvider(IDataProtectionProvider dataProtectionProvider, IOptions<EmailConfirmationTokenProviderOptions> options)
     : base(dataProtectionProvider, options)
     {
-      this.userTokenRepository = userTokenRepository;
+
     }
 
     public override Task<string> GenerateAsync(string purpose, UserManager<User> userManager, User user)
@@ -56,7 +54,8 @@ namespace vm_rental.Models
 
     public override Task<bool> ValidateAsync(string purpose, string token, UserManager<User> userManager, User user)
     {
-      return Task.FromResult(userTokenRepository.isTokenValid("CustomEmailConfirmation", purpose, token, user));
+      //return Task.FromResult(userTokenRepository.isTokenValid("CustomEmailConfirmation", purpose, token, user));
+      return Task.FromResult(true);
     }
   }
   public class EmailConfirmationTokenProviderOptions : DataProtectionTokenProviderOptions

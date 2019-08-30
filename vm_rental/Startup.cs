@@ -77,8 +77,9 @@ namespace vm_rental
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      
 
-      }).AddJwtBearer(options =>
+      }).AddJwtBearer("Bearer", options =>
       {
         var signingKey = Convert.FromBase64String(Configuration["JWT:Key"]);
         options.SaveToken = true;
@@ -174,7 +175,7 @@ namespace vm_rental
             template: "{controller=Sign}/{action=SignIn}/{id?}");
       });
 
-      DbInitializer.Seed(app);
+      VmDbInitializer.Seed(app);
       JSONRepository.Initialize();
     }
   }

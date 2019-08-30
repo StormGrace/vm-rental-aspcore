@@ -39,6 +39,7 @@ namespace vm_rental.Models
       this.clientRepository = clientRepository;
       this.userHistoryRepository = userHistoryRepository;
       this.clientHistoryRepository = clientHistoryRepository;
+      base.PasswordHasher = passwordHasher;
     }
     public override Task<string> GenerateEmailConfirmationTokenAsync(User user)
     {

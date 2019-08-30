@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace vm_rental.Data
 {
-    public static class DbInitializer
+    public static class VmDbInitializer
     {
         public static void Seed(IApplicationBuilder app)
         {

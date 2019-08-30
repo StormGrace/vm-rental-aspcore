@@ -1,7 +1,8 @@
 ﻿using System;
+using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Identity;
 using vm_rental.Data.Model;
-using vm_rental.Utility.Security.Hashing.Argon2;
+using vm_rental.Utility.Security.Hashing.Argon;
 
 namespace vm_rental.Models
 {
@@ -11,7 +12,7 @@ namespace vm_rental.Models
     {
       ArgonHasher argonHasher = new ArgonHasher();
 
-      return argonHasher.Hash(password, ArgonHashOptions.Defaults);
+      return argonHasher.Hash(password);
     }
 
     public PasswordVerificationResult VerifyHashedPassword(User user, string hashedPassword, string providedPassword)
