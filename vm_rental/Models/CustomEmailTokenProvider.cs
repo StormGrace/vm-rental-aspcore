@@ -31,7 +31,7 @@ namespace vm_rental.Models
       var keyStr = Encoding.ASCII.GetBytes("cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ");
       var key = new SymmetricSecurityKey(keyStr);
 
-      var ep = new EncryptingCredentials(key, SecurityAlgorithms.RsaSha256, SecurityAlgorithms.RsaSha256);
+     // var ep = new EncryptingCredentials(key, SecurityAlgorithms.RsaSha256, SecurityAlgorithms.RsaSha256);
 
       var tokenDescriptor = new SecurityTokenDescriptor
       {
@@ -43,8 +43,8 @@ namespace vm_rental.Models
         }),
         IssuedAt = DateTime.UtcNow,
         Expires = DateTime.UtcNow.AddHours(24),
-        SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256),
-        EncryptingCredentials = ep
+        SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256),
+        //EncryptingCredentials = ep
       };
 
       IdentityModelEventSource.ShowPII = true;
