@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
-using System.Security.Cryptography;
 using System.Linq;
+using System.Configuration;
+using System.Security.Cryptography;
 using Isopoh.Cryptography.Argon2;
 using Isopoh.Cryptography.SecureArray;
 using vm_rental.Utility.Helpers;
@@ -10,11 +11,16 @@ namespace vm_rental.Utility.Security.Hashing.Argon
 {
   //The ArgonHasher class, used for Hashing Passwords.
   //Uses the C# Implementation of Argon2:
-    //GitHub: https://github.com/Konscious.Security.Cryptography
+    //GitHub: https://github.com/mheyman/Isopoh.Cryptography.Argon2
     //Documentation: https://password-hashing.net/argon2-specs.pdf
   public class ArgonHasher : IHasher
   {
-    public ArgonHasher() {}
+    public Argon2Config HashingConfig { get; private set; }
+
+    public ArgonHasher(Argon2Config argonConfig) {
+
+      HashingConfig = argonConfig;
+    }
 
     private string GenerateArgon2Hash(Argon2Config hashConfig)
     {
@@ -34,27 +40,34 @@ namespace vm_rental.Utility.Security.Hashing.Argon
 
     public string Hash(string providedPassword)
     {
+      Argon2Config argonConfig = HashingConfig;
+
       byte[] salt = GenerateSalt(32);
       byte[] password = Encoding.UTF8.GetBytes(providedPassword);
 
-      Argon2Config argonConfig = new Argon2Config()
-      {
-        Type = Argon2Type.HybridAddressing,
-        Version = Argon2Version.Nineteen,
-        MemoryCost = 32768,
-        TimeCost = 10,
-        Threads = 4,
-        Lanes = 16,
-        Salt = salt,
-        Password = password,
-      };
+      argonConfig.Salt = salt;
+      argonConfig.Password = password;
 
       return GenerateArgon2Hash(argonConfig); 
     }
 
-    public string Hash(Argon2Config providedHashOptions)
+    public string Hash(string providedPassword, int memoryCost, int timeCost, int lanes, int threads)
     {
-      return GenerateArgon2Hash(providedHashOptions);
+      Argon2Config argonConfig = new Argon2Config()
+      {
+        MemoryCost = memoryCost,
+        TimeCost = timeCost,
+        Lanes = lanes,
+        Threads = threads
+      };
+
+      byte[] salt = GenerateSalt(32);
+      byte[] password = Encoding.UTF8.GetBytes(providedPassword);
+
+      argonConfig.Salt = salt;
+      argonConfig.Password = password;
+
+      return GenerateArgon2Hash(argonConfig);
     }
 
     public bool Verify(string providedPassword, string providedHash)
@@ -63,7 +76,7 @@ namespace vm_rental.Utility.Security.Hashing.Argon
 
       byte[] password = Encoding.UTF8.GetBytes(providedPassword);
 
-      var configOfPasswordToVerify = new Argon2Config { Password = password, Threads = 3 };
+      Argon2Config configOfPasswordToVerify = new Argon2Config { Password = password, Threads = 3 };
 
       Argon2 argon2ToVerify = null;
 

@@ -12,24 +12,21 @@ using System.Text;
 using System.Threading.Tasks;
 using vm_rental.Data.Repository.Interface;
 
-namespace vm_rental.Models
+namespace vm_rental.Models.Identity
 {
   //Change to Email Token Provider ->                               v
   public class CustomEmailConfirmationTokenProvider<User>: DataProtectorTokenProvider<User> where User : vm_rental.Data.Model.User
   { 
-    public CustomEmailConfirmationTokenProvider(IDataProtectionProvider dataProtectionProvider, IOptions<EmailConfirmationTokenProviderOptions> options)
-    : base(dataProtectionProvider, options)
-    {
-
-    }
+    public CustomEmailConfirmationTokenProvider(IDataProtectionProvider dataProtectionProvider, IOptions<EmailConfirmationTokenProviderOptions> options): base(dataProtectionProvider, options){}
 
     public override Task<string> GenerateAsync(string purpose, UserManager<User> userManager, User user)
     {
-      var tokenHandler = new JwtSecurityTokenHandler();
       var keyStr = Encoding.ASCII.GetBytes("cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ");
+
       var key = new SymmetricSecurityKey(keyStr);
 
-     // var ep = new EncryptingCredentials(key, SecurityAlgorithms.RsaSha256, SecurityAlgorithms.RsaSha256);
+      // var ep = new EncryptingCredentials(key, SecurityAlgorithms.RsaSha256, SecurityAlgorithms.RsaSha256);
+      var tokenHandler = new JwtSecurityTokenHandler();
 
       var tokenDescriptor = new SecurityTokenDescriptor
       {
@@ -49,7 +46,7 @@ namespace vm_rental.Models
 
       var token = tokenHandler.CreateToken(tokenDescriptor);
 
-      return Task.FromResult(tokenHandler.WriteToken(token));
+      return Task.FromResult("https://localhost:5001" + "/confirm/" + tokenHandler.WriteToken(token));
     }
 
     public override Task<bool> ValidateAsync(string purpose, string token, UserManager<User> userManager, User user)

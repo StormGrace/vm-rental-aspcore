@@ -1,16 +1,16 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
 using RazorEngine;
 using RazorEngine.Templating;
 using vm_rental.Utility.Helpers;
-
-namespace vm_rental.Utility.Services.Email
+ 
+namespace vm_rental.Utility.Services.Email.Mailkit
 {
-  public class EmailService: IEmailService
+  public class MailkitService: IEmailService
     {
         private readonly IEmailConfiguration emailConfig;
 
-        public EmailService(IEmailConfiguration emailConfig) { this.emailConfig = emailConfig; }
+        public MailkitService(IEmailConfiguration emailConfig) { this.emailConfig = emailConfig; }
 
         public async void SendEmailAsync(string email, string name, string text, EmailSubject emailSubject)
         {
@@ -28,7 +28,6 @@ namespace vm_rental.Utility.Services.Email
 
             var razorEngine = Engine.Razor;
 
-            //Need to cache in the future
             string emailTemplateHTML = razorEngine.RunCompile(emailTemplateFile, "templateKey", null, new
             {
               EmailSubject = message.Subject,
@@ -85,6 +84,7 @@ namespace vm_rental.Utility.Services.Email
           SmtpClient client = new SmtpClient();
 
           await client.ConnectAsync(emailConfig.SmtpServer, emailConfig.SmtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+
           await client.AuthenticateAsync(emailConfig.SmtpUsername, emailConfig.SmtpPassword);
 
           await client.SendAsync(message);

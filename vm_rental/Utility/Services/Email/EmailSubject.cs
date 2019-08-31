@@ -1,6 +1,5 @@
 ﻿using System;
-using vm_rental.Utility.Extensions;
-
+ 
 namespace vm_rental.Utility.Services.Email
 {
   public enum EmailSubject
@@ -15,20 +14,19 @@ namespace vm_rental.Utility.Services.Email
 
   public class EmailSubjectType
   {
-     public EmailSubject subjectType { get; private set; }
+     public EmailSubject SubjectType { get; private set; }
 
      public EmailSubjectType(EmailSubject subject)
      {
-       subjectType = subject;
+        SubjectType = subject;
      }
 
      public void GetSubjectType()
      {
-        subjectType.GetType();
+        SubjectType.GetType();
      }
   }
 
-  //////
   class SubjectNameAttribute : Attribute
   {
     public SubjectNameAttribute() { }

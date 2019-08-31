@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using vm_rental.Data.Model;
-using vm_rental.ViewModels;
+using vm_rental.ViewModels.Sign;
 using vm_rental.Data.Repository.Interface;
 
-namespace vm_rental.Models
+namespace vm_rental.Models.Identity
 {
   public class CustomUserManager : UserManager<User>
   {
@@ -41,6 +41,7 @@ namespace vm_rental.Models
       this.clientHistoryRepository = clientHistoryRepository;
       base.PasswordHasher = passwordHasher;
     }
+
     public override Task<string> GenerateEmailConfirmationTokenAsync(User user)
     {
       return base.GenerateEmailConfirmationTokenAsync(user);
@@ -52,36 +53,36 @@ namespace vm_rental.Models
       return result;
     }
 
-    public async Task<User> CreateUser(ClientViewModel clientVM)
+    public async Task<User> CreateUser(SignUpViewModel signUpVM)
     {
 
       Client client = new Client()
       {
-        FirmName = clientVM.FirmName,
-        FirmOwner = clientVM.OwnerName,
-        FirmEmail = clientVM.Email,
-        FirmPhone = clientVM.PhoneFull,
-        State = clientVM.State,
-        City = clientVM.City,
-        IsFirm = Convert.ToByte(clientVM.IsBusinessClient),
+        FirmName = signUpVM.FirmName,
+        FirmOwner = signUpVM.OwnerName,
+        FirmEmail = signUpVM.Email,
+        FirmPhone = signUpVM.PhoneFull,
+        State = signUpVM.State,
+        City = signUpVM.City,
+        IsFirm = Convert.ToByte(signUpVM.IsBusinessClient),
         DateCreated = DateTime.UtcNow,
       };
 
       User user = new User()
       {
-        UserName = clientVM.UserName,
-        Email = clientVM.Email,
-        PhoneNumber = clientVM.PhoneFull,
-        PasswordHash = clientVM.Password,
-        FirstName = clientVM.FirstName,
-        LastName = clientVM.LastName,
+        UserName = signUpVM.UserName,
+        Email = signUpVM.Email,
+        PhoneNumber = signUpVM.PhoneFull,
+        PasswordHash = signUpVM.Password,
+        FirstName = signUpVM.FirstName,
+        LastName = signUpVM.LastName,
         Client = client,
         DateCreated = DateTime.UtcNow,
       };
 
       clientRepository.Add(client);
 
-      IdentityResult result = await base.CreateAsync(user, user.PasswordHash);
+      await base.CreateAsync(user, user.PasswordHash);
 
       userHistoryRepository.CreateInitialHistory(user, user);
 

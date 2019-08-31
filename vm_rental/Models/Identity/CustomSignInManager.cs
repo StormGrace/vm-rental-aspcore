@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using vm_rental.Data.Model;
 
 
-namespace vm_rental.Models
+namespace vm_rental.Models.Identity
 {
     public class CustomSignInManager : SignInManager<User>
     {

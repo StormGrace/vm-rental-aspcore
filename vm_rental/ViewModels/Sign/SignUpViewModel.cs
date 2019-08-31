@@ -4,14 +4,14 @@ using vm_rental.Data.JSON;
 using vm_rental.Data.Repository.Interface;
 using vm_rental.ViewModels.RuleBuilders;
 
-namespace vm_rental.ViewModels
+namespace vm_rental.ViewModels.Sign
 {
   //#Globata
-  public class ClientValidator : AbstractValidator<ClientViewModel>
+  public class SignUpValidator : AbstractValidator<SignUpViewModel>
   {
     private readonly IUserRepository _userRepository;
-    public ClientValidator(){}
-    public ClientValidator(IUserRepository userRepository)
+    public SignUpValidator(){}
+    public SignUpValidator(IUserRepository userRepository)
     {
       _userRepository = userRepository;
 
@@ -27,7 +27,7 @@ namespace vm_rental.ViewModels
     }
   }
 
-  public class ClientViewModel : ClientValidator
+  public class SignUpViewModel : SignUpValidator
   {
     private string userName;
     private string email;
@@ -39,8 +39,8 @@ namespace vm_rental.ViewModels
     private string phone;
     private string firmName;
 
-    public ClientViewModel() : base(){}
-    public ClientViewModel(IUserRepository userRepository) : base (userRepository){}
+    public SignUpViewModel() : base(){}
+    public SignUpViewModel(IUserRepository userRepository) : base (userRepository){}
 
     public string UserName {
       get {

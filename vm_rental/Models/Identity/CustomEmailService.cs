@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using vm_rental.Utility.Services.Email;
 
-namespace vm_rental.Models
+namespace vm_rental.Models.Identity
 {
   public class CustomEmailService : IEmailSender
   {

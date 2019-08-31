@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace vm_rental.ViewModels
+
+namespace vm_rental.ViewModels.Sign
 {
-    public class LoginViewModel
+    public class SignInViewModel
     {
         [Required]
         [Display(Name="Username/Email")]

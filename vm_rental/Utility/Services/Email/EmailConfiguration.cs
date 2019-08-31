@@ -11,6 +11,7 @@ namespace vm_rental.Utility.Services.Email
         string SenderUsername { get; set; }
     }
 
+    //Configuration POCO for EmailService.
     public class EmailConfiguration : IEmailConfiguration
     {
         public string SmtpServer { get; set; }
