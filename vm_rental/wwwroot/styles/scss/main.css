@@ -776,6 +776,7 @@ footer {
     padding: 10px 0 20px 0; }
     .acc-form__forgot-password p {
       text-align: right;
+      margin-right: 10px;
       font-weight: bold;
       width: auto; }
       .acc-form__forgot-password p i {
