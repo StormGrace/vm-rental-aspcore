@@ -65,7 +65,14 @@ namespace vm_rental
           ValidateAudience = true,
           IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Configuration["JWT:SecretKey"]))
         };
-      }); 
+      });
+
+            services.Configure<IdentityOptions>(options => {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.AllowedForNewUsers = true;
+
+            });
 
       services.ConfigureApplicationCookie(options =>
       {

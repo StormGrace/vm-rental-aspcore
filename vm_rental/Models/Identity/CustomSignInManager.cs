@@ -94,10 +94,18 @@ namespace vm_rental.Models.Identity
             return base.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
         }
 
-        public override Task<SignInResult> PasswordSignInAsync(string userName, string password, bool isPersistent, bool lockoutOnFailure)
+        public override async Task<SignInResult> PasswordSignInAsync(string userName, string password, bool isPersistent, bool lockoutOnFailure)
         {
-            return base.PasswordSignInAsync(userName, password, isPersistent, lockoutOnFailure);
+            if(userName.IndexOf('@') > -1)
+            {
+                User user = await UserManager.FindByEmailAsync(userName);
+
+                return await base.PasswordSignInAsync(user.UserName, password, isPersistent, lockoutOnFailure);
+            }
+
+            return await base.PasswordSignInAsync(userName, password, isPersistent, lockoutOnFailure);
         }
+
 
         public override Task RefreshSignInAsync(User user)
         {
