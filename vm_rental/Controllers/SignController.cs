@@ -8,7 +8,6 @@ using vm_rental.ViewModels.Sign;
 using vm_rental.Utility.Services.Email;
 using vm_rental.Models.Identity;
 
-
 namespace vm_rental.Controllers
 {
   public class SignController : Controller
@@ -25,6 +24,11 @@ namespace vm_rental.Controllers
       this.emailService = emailService;
       signInManager = signInMan;
     }
+
+    public async Task<IActionResult> Logout(){
+     await signInManager.SignOutAsync();
+      return RedirectToAction("Signin");
+    } 
 
     [HttpGet("[controller]/Signin")]
     public IActionResult SignIn()
@@ -49,7 +53,10 @@ namespace vm_rental.Controllers
 
         if (result.Succeeded)
         {
-           return RedirectToAction("Signin");
+                    return RedirectToRoute(new {
+                        controller="Home",
+                        action="Index"
+                    });
         }
         else
         {

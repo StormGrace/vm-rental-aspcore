@@ -129,6 +129,7 @@ namespace vm_rental.Models.Identity
 
         public override Task SignOutAsync()
         {
+           
             return base.SignOutAsync();
         }
 

@@ -144,6 +144,7 @@ namespace vm_rental
           routes.MapRoute(
             name: "SignIn",
             template: "{controller=Sign}/{action=SignIn}");
+
       });
 
       VmDbInitializer.Seed(app);
