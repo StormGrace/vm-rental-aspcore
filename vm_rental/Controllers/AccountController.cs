@@ -37,6 +37,8 @@ namespace vm_rental.Controllers
           if (userName != null)
           {
             _userManager.ConfirmUserEmail(new User(){UserName = userName.ToString()});
+
+            return View("EmailConfirmed");
           }
           else if (_jwtService.HasTokenExpired(validatedToken))
           {

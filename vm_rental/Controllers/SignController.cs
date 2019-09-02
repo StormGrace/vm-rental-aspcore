@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using FluentValidation.AspNetCore;
@@ -8,7 +9,6 @@ using vm_rental.Data.Repository.Interface;
 using vm_rental.ViewModels.Sign;
 using vm_rental.Utility.Services.Email;
 using vm_rental.Models.Identity;
-using System;
 
 namespace vm_rental.Controllers
 {
@@ -26,12 +26,14 @@ namespace vm_rental.Controllers
       _emailService = emailService;
     }
 
-    public async Task<IActionResult> Logout(){
-     await signInManager.SignOutAsync();
+    public async Task<IActionResult> Logout()
+    {
+      await _signInManager.SignOutAsync();
+
       return RedirectToAction("Signin");
     } 
 
-    [HttpGet("[controller]/Signin")]
+    [HttpGet("Signin")]
     public IActionResult SignIn()
     {
       return View();
@@ -46,27 +48,27 @@ namespace vm_rental.Controllers
     [HttpPost("Signin")]
     public async Task<IActionResult> SignIn(SignInViewModel signInVM)
     {
-      SignInValidator validationRules = new SignInValidator(userRepository);
+      SignInValidator validationRules = new SignInValidator(_userRepository);
+
       ValidationResult validationResult = validationRules.Validate(signInVM);
+
       if (validationResult.IsValid)
       {
-        var result = await signInManager.PasswordSignInAsync(signInVM.EmailOrUsername,signInVM.Password, true , false);
+        var result = await _signInManager.PasswordSignInAsync(signInVM.EmailOrUsername, signInVM.Password, true , false);
 
         if (result.Succeeded)
         {
-                    return RedirectToRoute(new {
-                        controller="Home",
-                        action="Index"
-                    });
+          return RedirectToAction("Index", "Home");
         }
         else
         {
            validationResult.AddToModelState(ModelState, null);
+
            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
 
       }
-            return View("Signin", signInVM);
+        return View("Signin", signInVM);
     }
 
     [HttpPost("Signup")]
@@ -90,7 +92,7 @@ namespace vm_rental.Controllers
 
           return RedirectToAction("SignUp");
         }
-        catch(Exception e)
+        catch(Exception)
         {
           return StatusCode(500);
         }

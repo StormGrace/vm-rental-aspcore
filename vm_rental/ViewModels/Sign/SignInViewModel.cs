@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using vm_rental.Data.Repository.Interface;
-using vm_rental.ViewModels.RuleBuilders;
+using vm_rental.ViewModels.RuleBuilders.SignInRules;
 
 namespace vm_rental.ViewModels.Sign
 {
-    public class SignInValidator:AbstractValidator<SignInViewModel>
+    public class SignInValidator : AbstractValidator<SignInViewModel>
     {
         private readonly IUserRepository _userRepository;
         public SignInValidator() { }
@@ -12,12 +12,13 @@ namespace vm_rental.ViewModels.Sign
         public SignInValidator(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            RuleFor(client => client.Password).Cascade(CascadeMode.StopOnFirstFailure).PassWord();
+
+            RuleFor(client => client.Password).Cascade(CascadeMode.StopOnFirstFailure).Password();
             RuleFor(client => client.EmailOrUsername).Cascade(CascadeMode.StopOnFirstFailure).EmailOrUsername();
         }
     }
 
-    public class SignInViewModel:SignInValidator
+    public class SignInViewModel : SignInValidator
     {
 
         private string emailorusername;
@@ -25,9 +26,7 @@ namespace vm_rental.ViewModels.Sign
         public SignInViewModel() : base() { }
         public SignInViewModel(IUserRepository userRepository) : base(userRepository) { }
 
-
-
-            public string EmailOrUsername
+        public string EmailOrUsername
         {
             get { return emailorusername; }
             set { emailorusername = value;

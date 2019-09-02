@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 using vm_rental.Data.Repository.Interface;
 using vm_rental.ViewModels.Validators;
 
-namespace vm_rental.ViewModels.RuleBuilders
+namespace vm_rental.ViewModels.RuleBuilders.SignUpRules
 {
-  public static class FieldRules
+  public static class SignUpRules
   {
     ////Email Rules
     public static IRuleBuilderOptions<T, string> Email<T>(this IRuleBuilder<T, string> ruleBuilder, IUserRepository userRepository)

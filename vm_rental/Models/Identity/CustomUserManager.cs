@@ -10,6 +10,7 @@ using vm_rental.Data.Repository.Interface;
 using System.Security.Claims;
 using vm_rental.Utility.Services.Auth;
 using vm_rental.Utility.Services.Auth.JWT;
+using vm_rental.Data;
 
 namespace vm_rental.Models.Identity
 {
@@ -120,7 +121,7 @@ namespace vm_rental.Models.Identity
 
         _clientHistoryRepository.CreateInitialHistory(client, user);
       }
-      catch(Exception e)
+      catch(Exception)
       {
         throw new Exception("Error occured while saving data to the database.");
       }

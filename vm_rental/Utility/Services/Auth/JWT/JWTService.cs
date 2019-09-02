@@ -60,7 +60,7 @@ namespace vm_rental.Utility.Services.Auth.JWT
 
     public bool IsTokenValid(string receivedToken, out JwtSecurityToken token)
     {
-      bool isValid = false;
+      bool isValid;
 
       byte[] secretKey = Encoding.UTF8.GetBytes(_configuration["jwt:SecretKey"]);
 
@@ -86,7 +86,7 @@ namespace vm_rental.Utility.Services.Auth.JWT
 
         isValid = true;
       }
-      catch (Exception e)
+      catch (Exception)
       {
         isValid = false;
       }
@@ -98,9 +98,7 @@ namespace vm_rental.Utility.Services.Auth.JWT
 
     public bool IsTokenValid(string receivedToken, TokenValidationParameters validationParams, out JwtSecurityToken token)
     {
-      bool isValid = false;
-
-      byte[] secretKey = Encoding.UTF8.GetBytes(_configuration["jwt:SecretKey"]);
+      bool isValid;
 
       JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
 
@@ -114,7 +112,7 @@ namespace vm_rental.Utility.Services.Auth.JWT
 
         isValid = true;
       }
-      catch (Exception e)
+      catch (Exception)
       {
         isValid = false;
       }

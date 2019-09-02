@@ -2,11 +2,10 @@
 using FluentValidation;
 using vm_rental.Data.JSON;
 using vm_rental.Data.Repository.Interface;
-using vm_rental.ViewModels.RuleBuilders;
+using vm_rental.ViewModels.RuleBuilders.SignUpRules;
 
 namespace vm_rental.ViewModels.Sign
 {
-  //#Globata
   public class SignUpValidator : AbstractValidator<SignUpViewModel>
   {
     private readonly IUserRepository _userRepository;

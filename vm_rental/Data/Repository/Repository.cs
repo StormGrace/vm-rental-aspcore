@@ -20,7 +20,7 @@ namespace vm_rental.Data.Repository
         public void Add(T entity)
         {
             _context.Add(entity);
-                     SaveChanges();
+                    SaveChanges();
         }
 
         public void AddRange(IEnumerable<T> entities)
