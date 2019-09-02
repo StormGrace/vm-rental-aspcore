@@ -26,7 +26,12 @@ namespace vm_rental.Controllers
       _emailService = emailService;
     }
 
-    [HttpGet("Signin")]
+    public async Task<IActionResult> Logout(){
+     await signInManager.SignOutAsync();
+      return RedirectToAction("Signin");
+    } 
+
+    [HttpGet("[controller]/Signin")]
     public IActionResult SignIn()
     {
       return View();
@@ -41,19 +46,27 @@ namespace vm_rental.Controllers
     [HttpPost("Signin")]
     public async Task<IActionResult> SignIn(SignInViewModel signInVM)
     {
-      if (ModelState.IsValid)
+      SignInValidator validationRules = new SignInValidator(userRepository);
+      ValidationResult validationResult = validationRules.Validate(signInVM);
+      if (validationResult.IsValid)
       {
-        var result = await _signInManager.PasswordSignInAsync(signInVM.Email, signInVM.Password, true, false);
-     
+        var result = await signInManager.PasswordSignInAsync(signInVM.EmailOrUsername,signInVM.Password, true , false);
+
         if (result.Succeeded)
         {
-           return RedirectToAction("Signin");
+                    return RedirectToRoute(new {
+                        controller="Home",
+                        action="Index"
+                    });
+        }
+        else
+        {
+           validationResult.AddToModelState(ModelState, null);
+           ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
 
-        ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
       }
-      return View("Signin", signInVM);
+            return View("Signin", signInVM);
     }
 
     [HttpPost("Signup")]

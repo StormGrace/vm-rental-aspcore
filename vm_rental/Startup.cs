@@ -69,7 +69,14 @@ namespace vm_rental
           IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Configuration["JWT:SecretKey"])),
           ClockSkew = TimeSpan.Zero
         };
-      }); 
+      });
+
+            services.Configure<IdentityOptions>(options => {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.AllowedForNewUsers = true;
+
+            });
 
       services.ConfigureApplicationCookie(options =>
       {
@@ -141,6 +148,7 @@ namespace vm_rental
           routes.MapRoute(
             name: "SignIn",
             template: "{controller=Sign}/{action=SignIn}");
+
       });
 
       VmDbInitializer.Seed(app);

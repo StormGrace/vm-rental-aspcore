@@ -1,19 +1,57 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using FluentValidation;
+using vm_rental.Data.Repository.Interface;
+using vm_rental.ViewModels.RuleBuilders;
 
 namespace vm_rental.ViewModels.Sign
 {
-    public class SignInViewModel
+    public class SignInValidator:AbstractValidator<SignInViewModel>
     {
-        [Required]
-        [Display(Name="Username/Email")]
-        public string Email { get; set; }
+        private readonly IUserRepository _userRepository;
+        public SignInValidator() { }
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public SignInValidator(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+            RuleFor(client => client.Password).Cascade(CascadeMode.StopOnFirstFailure).PassWord();
+            RuleFor(client => client.EmailOrUsername).Cascade(CascadeMode.StopOnFirstFailure).EmailOrUsername();
+        }
+    }
 
-        [Display(Name = "Remember Me")]
-        public bool RememberMe { get; set; }
+    public class SignInViewModel:SignInValidator
+    {
+
+        private string emailorusername;
+        private string password;
+        public SignInViewModel() : base() { }
+        public SignInViewModel(IUserRepository userRepository) : base(userRepository) { }
+
+
+
+            public string EmailOrUsername
+        {
+            get { return emailorusername; }
+            set { emailorusername = value;
+                if (!string.IsNullOrEmpty(emailorusername))
+                {
+                    emailorusername = emailorusername.Trim();
+                }
+            }
+        }
+
+        public string Password {
+            get{
+                return password;
+            }
+            set{
+                password = value;
+                if (!string.IsNullOrEmpty(password))
+                {
+                    password = password.Trim();
+                }
+
+            }
+
+        }
+
     }
 }
