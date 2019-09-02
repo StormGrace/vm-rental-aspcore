@@ -10,8 +10,8 @@ namespace vm_rental.Controllers
     [Route("[controller]")]
     public class AccountController : Controller
     {
-        private readonly CustomUserManager _userManager;
-        private readonly JWTService _jwtService;
+      private readonly CustomUserManager _userManager;
+      private readonly JWTService _jwtService;
 
       public AccountController(CustomUserManager userManager, IAuthService authService)
       {

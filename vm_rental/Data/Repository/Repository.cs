@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using vm_rental.Data.Repository.Interface.Common;
 
 namespace vm_rental.Data.Repository
@@ -46,8 +47,19 @@ namespace vm_rental.Data.Repository
 
         public IEnumerable<T> Find(Func<T, bool> predicate)
         {
-            return _context.Set<T>().Where(predicate);
+           return _context.Set<T>().Where(predicate);
         }
+
+        public T FindFirst(Func<T, bool> predicate)
+        {
+          return _context.Set<T>().FirstOrDefault(predicate);
+        }
+    
+        public bool Exists(Func<T, bool> predicate)
+        {
+          return _context.Set<T>().Any(predicate);
+        }
+
         public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
@@ -55,12 +67,12 @@ namespace vm_rental.Data.Repository
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+           return _context.Set<T>().ToList();
         }
 
         public int Count(Func<T, bool> predicate)
         {
-            return _context.Set<T>().Where(predicate).Count();
+           return _context.Set<T>().Where(predicate).Count();
         }
     }
 }

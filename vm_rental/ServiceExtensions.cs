@@ -43,7 +43,6 @@ namespace vm_rental.ServiceExtensions
           //Repositories.
           services.AddScoped<IUserRepository, UserRepository>();
           services.AddScoped<IClientRepository, ClientRepository>();
-          services.AddScoped<IUserTokenRepository, UserTokenRepository>();
 
           //History Repositories.
           services.AddScoped<IUserHistoryRepository, UserHistoryRepository>();
@@ -61,8 +60,7 @@ namespace vm_rental.ServiceExtensions
           services.AddScoped<SignInManager<User>, CustomSignInManager>();
 
           //Custom Stores.
-          services.AddScoped<IUserStore<User>, UserRepository>();
-          services.AddScoped<IUserAuthenticationTokenStore<User>, UserRepository>();
+          services.AddScoped<IUserStore<User>, CustomUserStore>();
 
           //Custom PasswordHasher.
           services.AddScoped<IPasswordHasher<User>, CustomPasswordHasher>();

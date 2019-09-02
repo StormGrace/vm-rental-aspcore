@@ -8,8 +8,10 @@ namespace vm_rental.Data.Repository.Interface
 {
     public interface IUserRepository : IRepository<User>
     {
-        User CreateUser(Client client);
-        Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken);
+        void CreateUser(User user);
+        User FindByIdAsync(string id);
+        User FindByNameAsync(string username);
+        User FindByEmailAsync(string email);
         void ConfirmEmail(string username);
         bool UsernameExists(string username);
         bool EmailExists(string email);

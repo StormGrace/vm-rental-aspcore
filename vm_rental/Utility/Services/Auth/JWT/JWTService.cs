@@ -5,7 +5,8 @@ using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
- 
+using System.Security.Policy;
+using Microsoft.AspNetCore.Http;
 
 namespace vm_rental.Utility.Services.Auth.JWT
 {
@@ -120,6 +121,12 @@ namespace vm_rental.Utility.Services.Auth.JWT
       token = (JwtSecurityToken)returnedToken;
 
       return isValid;
+    }
+
+    public string GenerateTokenURL(string token)
+    {
+      //To Implement
+      throw new NotImplementedException();
     }
 
     public string GenerateJwtToken(Claim[] claims, TimeSpan timeSpan)

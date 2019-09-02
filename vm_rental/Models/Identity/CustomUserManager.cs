@@ -29,7 +29,7 @@ namespace vm_rental.Models.Identity
       IClientRepository clientRepository,
       IClientHistoryRepository clientHistoryRepository,
       IUserRepository userRepository,
-      IUserStore<User> store,
+      IUserStore<User> userStore,
       IOptions<IdentityOptions> optionsAccessor,
       IPasswordHasher<User> passwordHasher,
       IEnumerable<IUserValidator<User>> userValidators,
@@ -39,7 +39,7 @@ namespace vm_rental.Models.Identity
       IServiceProvider services,
       ILogger<UserManager<User>> logger
     )
-    : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+    : base(userStore, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
     {
       _userRepository = userRepository;
       _clientRepository = clientRepository;

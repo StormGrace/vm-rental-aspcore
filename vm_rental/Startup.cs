@@ -71,12 +71,11 @@ namespace vm_rental
         };
       });
 
-            services.Configure<IdentityOptions>(options => {
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 3;
-                options.Lockout.AllowedForNewUsers = true;
-
-            });
+      services.Configure<IdentityOptions>(options => {
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 3;
+        options.Lockout.AllowedForNewUsers = true;
+      });
 
       services.ConfigureApplicationCookie(options =>
       {
@@ -88,24 +87,16 @@ namespace vm_rental
         options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
         options.SlidingExpiration = true;
       });
-     
+
       services.AddIdentity<User, UserRole>(config =>
       {
         config.SignIn.RequireConfirmedEmail = true;
 
-        config.Tokens.ProviderMap.Add("CustomEmailConfirmation", new TokenProviderDescriptor
-        (
-          typeof(CustomEmailConfirmationTokenProvider<User>))
-        );
-
-        config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-
       }).AddEntityFrameworkStores<VmDbContext>()
         .AddUserManager<CustomUserManager>()
         .AddSignInManager<CustomSignInManager>()
-        .AddUserStore<UserRepository>()
-        .AddDefaultTokenProviders()
-        .AddCustomEmailTokenProvider();
+        .AddUserStore<CustomUserStore>()
+        .AddDefaultTokenProviders();
 
       services.AddMvc().AddFluentValidation(fv =>
       {
