@@ -7,18 +7,23 @@ using Microsoft.Extensions.Options;
 using vm_rental.Data.Model;
 using vm_rental.ViewModels.Sign;
 using vm_rental.Data.Repository.Interface;
+using System.Security.Claims;
+using vm_rental.Utility.Services.Auth;
+using vm_rental.Utility.Services.Auth.JWT;
 
 namespace vm_rental.Models.Identity
 {
   public class CustomUserManager : UserManager<User>
   {
-    private readonly IUserRepository userRepository;
-    private readonly IClientRepository clientRepository;
-    private readonly IUserHistoryRepository userHistoryRepository;
-    private readonly IClientHistoryRepository clientHistoryRepository;
+    private readonly JWTService _jwtService;
+    private readonly IUserRepository _userRepository;
+    private readonly IClientRepository _clientRepository;
+    private readonly IUserHistoryRepository _userHistoryRepository;
+    private readonly IClientHistoryRepository _clientHistoryRepository;
 
     public CustomUserManager
     (
+      IAuthService authService,
       IUserHistoryRepository userHistoryRepository,
       IClientRepository clientRepository,
       IClientHistoryRepository clientHistoryRepository,
@@ -35,16 +40,40 @@ namespace vm_rental.Models.Identity
     )
     : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
     {
-      this.userRepository = userRepository;
-      this.clientRepository = clientRepository;
-      this.userHistoryRepository = userHistoryRepository;
-      this.clientHistoryRepository = clientHistoryRepository;
+      _userRepository = userRepository;
+      _clientRepository = clientRepository;
+      _userHistoryRepository = userHistoryRepository;
+      _clientHistoryRepository = clientHistoryRepository;
+      _jwtService = (JWTService)authService;
+
       base.PasswordHasher = passwordHasher;
+    }
+
+    public void ConfirmUserEmail(User user)
+    {
+      if(user.UserName != null)
+      {
+        _userRepository.ConfirmEmail(user.UserName);
+      }
     }
 
     public override Task<string> GenerateEmailConfirmationTokenAsync(User user)
     {
-      return base.GenerateEmailConfirmationTokenAsync(user);
+      string emailToken = null;
+
+      if(user != null)
+      {
+        Claim[] userClaims = new Claim[]
+        {
+          new Claim("username", user.UserName),
+          new Claim("password", user.PasswordHash)
+        };
+
+
+        emailToken = _jwtService.GenerateJwtToken(userClaims, TimeSpan.FromHours(24));
+      }
+
+      return Task.FromResult(emailToken);
     }
 
     public override Task<IdentityResult> CreateAsync(User user)
@@ -55,6 +84,7 @@ namespace vm_rental.Models.Identity
 
     public async Task<User> CreateUser(SignUpViewModel signUpVM)
     {
+      DateTime dateCreated = DateTime.UtcNow;
 
       Client client = new Client()
       {
@@ -65,7 +95,7 @@ namespace vm_rental.Models.Identity
         State = signUpVM.State,
         City = signUpVM.City,
         IsFirm = Convert.ToByte(signUpVM.IsBusinessClient),
-        DateCreated = DateTime.UtcNow,
+        DateCreated = dateCreated,
       };
 
       User user = new User()
@@ -77,16 +107,23 @@ namespace vm_rental.Models.Identity
         FirstName = signUpVM.FirstName,
         LastName = signUpVM.LastName,
         Client = client,
-        DateCreated = DateTime.UtcNow,
+        DateCreated = dateCreated,
       };
 
-      clientRepository.Add(client);
+      try
+      {
+        _clientRepository.Add(client);
 
-      await base.CreateAsync(user, user.PasswordHash);
+        await base.CreateAsync(user, user.PasswordHash);
 
-      userHistoryRepository.CreateInitialHistory(user, user);
+        _userHistoryRepository.CreateInitialHistory(user, user);
 
-      clientHistoryRepository.CreateInitialHistory(client, user);
+        _clientHistoryRepository.CreateInitialHistory(client, user);
+      }
+      catch(Exception e)
+      {
+        throw new Exception("Error occured while saving data to the database.");
+      }
 
       return user;
     }

@@ -10,7 +10,7 @@ namespace vm_rental.Data.Repository
     {
         protected readonly VmDbContext _context;
 
-        protected void SaveChanges() => _context.SaveChanges();
+        public void SaveChanges() => _context.SaveChanges();
 
         public Repository(VmDbContext context)
         {
@@ -20,7 +20,7 @@ namespace vm_rental.Data.Repository
         public void Add(T entity)
         {
             _context.Add(entity);
-            SaveChanges();
+                     SaveChanges();
         }
 
         public void AddRange(IEnumerable<T> entities)
@@ -31,6 +31,7 @@ namespace vm_rental.Data.Repository
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+                     SaveChanges();
         }
 
         public void Remove(T entity)

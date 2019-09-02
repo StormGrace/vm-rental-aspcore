@@ -15,7 +15,7 @@ using vm_rental.Data.JSON;
 using vm_rental.Data.Model;
 using vm_rental.Data.Repository;
 using vm_rental.Models.Identity;
-using vm_rental.Services;
+using vm_rental.ServiceExtensions;
 
 namespace vm_rental
 {
@@ -32,9 +32,12 @@ namespace vm_rental
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddLiveReload();
+      services.AddHttpContextAccessor();
 
-      services.ConfigureEmail(Configuration);
       services.ConfigureMySQL(Configuration);
+      services.ConfigureEmail(Configuration);
+      services.ConfigureJWT();
+
       services.ConfigureFluentValidators();
 
       services.ConfigureRepositoryDI();
@@ -58,12 +61,13 @@ namespace vm_rental
         options.RequireHttpsMetadata = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
-          ValidIssuer = Configuration["JTW:Iss"],
-          ValidAudience = Configuration["JTW:Aud"],
+          ValidIssuer = Configuration["jwt:Iss"],
+          ValidAudience = Configuration["jwt:Aud"],
           ValidateIssuerSigningKey = true,
           ValidateIssuer = true,
           ValidateAudience = true,
-          IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Configuration["JWT:SecretKey"]))
+          IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Configuration["JWT:SecretKey"])),
+          ClockSkew = TimeSpan.Zero
         };
       }); 
 

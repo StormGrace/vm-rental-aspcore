@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using vm_rental.Data.Model;
@@ -7,43 +8,42 @@ using vm_rental.Data.Repository.Interface;
 using vm_rental.ViewModels.Sign;
 using vm_rental.Utility.Services.Email;
 using vm_rental.Models.Identity;
-
+using System;
 
 namespace vm_rental.Controllers
 {
   public class SignController : Controller
   {
-    private readonly CustomUserManager userManager;
-    private readonly CustomSignInManager signInManager;
-    private readonly IUserRepository userRepository;
-    private readonly IEmailService emailService;
-
-    public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailService, CustomSignInManager signInMan)
+    private readonly CustomUserManager _userManager;
+    private readonly CustomSignInManager _signInManager;
+    private readonly IUserRepository _userRepository;
+    private readonly IEmailService _emailService;
+    public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailService, CustomSignInManager customsignInManager)
     {
-      userManager = customUserManager;
-      userRepository = userRepo;
-      this.emailService = emailService;
-      signInManager = signInMan;
+      _userManager = customUserManager;
+      _signInManager = customsignInManager;
+      _userRepository = userRepo;
+      _emailService = emailService;
     }
 
-    [HttpGet("[controller]/Signin")]
+    [HttpGet("Signin")]
     public IActionResult SignIn()
     {
       return View();
     }
 
-    [HttpGet("[controller]/Signup")]
+    [HttpGet("Signup")]
     public IActionResult SignUp()
     {
-      return View(new SignUpViewModel(userRepository));
+      return View(new SignUpViewModel());
     }
 
-    [HttpPost("[controller]/Signin")]
+    [HttpPost("Signin")]
     public async Task<IActionResult> SignIn(SignInViewModel signInVM)
     {
       if (ModelState.IsValid)
       {
-        var result = await signInManager.PasswordSignInAsync(signInVM.Email, signInVM.Password, true, false);
+        var result = await _signInManager.PasswordSignInAsync(signInVM.Email, signInVM.Password, true, false);
      
         if (result.Succeeded)
         {
@@ -56,19 +56,31 @@ namespace vm_rental.Controllers
       return View("Signin", signInVM);
     }
 
-    [HttpPost("[controller]/Signup")]
+    [HttpPost("Signup")]
     public async Task<ActionResult> SignUp(SignUpViewModel signUpVM)
     {
-      SignUpValidator clientValidator = new SignUpValidator(userRepository);
+      SignUpValidator clientValidator = new SignUpValidator(_userRepository);
+
       ValidationResult validationResults = clientValidator.Validate(signUpVM);
 
       if (validationResults.IsValid)
       {
-        User user = await userManager.CreateUser(signUpVM);
+        try
+        {
+          User user = await _userManager.CreateUser(signUpVM);
 
-        string emailConfirmToken = await userManager.GenerateUserTokenAsync(user, "CustomEmailConfirmation", "email-confirm");
+          string emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-        emailService.SendEmailAsync(signUpVM.Email, signUpVM.OwnerName, emailConfirmToken, EmailSubject.EmailConfirmationSubject);
+          string tokenURL = Url.Action("ConfirmEmail", "Account", new { token = emailConfirmToken }, HttpContext.Request.Scheme);
+
+          _emailService.SendEmailAsync(signUpVM.Email, signUpVM.OwnerName, tokenURL, EmailSubject.EmailConfirmationSubject);
+
+          return RedirectToAction("SignUp");
+        }
+        catch(Exception e)
+        {
+          return StatusCode(500);
+        }
       }
       else
       {

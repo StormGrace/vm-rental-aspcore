@@ -14,7 +14,6 @@ using vm_rental.Data.Repository.Interface;
 
 namespace vm_rental.Models.Identity
 {
-  //Change to Email Token Provider ->                               v
   public class CustomEmailConfirmationTokenProvider<User>: DataProtectorTokenProvider<User> where User : vm_rental.Data.Model.User
   { 
     public CustomEmailConfirmationTokenProvider(IDataProtectionProvider dataProtectionProvider, IOptions<EmailConfirmationTokenProviderOptions> options): base(dataProtectionProvider, options){}

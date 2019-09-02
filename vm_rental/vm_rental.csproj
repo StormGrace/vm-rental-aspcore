@@ -32,8 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Model\Interface\" />
-    <Folder Include="Utility\Extensions\" />
-    <Folder Include="Utility\File\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

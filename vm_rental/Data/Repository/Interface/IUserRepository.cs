@@ -10,6 +10,7 @@ namespace vm_rental.Data.Repository.Interface
     {
         User CreateUser(Client client);
         Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken);
+        void ConfirmEmail(string username);
         bool UsernameExists(string username);
         bool EmailExists(string email);
     }

@@ -18,6 +18,15 @@ namespace vm_rental.Data.Repository
           return Task.FromResult(IdentityResult.Success);
         }
 
+        public void ConfirmEmail(string userName)
+        {
+          User userFound = FindByNameAsync(userName, new CancellationToken()).Result; 
+
+          userFound.EmailConfirmed = true;
+
+          Update(userFound);
+        }
+
         public bool UsernameExists(string username)
         {
           bool usernameExists = false;
@@ -156,7 +165,7 @@ namespace vm_rental.Data.Repository
     {
       return Task.Run(() =>
       {
-        user.EmailConfirmed = confirmed;
+        return user.EmailConfirmed = confirmed;
       });
     }
 
@@ -177,13 +186,13 @@ namespace vm_rental.Data.Repository
     {
       return Task.Run(() =>
       {
-        user.NormalizedEmail = normalizedEmail;
+        return user.NormalizedEmail = normalizedEmail;
       });
     }
 
     public Task SetTokenAsync(User user, string loginProvider, string name, string value, CancellationToken cancellationToken)
     {
-      UserToken userToken = new UserToken
+      /*UserToken userToken = new UserToken
       {
         LoginProvider = loginProvider,
         Name = name,
@@ -193,7 +202,7 @@ namespace vm_rental.Data.Repository
       };
 
       _context.Add(userToken);
-      _context.SaveChanges();
+      _context.SaveChanges();*/
 
       return Task.Run(() =>
       {

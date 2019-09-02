@@ -11,8 +11,10 @@ using vm_rental.Utility.Security.Hashing.Argon;
 using vm_rental.Utility.Services.Email.Mailkit;
 using vm_rental.Models.Identity;
 using vm_rental.ViewModels.Sign;
+using vm_rental.Utility.Services.Auth;
+using vm_rental.Utility.Services.Auth.JWT;
 
-namespace vm_rental.Services
+namespace vm_rental.ServiceExtensions
 {
     public static class ServiceExtensions
     {
@@ -29,6 +31,12 @@ namespace vm_rental.Services
           services.AddSingleton<IEmailConfiguration>(config.GetSection("EmailConfig").Get<EmailConfiguration>());
         }
         
+        //Configures all JWT-related Dependencies.
+        public static void ConfigureJWT(this IServiceCollection services)
+        {
+          services.AddScoped<IAuthService, JWTService>();
+        }
+
         //Configures all Repository Dependencies, used to abide the Repository Pattern.
         public static void ConfigureRepositoryDI(this IServiceCollection services)
         {
@@ -50,7 +58,7 @@ namespace vm_rental.Services
           
           //Custom Managers.
           services.AddScoped<UserManager<User>, CustomUserManager>();
-          services.AddTransient<SignInManager<User>, CustomSignInManager>();
+          services.AddScoped<SignInManager<User>, CustomSignInManager>();
 
           //Custom Stores.
           services.AddScoped<IUserStore<User>, UserRepository>();

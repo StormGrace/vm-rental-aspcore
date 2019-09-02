@@ -13,16 +13,27 @@
         <div class="header__util__cart-btn header__util__btn">
           <i class="icon-cart"></i><p>Cart</p>
         </div>
-        <a asp-controller="Sign" asp-action="Signin">
-          <div class="header__util__login-btn header__util__btn">
-            <i class="icon-login"></i><p>LOGIN</p>
-          </div>
-        </a>
-        <a asp-controller="Sign" asp-action="Signup">
-          <div class="header__util__reg-btn header__util__btn">
-            <p>CREATE AN ACCOUNT</p>
-          </div>
-        </a>
+       @if (User.Identity.IsAuthenticated)
+        {
+          <a>
+            <div class="header__util__enter-btn header__util__btn">
+              <i class="icon-login"></i><p>Enter</p>
+            </div>
+          </a>
+        }
+        else
+        {
+          <a asp-controller="Sign" asp-action="Signin">
+            <div class="header__util__login-btn header__util__btn">
+              <i class="icon-login"></i><p>LOGIN</p>
+            </div>
+          </a>
+          <a asp-controller="Sign" asp-action="Signup">
+            <div class="header__util__reg-btn header__util__btn">
+              <p>CREATE AN ACCOUNT</p>
+            </div>
+          </a>
+        }
       </div>
     </div>
   </div>
