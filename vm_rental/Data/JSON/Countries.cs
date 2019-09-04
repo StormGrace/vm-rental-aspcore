@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace vm_rental.Data.JSON
 {
   public class Countries
@@ -13,7 +13,9 @@ namespace vm_rental.Data.JSON
 
       if (countryName != null && countries != null)
       {
-        countryExists = countries.Exists(c => c.Name.Equals(countryName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+        countryName = countryName.Trim();
+
+        countryExists = countries.Any(c => c.Name.Equals(countryName, StringComparison.CurrentCultureIgnoreCase));
       }
 
       return countryExists;
@@ -25,7 +27,9 @@ namespace vm_rental.Data.JSON
 
       if(countryName != null && countries != null)
       {
-        country = countries.Find(c => c.Name.Equals(countryName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+        countryName = countryName.Trim();
+
+        country = countries.Find(c => c.Name.Equals(countryName, StringComparison.CurrentCultureIgnoreCase));
       }
 
       return (country?.Country_code ?? "");

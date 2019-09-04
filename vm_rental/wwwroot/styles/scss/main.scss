@@ -1,7 +1,7 @@
 ﻿///////*Helpers*//////
-@import "abstracts/_variables";
-@import "abstracts/_functions";
-@import "abstracts/_mixins";
+@import "abstracts/variables";
+@import "abstracts/functions";
+@import "abstracts/mixins";
 /////////////////////
 
 ///////*Base*//////
@@ -18,8 +18,12 @@
 @import "components/forms/signin_form";
 ///////////////////////
 
-//////*Layout*//////
-@import "pages/home/_home_page.scss";
-@import "pages/sign/signup_page";
-@import "pages/sign/signin_page";
+//////*Site - Pages*//////
+@import "pages/site/home";
+@import "pages/site/signup";
+@import "pages/site/signin";
+///////////////////////
+
+//////*CPanel - Pages*//////
+@import "pages/cpanel/index";
 ///////////////////////

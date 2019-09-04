@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -13,9 +14,9 @@ using Westwind.AspNetCore.LiveReload;
 using vm_rental.Data;
 using vm_rental.Data.JSON;
 using vm_rental.Data.Model;
-using vm_rental.Data.Repository;
 using vm_rental.Models.Identity;
 using vm_rental.ServiceExtensions;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace vm_rental
 {
@@ -43,6 +44,7 @@ namespace vm_rental
       services.ConfigureRepositoryDI();
       services.ConfigureIdentityDI(Configuration);
 
+
       services.Configure<CookiePolicyOptions>(options =>
       {
         // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -61,12 +63,12 @@ namespace vm_rental
         options.RequireHttpsMetadata = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
+          IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Configuration["jwt:SecretKey"])),
           ValidIssuer = Configuration["jwt:Iss"],
           ValidAudience = Configuration["jwt:Aud"],
           ValidateIssuerSigningKey = true,
           ValidateIssuer = true,
           ValidateAudience = true,
-          IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Configuration["JWT:SecretKey"])),
           ClockSkew = TimeSpan.Zero
         };
       });
@@ -76,6 +78,8 @@ namespace vm_rental
         options.Lockout.MaxFailedAccessAttempts = 3;
         options.Lockout.AllowedForNewUsers = true;
       });
+
+      services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
       services.ConfigureApplicationCookie(options =>
       {
@@ -103,6 +107,13 @@ namespace vm_rental
           fv.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
           fv.RegisterValidatorsFromAssemblyContaining<Startup>();
       });
+
+      services.Configure<RazorViewEngineOptions>(options =>
+      {
+        options.AreaViewLocationFormats.Clear();
+        options.AreaViewLocationFormats.Add("Views/{2}/{1}/{0}.cshtml");
+        options.AreaViewLocationFormats.Add("Views/{2}/Shared/{0}.cshtml");
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,21 +139,25 @@ namespace vm_rental
 
       app.UseMvc(routes =>
       {
-        routes.MapRoute(
-            name: "default",
-            template: "{controller=Home}/{action=Index}/{id?}");
+          routes.MapAreaRoute(
+           name: "default",
+           areaName: "Website",
+           template: "{controller=Home}/{action=Index}/{id?}");
 
           routes.MapRoute(
             name: "SignUp",
-            template: "{controller=Sign}/{action=SignUp}");
+            template: "{area:exists}/{controller=Sign}/{action=SignUp}");
 
           routes.MapRoute(
             name: "SignIn",
-            template: "{controller=Sign}/{action=SignIn}");
+            template: "{area:exists}/{controller=Sign}/{action=SignIn}");
+
+          routes.MapRoute(
+            name: "CPanel",
+            template: "{area:exists}/{controller=Account}/{action=Account}");
 
       });
 
-      VmDbInitializer.Seed(app);
       JSONRepository.Initialize();
     }
   }

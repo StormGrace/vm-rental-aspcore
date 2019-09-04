@@ -7,6 +7,7 @@ using vm_rental.Utility.Services.Auth.JWT;
 
 namespace vm_rental.Controllers
 {
+    [Area("WebSite")]
     [Route("[controller]")]
     public class AccountController : Controller
     {

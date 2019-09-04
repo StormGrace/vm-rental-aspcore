@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using vm_rental.Data.Model;
-using vm_rental.ViewModels.Sign;
 using vm_rental.Data.Repository.Interface;
-using System.Security.Claims;
+using vm_rental.ViewModels.Sign;
 using vm_rental.Utility.Services.Auth;
 using vm_rental.Utility.Services.Auth.JWT;
-using vm_rental.Data;
 
 namespace vm_rental.Models.Identity
 {

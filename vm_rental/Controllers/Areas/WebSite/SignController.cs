@@ -12,12 +12,14 @@ using vm_rental.Models.Identity;
 
 namespace vm_rental.Controllers
 {
+  [Area("WebSite")]
   public class SignController : Controller
   {
     private readonly CustomUserManager _userManager;
     private readonly CustomSignInManager _signInManager;
     private readonly IUserRepository _userRepository;
     private readonly IEmailService _emailService;
+
     public SignController(CustomUserManager customUserManager, IUserRepository userRepo, IEmailService emailService, CustomSignInManager customsignInManager)
     {
       _userManager = customUserManager;
@@ -31,7 +33,7 @@ namespace vm_rental.Controllers
       await _signInManager.SignOutAsync();
 
       return RedirectToAction("Signin");
-    } 
+    }
 
     [HttpGet("Signin")]
     public IActionResult SignIn()
@@ -42,9 +44,9 @@ namespace vm_rental.Controllers
     [HttpGet("Signup")]
     public IActionResult SignUp()
     {
-      return View(new SignUpViewModel());
+      return View();
     }
-
+ 
     [HttpPost("Signin")]
     public async Task<IActionResult> SignIn(SignInViewModel signInVM)
     {
@@ -68,7 +70,7 @@ namespace vm_rental.Controllers
         }
 
       }
-        return View("Signin", signInVM);
+      return View("Signin", signInVM);
     }
 
     [HttpPost("Signup")]

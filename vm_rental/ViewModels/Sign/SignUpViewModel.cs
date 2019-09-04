@@ -15,7 +15,7 @@ namespace vm_rental.ViewModels.Sign
       _userRepository = userRepository;
 
       RuleFor(client => client.UserName).Cascade(CascadeMode.StopOnFirstFailure).Username(_userRepository);
-      RuleFor(client => client.Email).Cascade(CascadeMode.StopOnFirstFailure).Email(_userRepository);
+      RuleFor(client => client.Email) .Cascade(CascadeMode.StopOnFirstFailure).Email(_userRepository);
       RuleFor(client => client.Password).Cascade(CascadeMode.StopOnFirstFailure).Password();
       RuleFor(client => client.FirstName).Cascade(CascadeMode.StopOnFirstFailure).FirstName();
       RuleFor(client => client.LastName).Cascade(CascadeMode.StopOnFirstFailure).LastName();

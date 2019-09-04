@@ -31,8 +31,13 @@
 
 
   <ItemGroup>
+    <Folder Include="..\..\vm_rental%2528JQuery%2529\vm_rental\Controllers\Areas\CPanel\Account\" />
+    <Folder Include="..\..\vm_rental%2528JQuery%2529\vm_rental\Controllers\Areas\CPanel\Servers\" />
     <Folder Include="Data\Model\Interface\" />
-    <Folder Include="wwwroot\" />
+    <Folder Include="Views\CPanel\Servers\" />
+    <Folder Include="wwwroot\styles\css\" />
+    <Folder Include="wwwroot\styles\scss\pages\cpanel\account\" />
+    <Folder Include="wwwroot\styles\scss\pages\cpanel\servers\" />
   </ItemGroup>
 
 

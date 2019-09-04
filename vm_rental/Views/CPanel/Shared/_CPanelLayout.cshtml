@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="@ViewData["Description"]">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@ViewData["Title"]</title>
+  <link rel="stylesheet" type="text/css" href="~/styles/scss/main.min.css" />
+</head>
+<body>
+  <div class="page-cpanel-index-all-container">
+    <div class="cpanel-header">
+      <partial name="CPanelHeaderPartial" />
+    </div>
+    <div class="cpanel-nav">
+      <partial name="CPanelNavPartial" />
+    </div>
+    <div class="cpanel-main">
+      @RenderBody();
+    </div>
+  </div>
+</body>
+</html>

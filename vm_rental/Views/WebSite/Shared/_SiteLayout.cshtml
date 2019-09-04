@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
+  <meta name="description" content="@ViewData["Description"]">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@ViewData["Title"]</title>
+  <link rel="stylesheet" type="text/css" href="~/styles/scss/main.min.css" />
+  <script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script>
+  <script src="@Url.Content("~/lib/jquery-validation/dist/jquery.validate.min.js")"></script>
+  <script src="@Url.Content("~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js")"></script>
+  <script src="@Url.Content("~/lib/inputmask/dist/min/inputmask/jquery.inputmask.min.js")"></script>
+</head>
+<body>
+  <div class="@ViewData["Wrapper_Class"]">
+
+    @if (IsSectionDefined("Header"))
+    {
+      @RenderSection("Header")
+    }
+    else
+    {
+      <partial name="HeaderPartial" />
+    }
+
+    <main>@RenderBody()</main>
+
+    @if (IsSectionDefined("Footer"))
+    {
+      @RenderSection("Footer")
+    }
+    else
+    {
+      <partial name="FooterPartial" />
+    }
+
+  </div>
+
+  @*Global Scripts*@
+  <script src="@Url.Content("~/scripts/countries.js")"></script>
+
+  @*Page Specific - Header*@
+  @if (!IsSectionDefined("Header"))
+  {
+    <script src="@Url.Content("~/scripts/nav_bar.js")"></script>
+    <script src="@Url.Content("~/scripts/lang_tray.js")"></script>
+
+    if (IsSectionDefined("Scripts"))
+    {
+      @RenderSection("Scripts");
+    }
+  }
+</body>
+</html>

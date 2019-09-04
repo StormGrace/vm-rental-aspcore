@@ -1,12 +1,13 @@
 ﻿{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:56170",
       "sslPort": 44395
     }
   },
+
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
@@ -15,6 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+
     "vm_rental": {
       "commandName": "Project",
       "launchBrowser": true,

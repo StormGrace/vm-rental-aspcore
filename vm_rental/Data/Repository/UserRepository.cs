@@ -29,12 +29,12 @@ namespace vm_rental.Data.Repository
 
         public User FindByNameAsync(string username)
         {
-          return FindFirst(user => user.UserName.Equals(username));
+          return FindFirst(user => user.UserName.ToUpper().Equals(username.ToUpper()));
         }
 
         public User FindByEmailAsync(string email)
         {
-          return FindFirst(user => user.Email.ToUpper().Equals(email));
+          return FindFirst(user => user.Email.ToUpper().Equals(email.ToUpper()));
         }
 
         public void ConfirmEmail(string username)

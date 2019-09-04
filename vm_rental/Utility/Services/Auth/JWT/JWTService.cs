@@ -41,9 +41,7 @@ namespace vm_rental.Utility.Services.Auth.JWT
 
       if(expDate != null)
       {
-        IConvertible jwtSeconds = expDate as IConvertible;
-
-        if (jwtSeconds != null)
+        if (expDate is IConvertible jwtSeconds)
         {
           DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
